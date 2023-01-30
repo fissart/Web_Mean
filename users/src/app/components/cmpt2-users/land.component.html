@@ -1,0 +1,178 @@
+<div Ngxheadroom   [options]="options" class="fixed-navbar">
+    <app-navigation></app-navigation>
+</div>
+<div class="height"></div>
+
+<div class="container">
+
+    <!--perfil
+    <div class="p-5">
+        <div class="cardnew p-5">
+            <div class="componentWrapperbottom text-warning">
+                Email: {{$any(photos).email}} -- Contraseña: {{$any(photos).password}} -- Nombre: {{$any(photos).name}} -- Rol: {{$any(photos).rol}}
+                <markdown [data]="$any(photos).name" class="d-none" katex></markdown>
+            </div>
+            <button class="btn btn-info shadow-none" (click)="selectedUser($any(photos)._id)">Editar</button>
+            <div class="my-1"></div>
+
+            <img [src]="apiUrl+'/'+ $any(photos).foto" (error)="onImgError($event)" class="img-fluid img-thumbnail w-100">
+
+            <ng-template #main_content>
+            </ng-template>
+        </div>
+    </div>
+
+-->
+    <!--modal contenido-->
+    <ng-template #ww let-modal>
+        <div class="modal-body bg-succes">
+            <!-- <markdown [data]="text" katex [katexOptions]="options"></markdown> -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info shadow-none" (click)="modal.close()">Close</button>
+        </div>
+    </ng-template>
+
+    <!--modal item and subitem-->
+    <ng-template #zzz let-modal>
+        <div class="modal-body bg-info">
+            <img [src]="apiUrl+'/'+ text" class="img-fluid w-100" (error)="onImgError($event)">
+        </div>
+        <div class="modal-footer p-1">
+            <button class="btn btn-info shadow-none" (click)="modal.close()">Close</button>
+        </div>
+    </ng-template>
+
+
+
+    <div *ngFor="let w of wwwww index as i">
+            <div *ngIf="$any(w).rol==$any(photos).rol || $any(photos).rol==1" class="justify-content-left align-items-center">
+                <div class="d-flex p-0">
+                    <img [src]="apiUrl+'/'+ $any(w).foto" (error)="onImgError($event)" class="wrapperest10">
+                    <div [ngClass]="[$any(w).mension=='G' || $any(w).mension=='P' || $any(w).mension=='E' ||$any(w).mension=='ED' ? 'text-warning p-1':' p-1']">
+                            {{i+1}}. {{$any(w).name}} -----  {{$any(w).email}} -- {{$any(w).password}} --    {{$any(w).rol}} *** {{$any(w).mension}}
+                      <div class="">
+                      <button class="btn btn-outline-primary card-photo" (click)="open2(zzz, $any(w).foto)">Show</button>
+                      <button *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-outline-info card-photo" (click)="selectedUser($any(w)._id)">Edit</button>
+                      <button *ngIf='$any(photos).rol == 1' class="btn btn-danger shadow-none" (click)="deleteUser($any(w)._id, $any(w).cursse.length, $any(w).integer.length)">Delete user</button>
+                      <button *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-info shadow-none" (click)="NewCurse($any(w)._id)">New curse</button>
+                      </div>
+                    </div>
+                </div>
+                <div class="row m-0 d-flex justify-content-center align-items-center p-1">
+                <div class=" col-md-3 m-1 p-1" *ngFor="let item of w['integer']; let i=index" >
+                      <div *ngFor="let itemwww of item['cursew']; let i=index" >
+                          <div class="p-0  text-center border">
+                            {{itemwww.title}}
+                          </div>
+
+                      </div>
+
+                </div>
+                </div>
+            </div>
+
+            <div *ngIf="$any(w).rol==$any(photos).rol || $any(photos).rol==1" class="row m-0 d-flex justify-content-center align-items-center p-1">
+                <div class=" col-md-5 m-1 p-1" *ngFor="let subItem of w['cursse']; let i=index">
+                    <div class="cardnew_ p-0">
+                        <div class="text-rigth float_title rounded">
+                            <div class="h5 text-uppercase text-info">
+                                {{subItem.title}} {{subItem.especialidad}}-{{subItem.mension}}
+                            </div>
+                            <div class="d-flex justify-content-right align-items-center">
+                                <!--Modal2-->
+                                <button class="btn btn-outline-primary card-photo shadow-none" (click)="open2(zzz, $any(subItem).img)">Ampliar</button>
+                                <button class="btn btn-info card-photo shadow-none" (click)="open1(ww, $any(subItem).description)">Contenido</button>
+                                <button class="btn btn-outline-light card-photo shadow-none" (click)="goCurse(subItem._id)">Entrar</button>
+                                <button *ngIf='$any(photos).rol==1||$any(photos)._id == $any(w)._id' class="btn btn-light card-photo shadow-none" (click)="selectedCard(subItem._id)">Editar</button>
+                                <button *ngIf='$any(photos).rol==1||$any(photos)._id == $any(w)._id' class="btn btn-warning card-photo shadow-none" (click)="deleteCurse(subItem._id)">Borrar</button>
+                            </div>
+                        </div>
+                        <div *ngIf="subItem.img=='imagen'; else www">
+                            <img src="./assets/www_.jpg" class="imgcurse">
+                        </div>
+                        <ng-template #www>
+                            <img *ngIf="subItem.img" [src]="apiUrl+'/'+ subItem.img" class="imgcurse" (error)="onImgError($event)">
+                        </ng-template>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
+
+
+
+  <div *ngIf="CurseTeacher && CurseTeacher.length!=0 &&  rol=='2'" class="row d-flex justify-content-center align-items-center border my-3">
+    <div class="text-uppercase h5  text-center w-100">
+    Tus cursos del semestre
+    </div>
+    <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacher index as i">
+      <div class='card text-align-right border'>
+        <div class="text-center text-uppercase">
+          {{photo.title}} [{{photo.mension=='P'?'AP Pintura':photo.mension=='E'?'AP Escultura':photo.mension=='ED'?'EDUCACIÓN Artística':'AP Grabado'}} {{photo.ciclo}}]
+        </div>
+        <img [src]="apiUrl+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError2($event)">
+        <div class="mytesttop w-100 text-center ">
+         <div class=" btn-group">
+            <button class="btn btn-light shadow-none" (click)="goCurse( $any(photo)._id)">Ir al curso</button>
+            <button class="btn btn-warning  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
+          </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+<div  *ngIf="cursessource.length!=0 &&  rol=='2'" class="container text-center h5 mt-3 ">
+    CURSOS EDUCACIÓN ARTÍSTICA  - SEMESTRE II 2022
+</div>
+<div *ngIf="cursessource.length!=0 &&  rol=='2'" class="row d-flex justify-content-center align-items-center my-3">
+  <ng-container  *ngFor="let photo of cursessource index as i">
+    <div *ngIf="photo.mension=='EA'" class="rounded p-1 col-md-4 p-1 text-center" [ngClass]="[photo.mension=='EA'?'border-success':'border-warning']">
+      <div class="">
+        <button type="button" *ngIf="photo.mension=='EA'"  (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'ED', photo.credito, photo.ciclo, photo.codigo, photo.requisito)" [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'btn btn-info':'btn btn-light']" (click)="Getcursesources()">
+        {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
+        </button>
+        <span *ngIf="photo.mension=='AP'" [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'text-info':'']" (click)="Getcursesources()">
+        {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
+        </span>
+      </div>
+
+    </div>
+    </ng-container>
+</div>
+
+<div  *ngIf="cursessource.length!=0 && rol=='2'" class="container text-center h5 mt-3 ">
+    CURSOS ARTISTA PROFESIONAL - SEMESTRE II 2022
+</div>
+<div *ngIf="cursessource.length!=0 &&  rol=='2'" class="row d-flex justify-content-center align-items-center my-3">
+  <ng-container  *ngFor="let photo of cursessource index as i" >
+    <div class="col-md-4 p-1 text-center" *ngIf="photo.mension=='AP'">
+        <div *ngIf="photo.mension=='AP'" [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'text-info':'']" (click)="Getcursesources()">
+        {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
+        </div>
+
+      <div class="btn-group" *ngIf="photo.mension=='AP'">
+        <button type="button" (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'G', photo.credito, photo.ciclo, photo.codigo, photo.requisito)" [ngClass]="[photo.mension=='AP'?'btn btn-light':'btn btn-light']">Grabado</button>
+        <button type="button" (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'E', photo.credito, photo.ciclo, photo.codigo, photo.requisito)" [ngClass]="[photo.mension=='AP'?'btn btn-success':'btn btn-light']">Escultura</button>
+        <button type="button" (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'P', photo.credito, photo.ciclo, photo.codigo, photo.requisito)" [ngClass]="[photo.mension=='AP'?'btn btn-info':'btn btn-light']">Pintura</button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
+
+</div>
+
+<!--				<div class="h2 text-uppercase text-primary" contenteditable="true"
+					(focusout)="someMethodWithFocusOutEvent3($event,$any(w)._id,$any(w).name,$any(w).email,$any(w).password)">
+					{{$any(w).name}}</div>
+				<div class="" contenteditable="true"
+					(focusout)="someMethodWithFocusOutEvent2($event,$any(w)._id,$any(w).name,$any(w).email,$any(w).password)">
+					{{$any(w).email}}</div>
+				<div class="" contenteditable="true"
+					(focusout)="someMethodWithFocusOutEvent($event,$any(w)._id,$any(w).name,$any(w).email,$any(w).password)">
+					{{$any(w).password}}</div>
+-->
