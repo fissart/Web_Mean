@@ -1,0 +1,745 @@
+<div Ngxheadroom [options]="options" class="fixed-navbar">
+  <app-navigation></app-navigation>
+</div>
+
+<div class="height"></div>
+
+<!--
+File
+-->
+
+
+<ng-template #ww let-modal>
+  <form (submit)="integer(code)">
+    <div class="modal-body bg-succes">
+      <div class="form-group mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Código</label>
+        <input type="text" class="form-control shadow-none" placeholder="Código del curso" #code>
+      </div>
+      <!--{{idcurso}}{{idcurso}}--{{iduserteach}}-->
+    </div>
+    <button class="btn d-none" [disabled]="loading" #www></button>
+
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+      'Integrarse al curso'}}</button>
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+
+<ng-template #std let-modal>
+  <form (submit)="reset(code)">
+    <div class="modal-body bg-succes">
+      <div class="form-group mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Escriba "esfapa.edu.pe"</label>
+        <input type="text" class="form-control shadow-none" placeholder="Texto" #code>
+      </div>
+    </div>
+    <button class="btn d-none" [disabled]="loading" #www></button>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+      'Resetear mención y ciclo de estudiantes'}}</button>
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+
+<ng-template #filew let-modal>
+  <div class="modal-header bg-succes text-center">
+    {{text.substr(14,50)}}
+  </div>
+  <div class="modal-body bg-warning">
+    <img
+      *ngIf="text && text.split('.').pop()=='png'||text.split('.').pop()=='jpg'||text.split('.').pop()=='jpeg'||text.split('.').pop()=='svg'"
+      [src]="apiURL+'/'+ text" class="img-fluid w-100" (error)="onImgError($event)">
+
+    <ngx-doc-viewer *ngIf="text && text.split('.').pop()=='doc'" [url]="apiURL+'/'+ text" viewer="google"
+      style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+    <ngx-doc-viewer
+      *ngIf="text && text.split('.').pop()=='docx' || text.split('.').pop()=='pptx'|| text.split('.').pop()=='ptx' || text.split('.').pop()=='xlsx'|| text.split('.').pop()=='xls'"
+      [url]="apiURL+'/'+ text" viewer="google" style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+    <ngx-extended-pdf-viewer *ngIf="text && text.split('.').pop()=='pdf'" [src]="apiURL+'/'+ text"
+      [height]="'500px'"></ngx-extended-pdf-viewer>
+  </div>
+  <div class="modal-footer bg-succes">
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #www let-modal>
+  <form class="container p-3" (submit)="updatenews(title, description, show)">
+    <div class="row p-0">
+
+      <div class="form-group mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+        <input type="text" class="form-control" placeholder="Photo's Title" #title [value]="titlewww">
+      </div>
+      <div class="form-group mb-3 d-none">
+        <label for="exampleFormControlInput1" class="form-label">Show</label>
+        <input type="text" class="form-control" placeholder="Photo's Title" #show [value]="showww">
+      </div>
+
+      <div class="form-group mb-3 ">
+        <label for="exampleFormControlInput1" class="form-label">Descripción</label>
+        <div class="row mx-1">
+          <div class="col-md-5 p-0">
+            <textarea rows="5" cols="0" class="variable-textarea form-control" [(ngModel)]="markdown"
+              [ngModelOptions]="{standalone:true}" [value]="description" #description></textarea>
+          </div>
+          <div class="form-group mb-3 col-md-7">
+            <ng-katex-html [html]="markdown"></ng-katex-html>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="file" class="d-none" (change)="capturandoFile($event)" #photoInput>
+    <div class="text-center">
+      <img [src]="photoSelected || apiURL+'/'+ imgwww" class="m-auto w-25 cursorpoint img-fluid"
+        (error)="onImgError($event)" alt="No image" (click)="photoInput.click()">
+    </div>
+    <div *ngIf="!photoSelected" class=" text-center border rounded">
+      {{imgwww}}
+    </div>
+    <div *ngIf="photoSelected" class=" text-center border rounded">
+      {{name}}
+    </div>
+    <span>{{imgwww}}</span>
+    <ngx-extended-pdf-viewer *ngIf="photoSelected && type=='application/pdf'" [src]="photoSelected" [height]="'1000px'"
+      [useBrowserLocale]="false" [textLayer]="true" [showHandToolButton]="true">
+    </ngx-extended-pdf-viewer>
+
+    <ngx-extended-pdf-viewer *ngIf="!photoSelected && imgwww && imgwww.split('.').pop()=='pdf'"
+      [src]="apiURL+'/'+ imgwww" [height]="'800px'" [useBrowserLocale]="false" [textLayer]="true"
+      [showHandToolButton]="false">
+    </ngx-extended-pdf-viewer>
+    <mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar>
+    {{ loading=='false' ? 'Cargando '+value+'%': null}}
+    <button class="btn d-none" [disabled]="loading" #www></button>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+      'Actualizar'}}</button>
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Cerra</button>
+  </div>
+</ng-template>
+
+<div class="container">
+  <div class="container text-center">
+    <div class="btn-group">
+      <button *ngIf="rol=='1'" class="btn btn-light" routerLink="/registro">
+        REGISTRAR USUARIO
+      </button>
+      <button *ngIf="rol=='1' || rol=='5'" class="btn btn-light" routerLink="/user">
+        USUARIOS (DOCENTES/TODOS)
+      </button>
+      <button *ngIf="rol=='1' || rol=='5'" class="btn btn-light" (click)="GetAllstd()">
+        ESTUDIANTES
+      </button>
+    </div>
+  </div>
+
+
+  <div class="container text-center">
+    <button *ngIf="rol=='3'" class="btn btn-info mt-2 shadow-none text-light" (click)="open1(ww, 'www', 'www')">
+      <mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+      Integrarse a un curso
+    </button>
+  </div>
+  <button *ngIf="rol=='1'" class="btn btn-warning mt-2 d-none" [disabled]="loading" (click)="getcursesteacher()">{{
+    loading=='false' ? 'Cargando': 'Cargar cursos y relativos'}}</button>
+
+
+  <form *ngIf="rol=='1'" (submit)="fechanotas(iniciar, culminar)" class="row p-1 my-0 mx-0 w-100 mt-1 bg-light rounded">
+    <div class="col-md-6 form-group mb-2 py-0 px-1">
+      <label class="form-label">Inicio notas</label>
+      <input type="datetime-local" class="form-control" placeholder="1" #iniciar [value]=ussser.dateb>
+    </div>
+    <div class="col-md-6 form-group mb-2 py-0 px-1">
+      <label class="form-label">Cierre notas</label>
+      <input type="datetime-local" class="form-control" placeholder="2" #culminar [value]=ussser.datee>
+    </div>
+    <div class="col-md-12 form-group mb-2 py-0 px-1 align-self-end ml-auto">
+      <label class="form-label"></label>
+      <button
+        [ngClass]="[show=='ok'?'btn btn-outline-warning w-100 text-uppercase':'btn btn-outline-secondary w-100 text-uppercase']"
+        [disabled]="loading">Guardar intervalo</button>
+    </div>
+  </form>
+
+
+
+  
+  <form *ngIf="rol=='1'" (submit)="getFirstAverages(ciclo, mencion, year)"
+    class="row p-1 my-0 mx-0 w-100 bg-light rounded mt-1">
+    <div class="col-md-4 form-group mb-2 py-0 px-1">
+      <label class="form-label">Ciclo: I, II, ..., X</label>
+      <input type="text" class="form-control" placeholder="Ciclo" #ciclo [value]="'V'">
+    </div>
+    <div class="col-md-4 form-group mb-2 py-0 px-1">
+      <label class="form-label">Mención: P, G, E y ED</label>
+      <input type="text" class="form-control" placeholder="Year" #mencion [value]="'E'">
+    </div>
+    <div class="col-md-4 form-group mb-2 py-0 px-1">
+      <label class="form-label">Año: 2022, 2023</label>
+      <input type="text" class="form-control" placeholder="Year" #year [value]="'2023'">
+    </div>
+    <div class="col-md-12 form-group mb-2 py-0 px-1 align-self-end ml-auto">
+      <label class="form-label"></label>
+      <button class="btn btn-outline-info text-uppercase w-100" [disabled]="loading">Cargar Notas</button>
+    </div>
+  </form>
+  <button *ngIf="order.length!=0 && rol=='1'" (click)="generateExcel()"
+  class="btn btn-warning rounded-0 w-100 text-uppercase text-light">Acta en Excel</button>
+
+  <div *ngIf="califications.length!==0 && rol=='3'" class="container text-center text-uppercase"
+    style='font-weight: bold'>
+    Boleta de notas
+    <div *ngIf="user && newws.length!==0" class="container justify-content-center">
+      <button
+        [ngClass]="[shownotes?'btn btn-secondary mt-1 w-100 text-uppercase':'btn btn-warning mt-1 w-100 text-uppercase']"
+        (click)="showcalifications()">{{ shownotes ? 'Esconder
+        calificaciones': 'Calificaciones'}}</button>
+    </div>
+
+  </div>
+
+  <div *ngIf="shownotes" class="container text-center">
+
+
+    <span class="text-info">
+      ESTUDIANTE: {{ussser.name}}
+    </span>
+    <span class="text-success">
+      {{ussser.mencion=='P' ? "ARTES PLÁSTICAS (Pintura)": ussser.mencion=='E' ? "ARTES PLÁSTICAS (Escultura)":
+      ussser.mencion=='G' ? "ARTES PLÁSTICAS (Grabado)" :"ARTES PLÁSTICAS Y VISUALES (Educación artística)"}}
+      [{{ussser.ciclo}}]
+    </span>
+    <table *ngIf="califications.length!==0 && rol=='3'">
+      <tr>
+        <th>N</th>
+        <th>Asignatura</th>
+        <th>Ciclo</th>
+        <th>Crédito</th>
+        <th>Nota</th>
+        <th>Puntaje</th>
+      </tr>
+      <ng-container *ngFor="let calification of califications index as i">
+        <tr
+          [ngClass]="[calification.ciclo=='II'||calification.ciclo=='IV'||calification.ciclo=='VI'||calification.ciclo=='VIII'||calification.ciclo=='X'?'text-dark':'text-primary']">
+          <td>{{i+1}}</td>
+          <td>{{calification.title}}</td>
+          <td>{{calification.ciclo}}</td>
+          <td>{{calification.credito}}</td>
+          <td>{{calification.nota}}</td>
+          <td>{{calification.nota*calification.credito}}</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+
+
+
+
+
+  <div *ngFor="let std of userstd index as i" class="p-1">
+    <div class="bg-warning rounded">Rol: {{std._id}} Cantidad con el rol {{std._id}}: {{std.total}}</div>
+    <div *ngFor="let stdw of std.mencions index as i">
+      Mencion: {{stdw._id}} Cantidad con la mención {{stdw._id}}: {{stdw.total}}
+      <div class="container border rounded bg-info p-0">
+        <div *ngFor="let stdww of stdw.cycles index as i" class="bg-light rounde border m-1"
+          style="margin: .5em; padding: .5em">
+          <div class="bg-light text-center rounded border border-warning text-warning">{{stdw._id}} [{{stdww._id}}]
+          </div>
+          <div class="row justify-content-center align-items-center" style="margin: .1em">
+            <div *ngFor="let stdwww of stdww.ussers index as i" class="col-md-3 p-1">
+              <div class="p-1 text-center  rounded bg-light">{{i+1}}
+                <input type="text" class="form-control"
+                  (blur)="onBlurUser($event, stdwww._id,  stdwww.ciclo,  stdwww.mencion, '1')" placeholder="Name" #ciclo
+                  [value]=stdwww.name>
+                <select class="form-select" aria-label="Default select example" (change)="onChange1($event, stdwww._id)"
+                  name="deviceText">
+                  <option selected>{{stdwww.mencion}}</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="P">P</option>
+                  <option value="ED">ED</option>
+                  <option value="N">N</option>
+                </select>
+
+                <select class="form-select" aria-label="Default select example" (change)="onChange($event, stdwww._id)"
+                  name="deviceText">
+                  <option selected>{{stdwww.ciclo}}</option>
+                  <option value="I">I</option>
+                  <option value="II">II</option>
+                  <option value="III">III</option>
+                  <option value="IV">IV</option>
+                  <option value="V">V</option>
+                  <option value="VI">VI</option>
+                  <option value="VII">VII</option>
+                  <option value="VIII">VIII</option>
+                  <option value="IX">IX</option>
+                  <option value="X">X</option>
+                  <option value="N">N</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="userstd.length!=0" class="mb-2 text-center">
+    <button class="btn btn-info mt-2 shadow-none text-light" (click)="openreset(std, 'www', 'www')">
+      <mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+      Resetear mención y ciclo de estudiantes
+    </button>
+  </div>
+
+  <table *ngIf="order.length!==0 && order.notastotal != 0 && order.order[0].uSSer.length==1">
+    <tr>
+      <td>Mención</td>
+      <td colspan="1"> {{order.order[0].uSSer[0].mencion == "ED" ? "EDUCACIÓN ARTÍSTICA ARTES PLÁSTICAS" :
+        order.order[0].uSSer[0].mencion == "P" ? "ARTISTA PROFESIONAL ARTES PLÁSTICAS Y VISUALES (PINTURA)" :
+        order.order[0].uSSer[0].mencion == "E" ? "ARTISTA PROFESIONAL ARTES PLÁSTICAS Y VISUALES (ESCULTURA)" : "ARTISTA
+        PROFESIONAL ARTES PLÁSTICAS Y VISUALES (GRABADO)"}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Ciclo</td>
+      <td colspan="1">Ciclo: {{order.order[0].uSSer[0].ciclo}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Periodo Académico</td>
+      <td colspan="1">{{order.orderw[0].year}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Calificaciones licencias</td>
+      <td colspan="1">{{order.notaslicencia}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Calificaciones retirados</td>
+      <td colspan="1"> {{order.notasretirados}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Calificaciones aprobadas</td>
+      <td colspan="1">{{order.notasaprobadas}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Calificaciones desaprobadas</td>
+      <td colspan="1"> {{order.notasdesaprobadas}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Calificaciones total</td>
+      <td colspan="1">{{order.notastotal}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>N</th>
+      <th>Estudiante</th>
+      <th>Puntaje</th>
+    </tr>
+    <tr *ngFor="let orrder of order.order index as i">
+      <td>{{i+1}}</td>
+      <td>{{orrder.uSSer[0].name}}</td>
+      <td>{{orrder.Puntaje}}</td>
+    </tr>
+  </table>
+
+  <!--ACTA-->
+
+  <table *ngIf="order.length!=0 && rol=='1'">
+    <tr>
+      <td rowspan="3" style="text-align: center" class="vertical">N Orden</td>
+      <td rowspan="3" style="text-align: center">
+        <div style="width: 100px">DNI</div>
+      </td>
+      <td rowspan="3" style="text-align: center">
+        <div style="width: 280px">
+          <div>
+            APELLIDOS Y NOMBRES
+          </div>
+          <div>
+            (Por orden alfabético)
+          </div>
+        </div>
+      </td>
+      <td colspan="2" style="text-align: center" *ngFor="let www of order.ordercurses index as i">
+        <div style="width: 100px">{{www.title}} [{{www.codigo}}]</div>
+      </td>
+      <td rowspan="3" class="vertical" style="text-align: center">Puntaje</td>
+      <td rowspan="3" class="vertical" style="text-align: center">Crédito total</td>
+      <td rowspan="3" class="vertical" style="text-align: center">Promedio</td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: center" *ngFor="let wwwww of order.ordercurses index as i">
+        {{wwwww.credito}}</td>
+    </tr>
+    <tr>
+      <ng-container *ngFor="let w8 of order.ordercurses index as i">
+        <td style="text-align: center">CLF</td>
+        <td style="text-align: center">PTJ</td>
+      </ng-container>
+    </tr>
+    <tr *ngFor="let orrder of order.orderw index as i">
+      <td style="text-align: center">{{i+1}}</td>
+      <td style="text-align: center">{{orrder.uSSer[0].dni}}</td>
+      <td>{{orrder.uSSer[0].name}}</td>
+      <ng-container *ngFor="let w_w of orrder['cursse'] index as i">
+        <ng-container *ngIf="w_w.averagges.length==0">
+          <td class="text-warning" style="text-align: center">
+            <input [disabled]="loading" type="text" class="form-control p-1 bg-warning border-0" [value]="''"
+              (blur)="onBlurMean($event, w_w.codigo, orrder.uSSer[0]._id, w_w._id, w_w.title, w_w.ciclo, w_w.credito, orrder.mencion )">
+          </td>
+          <td class="text-warning" style="text-align: center">
+            SN
+          </td>
+        </ng-container>
+        <ng-container *ngIf="w_w.averagges.length!=0">
+          <ng-container *ngFor="let www of w_w['averagges'] index as i">
+            <td class="justify-content-center align-items-center p-0 pt-1">
+              <div class="input-group">
+                <button type="button" [disabled]="loading"
+                  [ngClass]="[www.year && i>=1 ? 'btn btn-danger shadow-none px-0': 'btn btn-outline-warning shadow-none px-0']"
+                  (click)="delete_average(www._id)">-</button>
+                <input [disabled]="loading" type="text" class="form-control p-1 w-75"
+                  [ngClass]="[www.nota=='0'?'bg-info border-0':www.nota=='-0'?'bg-primary border-0':'bg-success text-white border-0']"
+                  [value]="www.nota=='0'?'R':www.nota=='-0'?'L':www.nota" (blur)="onBlurMeanUpdate($event, www._id )">
+              </div>
+              <div class="p-0" style="font-size: 8pt; padding: 0%;">{{www.teacher[0].email.substring(0,
+                www.teacher[0].email.lastIndexOf("@"))}}</div>
+              <div class="p-0" style="font-size: 8pt; padding: 0%;">{{w_w.codigo}}</div>
+            </td>
+            <td class="text-primary d-flex justify-content-center align-items-center" style="text-align: center">
+              {{www.nota*www.credito}}
+            </td>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <td style="text-align: center">
+        {{orrder.averaggges.length!=0?orrder.averaggges[0].Puntaje:"0"}}
+      </td>
+      <td style="text-align: center">
+        {{order.ordercursescredito[0].Puntaje}}
+      </td>
+      <td style="text-align: center">
+        {{orrder.averaggges.length!=0?(orrder.averaggges[0].Puntaje/order.ordercursescredito[0].Puntaje).toFixed(2):"0"}}
+      </td>
+    </tr>
+  </table>
+
+
+
+  <div *ngIf="photointeger.length!==0 && rol=='1' || rol=='3'" class="container text-center mt-3 ">
+    CURSOS ESTUDIANTE DEL SEMESTRE
+  </div>
+  <div *ngIf="rol=='3' && photointeger.length!==0"
+    class="row d-flex justify-content-center align-items-center border border-warning">
+    <div class="col-md-4 p-2" *ngFor="let photo of photointeger index as i">
+      <div class='card border-0 p-1 text-align-right '>
+        <div class="text-center text-uppercase text-dark">
+          {{photo.cursse[0].title}}
+        </div>
+        <img [src]="apiURL+'/'+photo.cursse[0].img" class="img-card-top imgcurse" (error)="onImgError($event)">
+        <img [src]="apiURL+'/'+photo.userw[0].foto" class="wrapperest5"
+          style='position: absolute;  bottom: 8px; right: 8px; border: 1px solid rgb(250, 250, 250)'
+          (error)="onImgError($event)">
+        <div class="w-100 text-center"
+          style='position: absolute;  top: 20%; left: 50%; transform: translate(-50%, -50%);'>
+          <button class="btn shadow-none text-info card-photo d-none" (click)="deleteinteger( $any(photo)._id)">
+            <mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+            Salir del curso
+          </button>
+          <button class="btn btn-warning shadow-none card-photo" (click)="goCurse( $any(photo).cursse[0]._id)">
+            <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+            Ir al curso
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="ussser.length!==0 && rol=='2' && show!='ok'">
+    <div class="container h3 text-center">
+      CARPETA DOCENTE {{ussser.dni}}
+    </div>
+    <div class="container h5 text-center">
+      Escuela Superior de Formación Artística Pública
+    </div>
+    <div class="container h6 text-center">
+      “Felipe Guamán Poma de Ayala”
+    </div>
+
+    <div class="container col-md-3 p-1 justify-content-center align-items-center">
+      <img src="./assets/esfap.png" class="img-fluid" alt="Responsive image">
+    </div>
+    <h6 class='text-info rounded p-1  text-center my-2 text-center'>
+      <div *ngIf="user && newws.length!==0" class="container justify-content-center">
+        <button [ngClass]="[showphilosophy?'btn btn-info ':'btn btn-light']" (click)="showphilosophyteacher()">{{
+          showphilosophy
+          ? 'ESCONDER
+          FILOSOFÍA DEL DOCENTE': 'FILOSOFÍA DEL DOCENTE'}}</button>
+      </div>
+
+    </h6>
+
+    <div [innerHTML]="froala" contenteditable="true" *ngIf="showphilosophy"
+      (blur)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)">
+    </div>
+  </div>
+
+  <div *ngIf="CurseTeacher.length!==0 && rol=='1' || rol=='2'" class="container text-center h5 mt-3">
+    CURSOS DOCENTE {{ussser.name}}
+  </div>
+  <div *ngIf="user && CurseTeacher.length!==0 ||  rol=='2'" class="row d-flex justify-content-center rounded my-2"
+    style="margin:0; background-color: rgb(243, 233, 204);">
+    <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacher index as i">
+      <div
+        [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX'?'card bg-warning':'card bg-success']">
+        <div class="text-center text-uppercase">
+          {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
+        </div>
+        <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
+        <div class="mytesttop w-100 text-center">
+          <div class="btn-group">
+            <button class="w-100 btn btn-outline-info" (click)="updatecurseHide( $any(photo)._id)">
+              Archivar
+            </button>
+            <button class="btn btn-light shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
+              <!--<mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
+              Ingresar
+            </button>
+            <button class="btn btn-outline-secondary  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container text-center my-1">
+      <a class="btn btn-info" href="/user" style='text-decoration:none'>GENERAR CURSOS</a>
+    </div>
+  </div>
+
+  <button *ngIf="rol=='2'" class="btn btn-light text-uppercase w-100 mb-2" (click)="getsCurseTeacherHiden()">
+    Mostrar cursos archivados
+  </button>
+
+  <div *ngIf="user && CurseTeacherHiden.length!=0 &&  rol=='2'" class="container text-center h5 mt-3">
+    CURSOS ARCHIVADOS DOCENTE {{ussser.dni}}
+  </div>
+  <div *ngIf="user && CurseTeacherHiden.length!=0 &&  rol=='2'" class="row d-flex justify-content-center rounded my-3"
+    style="margin:0; background-color: rgb(3, 54, 58);">
+    <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacherHiden index as i">
+      <div class='card bg-info'>
+        <div class="text-center text-uppercase">
+          {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}] ({{photo.integers.length}})
+        </div>
+        <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
+        <div class="mytesttop w-100 text-center">
+          <div class="btn-group">
+            <button class="btn btn-danger shadow-none card-photo" (click)="updatecurseShow( $any(photo)._id)">
+              Show
+            </button>
+            <button class="btn btn-info shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
+              <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              Ir al curso
+            </button>
+            <button class="btn btn-secondary  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="ussser.length!==0 && rol=='2' && show!='ok'" class="container rounded">
+
+
+
+    <!--
+  <quill-editor
+    [(ngModel)]="froala"
+    placeholder="Enter Text"
+    (onSelectionChanged)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.ciclo, ussser.sexo, ussser.dni)"
+    (onContentChanged)="onContentChanged($event)"
+  ></quill-editor>
+<ng-katex-html *ngIf="ussser.filosophy" [html]="ussser.filosophy"></ng-katex-html>
+-->
+    <!--
+<textarea *ngIf="froala && rol=='1' " rows="5" cols="0" class="variable-textarea form-control" [(ngModel)]="froala" [ngModelOptions]="{standalone:true}"
+  (blur)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)"
+></textarea>
+<textarea *ngIf="froala!='www'"  [froalaEditor] [(froalaModel)]="froala"></textarea>-->
+    <input type="file" class="d-none" (change)="FileCursse($event)" #Filecurse>
+
+    <div *ngIf="value > 0" class="fixed-bottom text-warning">
+      {{ loading=='false' ? 'Cargando '+value+'%': ''}}
+      <mat-progress-bar class="fixed-bottom" color="accent" mode="determinate" [value]="value">
+      </mat-progress-bar>
+    </div>
+
+
+    <div class="container text-center h5 mt-3">
+      SÍLABOS DEL DOCENTE
+    </div>
+
+    <div class="row text-center border rounded justify-content-center">
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='silabo'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('silabo',ussser._id)"
+          class="btn btn-info">Cargar sílabo</button>
+      </div>
+    </div>
+
+    <div class="container text-center h5 mt-3">
+      RESUMEN CIENTÍFICO
+    </div>
+    <div class="row text-center border rounded justify-content-center">
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='resumen'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('resumen',ussser._id)"
+          class="btn btn-info">Cargar resumen</button>
+      </div>
+    </div>
+
+
+    <div class="container text-center h5 mt-3">
+      MATERIALES EDUCATIVOS
+    </div>
+    <h6 class='text-info rounded p-1  text-center my-2'>
+      <button type="button" name="button" (click)="Filecurse.click(); Type('material',ussser._id)"
+        class="btn btn-info">Cargar</button>
+
+
+    </h6>
+    <div class="" *ngFor="let file of ussser.archivos index as i">
+      <div *ngIf="file.type=='material'" class=' text-center input-group d-flex' style='padding:.1em'>
+        <input type="text" class="form-control" placeholder="" [value]="file.title"
+          (blur)="onBlurFilosophyUpdate($event, file._id )">
+        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
+        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+      </div>
+    </div>
+
+    <div class="container text-center h5 mt-3">
+      REGISTROS DE EVALUACIÓN
+    </div>
+    <h6 class='text-info rounded p-1  text-center my-2'>
+      <button type="button" name="button" (click)="Filecurse.click(); Type('registro',ussser._id)"
+        class="btn  btn-info">Cargar</button>
+
+    </h6>
+    <div class="" *ngFor="let file of ussser.archivos index as i">
+      <div *ngIf="file.type=='registro'" class=' text-center input-group d-flex' style='padding:.1em'>
+        <input type="text" class="form-control" placeholder="" [value]="file.title"
+          (blur)="onBlurFilosophyUpdate($event, file._id )">
+        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
+        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+      </div>
+    </div>
+
+    <div class="container text-center h5 mt-3">
+      HORARIO
+    </div>
+    <h6 class='text-info rounded p-1  text-center my-2'>
+      <button type="button" name="button" (click)="Filecurse.click(); Type('horario',ussser._id)"
+        class="btn btn-info">Cargar</button>
+
+    </h6>
+    <div class="" *ngFor="let file of ussser.archivos index as i">
+      <div *ngIf="file.type=='horario'" class=' text-center input-group d-flex' style='padding:.1em'>
+        <input type="text" class="form-control" placeholder="" [value]="file.title"
+          (blur)="onBlurFilosophyUpdate($event, file._id )">
+        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
+        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+      </div>
+    </div>
+
+    <div class="container text-center h5 mt-3">
+      OCURRENCIAS
+    </div>
+    <h6 class='text-info rounded p-1  text-center my-2'>
+      <button type="button" name="button" (click)="Filecurse.click(); Type('ocurrencia',ussser._id)"
+        class="btn btn-info">Cargar</button>
+    </h6>
+    <div class="" *ngFor="let file of ussser.archivos index as i">
+      <div *ngIf="file.type=='ocurrencia'" class=' text-center input-group d-flex' style='padding:.1em'>
+        <input type="text" class="form-control" placeholder="" [value]="file.title"
+          (blur)="onBlurFilosophyUpdate($event, file._id )">
+        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
+        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+      </div>
+    </div>
+
+    <div class="container text-center h5 mt-3">
+      PLAN DE TRABAJO ANUAL
+    </div>
+    <h6 class='text-info rounded p-1  text-center my-2'>
+      <button type="button" name="button" (click)="Filecurse.click(); Type('plan',ussser._id)"
+        class="btn btn-info">Cargar</button>
+    </h6>
+    <div class="" *ngFor="let file of ussser.archivos index as i">
+      <div *ngIf="file.type=='plan'" class=' text-center input-group d-flex' style='padding:.1em'>
+        <input type="text" class="form-control" placeholder="" [value]="file.title"
+          (blur)="onBlurFilosophyUpdate($event, file._id )">
+        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
+        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+      </div>
+    </div>
+
+    <div class="container text-center h5 mt-3">
+      PROYECTO DE INNOVACIÓN
+    </div>
+    <div class="row text-center border rounded justify-content-center">
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='proyecto'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('proyecto',ussser._id)"
+          class="btn btn-info">Cargar proyecto</button>
+      </div>
+    </div>
+
+  </div>
+</div>
