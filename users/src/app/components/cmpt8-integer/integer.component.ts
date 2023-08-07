@@ -157,7 +157,7 @@ export class UsersCurseComponent implements OnInit {
 
   generateExcelaverage() {
     const credito = this.curse.credito
-    const codigo = this.curse.codigo
+    //const codigo = this.curse.codigo
     const curse = this.curse.title
     const ciclo = this.curse.ciclo
     const carrera = this.curse.especialidad == "EA" ? "EDUCACIÓN ARTÍSTICA" : "ARTISTA PROFESIONAL"
@@ -1235,7 +1235,7 @@ right: { style: 'medium' }
   public photow: any = [];
   public nota: string = "";
   public text: string = "";
-  public codigo: string = "";
+  public codigo: string = localStorage.getItem('codigo')+''
   public unitytitle: string = "";
   public themetitle: string = "";
   public texto: string = "";
@@ -1298,18 +1298,18 @@ right: { style: 'medium' }
         .subscribe(
           (res: any) => {
             this.teacher = res[0];
-            console.log(res, "getintegersuser");
+            //console.log(res, "getintegersuser");
             const datteb = new Date(res[0].dateb);
             const dattee = new Date(res[0].datee);
             const dattteb = new Date(datteb).toISOString();
             const datttee = new Date(dattee).toISOString();
-            console.log(dattteb, datttee, this.dt)
+            //console.log(dattteb, datttee, this.dt)
             if (dattteb < this.dt && this.dt < datttee) {
               this.show = "true";
-              console.log("true");
+              //console.log("true");
             } else {
               this.show = "false";
-              console.log("false");
+              //console.log("false");
             };
           },
           err => console.log(err)
@@ -1340,7 +1340,7 @@ right: { style: 'medium' }
         .subscribe(
           (res: any) => {
             this.Notes = res;
-            console.log(res, "Notes");
+            //console.log(res, "Notes");
             if (res[0]) {
               this.themes = res[0].cursse[0].units;
               var slag = [];
@@ -1372,17 +1372,21 @@ right: { style: 'medium' }
         .subscribe(
           (res: any) => {
             this.curse = res[0];
-            this.codigo = res[0].codigo;
-            console.log(res[0], "getCurseOnly");
-            console.log(this.curso, res[0].mension, res[0].ciclo, res[0].codigo, "www")
+            if(res[0].codigo!=this.codigo){
+              this.routerr.navigate(['/dashboard'])
+            }else{
+              console.log("ok")
+            }
+            //console.log(res[0], "getCurseOnly")
+            //console.log(this.curso, res[0].mencion, res[0].ciclo, res[0].codigo)
             if (res) {
-              this.svc27STDService.getstd(this.curso, res[0].mension, res[0].ciclo, res[0].codigo)
+              this.svc27STDService.getstd(this.curso, res[0].mencion, res[0].ciclo, res[0].codigo)
                 .subscribe(
                   (res: any) => {
                     this.datastd = res
                     this.loading = ""
-                    console.log(res, "resstd")
-                    var notas = []
+                    //console.log(res, "resstd")
+                      var notas = []
                     for (var k = 0; k < res.length; k++) {
                       notas.push(res[k].averagge.length)
                     }
@@ -1401,21 +1405,8 @@ right: { style: 'medium' }
         )
     });
   }
-  /*
-    getIntegeraverage() {
-      this.router.params.subscribe(params => {
-        this.curseService.getintegersaverage(this.curse.codigo)
-          .subscribe(
-            (res: any) => {
-              this.integeraverage = res;
-              console.log("getIntegeraverage", res);
-              //                this.themes=res[0].cursse[0].units;
-            },
-            err => console.log(err)
-          )
-      });
-    }
-  */
+
+
   getstdwww() { //estudiantes
     console.log("w_1", this.curse.mension);
     this.svc27STDService.getstd(this.curso, 'mension', 'ciclo', 'codigo')
@@ -1429,7 +1420,9 @@ right: { style: 'medium' }
   }
 
   ngOnInit(): void {
-    if(!localStorage.getItem('id') && !localStorage.getItem('idcurso')){
+    if(localStorage.getItem('id') && localStorage.getItem('idcurso')  && localStorage.getItem('codigo')){
+      console.log("ok")
+    }else{
       this.routerr.navigate(['/dashboard'])
     }
     this.year = new Date().getFullYear()
@@ -1445,7 +1438,7 @@ right: { style: 'medium' }
   }
 
   integer(user: any) {
-    this.curseService.saveinteger(user, localStorage.getItem('idcurso') || "", localStorage.getItem('id') || "", this.curse.codigo)
+    this.curseService.saveinteger(user, localStorage.getItem('idcurso') || "", localStorage.getItem('id') || "", this.codigo)
       .subscribe(
         (res: any) => {
           if (res.msg) {
@@ -1464,6 +1457,8 @@ right: { style: 'medium' }
 
   erraseinteger(id: string) {
     if (window.confirm('Desea retirar del curso?')) {
+      console.log(id)
+
       this.curseService.deleteinteger(id)
         .subscribe(res => {
           this.getCurseOnly();
@@ -1473,44 +1468,12 @@ right: { style: 'medium' }
 
     }
   };
-  /*
-    openwww(w: any, task: string, archivo: string, unitytitle: string, themetitle: string) {
-      //    console.log(this.text,this.textoimg);
-      this.modal.open(w, { size: 'xl', scrollable: true })
-      this.text = task;
-      this.themetitle = themetitle;
-      this.unitytitle = unitytitle;
-      this.textoimg = archivo;
-    }
-  */
-  /*
-    deletetask(idtask: string) {
-      if (window.confirm('Desea eliminar la tarea?')) {
-        this.themesService.deletetask(idtask)
-          .subscribe(res => {
   
-            this.getCurse();
-  
-          });
-      }
-    };
-  
-    onBlurMethod(event: any, id: string, task: string) {
-      this.task.updatetask(task, event.target.value, id, "", this.archivos[0])
-        .subscribe((res: any) => {
-  
-        });
-      return false;
-    }
-    */
-
   onBlurMean(event: any, user: string, title: string, ciclo: string, credito: string, mencion: string) {
     this.loading = "false"
     if (event.target.value != "") {
     if (!/\s/.test(event.target.value)) {
       if (event.target.value <= 20 && event.target.value >= 0 || event.target.value == "R" || event.target.value == "L") {
-        console.log(event.target.value == 'L');
-
         if (event.target.value == 'L') {
           this.nota = "-0";
         }
@@ -1520,19 +1483,16 @@ right: { style: 'medium' }
         if (event.target.value > 0) {
           this.nota = event.target.value;
         }
-        
-       
-        
-        this.task.create_average(this.nota, this.curse.codigo, this.user, user, this.curso, title, ciclo, credito, mencion, this.year)
+        console.log(this.nota, this.codigo, this.user, user, this.curso, title, ciclo, credito, mencion, this.year)
+        this.task.create_average(this.nota, this.codigo, this.user, user, this.curso, title, ciclo, credito, mencion, this.year)
           .subscribe((res: any) => {
             if (res) {
-              this.getCurseOnly()//this.getIntegeraverage();
+              this.getCurseOnly()
             }
           });
         return false;
       } else {
-
-        this.getCurseOnly()//this.getIntegeraverage();
+        this.getCurseOnly()
         alert("La calificación es vigesimal, L : Licencia o R : Retirado")
         return false;
       }
@@ -1542,8 +1502,6 @@ right: { style: 'medium' }
       return false;
     }
   } else {
-    //this.getCurseOnly()//this.getIntegeraverage();
-    //alert("Introdusca calificación sin espacios")
     this.loading=""
     return false;
   }

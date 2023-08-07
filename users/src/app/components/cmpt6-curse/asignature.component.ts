@@ -50,14 +50,8 @@ export class AsignatureComponent implements OnInit {
     public text: string = ""
     public file: string = ""
 
-    document = {
-        name: 'Angular 2',
-        description: 'An amazing Angular 2 pdf',
-        url: {
-            url: 'http://localhost:3000/uploads/tasks/a3b6b604-a4bc-4ef8-9e6f-3b959508421c.pdf',
-            withCredentials: true
-        }
-    }
+
+
     public title: string = "wwwwwwwwwwwwwwwwwwwwwwww"
     public description: string = ""
     public task: string = ""
@@ -231,7 +225,7 @@ export class AsignatureComponent implements OnInit {
     dt = new Date(this.strnew).toISOString()
 
 
-    getcurse() { 
+    getcurse() {
         //localStorage.setItem("idcurso", this.router.snapshot.paramMap.get('idcurso') + '')
         this.router.params.subscribe(params => {
             //console.log(localStorage.getItem('idcurso') || "" )
@@ -241,7 +235,7 @@ export class AsignatureComponent implements OnInit {
                         this.photo = res[0]
                         this.Tw.setTitle(res[0].title)
                         console.log(res[0], "1")
-
+                        localStorage.setItem('codigo', res[0].codigo)
                         this.usersService.getUserTeacher(res[0].user)
                             .subscribe(
                                 (res: any) => {
@@ -260,7 +254,6 @@ export class AsignatureComponent implements OnInit {
                                         console.log("false")
                                     }
 
-                                    //localStorage.setItem('imguser', res.foto)
                                 },
                                 err => console.log(err)
                             )
@@ -387,6 +380,33 @@ export class AsignatureComponent implements OnInit {
         return false
     }
 
+
+
+    public _idunity: string = ""
+
+
+    savethemecopy(titlen: string, descriptionn: string, timen: string, taskn: string, file: string) {
+        this.themesService.createthemecopy(this._idunity, localStorage.getItem('idcurso') || "", localStorage.getItem('id') || "", titlen, descriptionn, timen, taskn, file)
+            .subscribe(
+                res => {
+                    console.log(res)
+                    this.router.params.subscribe(params => {
+                        this.curseService.getCurse(localStorage.getItem('idcurso') || "")
+                            .subscribe(
+                                (res: any) => {
+                                    this.photo = res[0]
+                                    //console.log(res[0])
+                                    this.modal.dismissAll()
+                                },
+                                err => console.log(err)
+                            )
+                    })
+                },
+                err => console.log(err)
+            )
+        return false
+    }
+
     /*updatetheme(title: HTMLInputElement, description: HTMLTextAreaElement, task: HTMLTextAreaElement, time: HTMLInputElement) {
         this.themesService.updateTheme(title.value, description.value, task.value, time.value)
             .subscribe(
@@ -479,11 +499,12 @@ export class AsignatureComponent implements OnInit {
         this.modal.open(ww, { size: 'xl', scrollable: true })
         this.text = textw
         this.file = textww
-        console.log(textw, textww)
+        //console.log(textw, textww)
     }
-    opencopy(wwcopy: any) {
+    opencopy(wwcopy: any, _idunity: string) {
         this.modal.open(wwcopy, { size: 'xl', scrollable: true })
-        
+        this._idunity = _idunity
+        console.log(this._idunity)
     }
 
     open2(www: any, textw: string) {

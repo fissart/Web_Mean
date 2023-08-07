@@ -67,10 +67,10 @@ export async function getupdateController(req: Request, res: Response): Promise<
 //createController/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 export async function createController(req: Request, res: Response): Promise<Response> {
-    const { title, description, user, task, curse, unidad, time } = req.body;
+    const { title, description, user, file, task, curse, unidad, time } = req.body;
     //console.log(req.body);
     //    if (!req.file) return res.status(400).send("No files were uploaded!!");
-    const newCurse = { title, description, task, unidad, curse, user, time, img:"" };
+    const newCurse = { title, description, task, unidad, curse, user, time, img:file };
     const Cursew = new Curse(newCurse);
     await Cursew.save();
     return res.json({

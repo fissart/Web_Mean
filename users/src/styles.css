@@ -181,7 +181,7 @@ table th {
 }
 
 td, th {
-  border: 1px solid #c6e8eb;
+  border: 1px solid rgba(245, 245, 245, 0.7);
   text-align: left;
   padding: 8px;
 }
@@ -192,12 +192,12 @@ td {
 }
 
 tr:nth-child(even) {
-  background-color: rgb(210, 233, 233)
+  background-color: rgba(40, 170, 170, 0.7)
 }
 
 tr:nth-child(odd) {
   color:   black;
-  background-color: rgb(250,250,250)
+  background-color: rgba(250, 250, 250, 0.7)
 }
 
 th {
@@ -443,11 +443,16 @@ background: url(https://cdn.elnacional.com/wp-content/uploads/2021/12/Poesia-fra
     margin: auto;
     overflow: hidden;
     border-radius: .2em;
-
     position: relative;
     object-fit: cover;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
 
+.imgland {
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    object-fit: cover;
 }
 
 .floatop {

@@ -102,7 +102,12 @@ export class CurseService {
     return this.http.get(`${environment.apiURL}/api/integer/Controllerintegeruser/${id}`);
     //console.log(id)
   }
- 
+  /////////////////////////////
+  cursestdhide(id: string, truefalse:string) {
+    return this.http.put(`${environment.apiURL}/api/integer/Controllerintegeruser/${id}`, { 'name': truefalse });
+    //console.log(id)
+  }
+
   getsCurseTeacher(id: string, curseshow: string) {
     return this.http.get(`${environment.apiURL}/api/curses/ControllerCurseTeacher/${id}/${curseshow}`);
 

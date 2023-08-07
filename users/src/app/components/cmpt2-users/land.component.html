@@ -105,8 +105,8 @@
       <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacher index as i">
         <div class='card bg-light text-align-right border border-info p-1'>
           <div class="text-center">
-            {{photo.title}} [{{photo.mension=='P'?'AP Pintura':photo.mension=='E'?'AP
-            Escultura':photo.mension=='ED'?'EDUCACIÓN Artística':'AP Grabado'}} {{photo.ciclo}}]
+            {{photo.title}} [{{photo.mencion=='P'?'AP Pintura':photo.mencion=='E'?'AP
+            Escultura':photo.mencion=='ED'?'Educación artística':'AP Grabado'}} {{photo.ciclo}}]
           </div>
           <!-- <img [src]="apiUrl+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError2($event)"> -->
           <div class="w-100 text-center ">

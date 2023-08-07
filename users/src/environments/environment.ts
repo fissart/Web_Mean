@@ -1,7 +1,3 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
   title: 'Local Environment Heading',
@@ -9,7 +5,7 @@ export const environment = {
   //apiURL: 'https://www.esfapa.edu.pe:8000'
 };
 /*
- 
+
 db.users.updateMany({}, {"$set": {"ciclo": ''}})
 
 db.curses.updateMany({}, {"$set": {"show": "false"}});
@@ -17,6 +13,9 @@ db.integers.updateMany({}, {"$set": {"show": "false"}});
 db.curses.updateMany({},{"$unset":{"show":1}});
 //db.integers.deleteMany({user:ObjectId('62cf3499f1443acd8c3dc41e')})//teacher amanda as std
 
+db.integers.deleteMany({user:ObjectId("62d6dac1d89e8b2b50ea9de0")})
+db.tasks.deleteMany({user:ObjectId("62d6dac1d89e8b2b50ea9de0")})
+db.averages.updateMany({user:ObjectId("62d6dac1d89e8b2b50ea9de0")},{$set:{user:ObjectId("64022bb8802b1c61ce210998")}})
 
 db.averages.updateMany(
   {},
@@ -71,7 +70,7 @@ db.users.aggregate([
         { $sort: { "_id": 1 } },
     ], { collation: { locale: "es" }})
 
-db.users.updateMany({mencion:{$nin:["E","G","P","ED"]}},{$set:{mencion:"N"}})
+db.users.updateMany({mencion:{$nin:["E","G","P","ED"]}, rol:"3"},{$set:{mencion:"N",ciclo:"N"}})
 db.users.updateMany({},{$set:{filosophy:""}})
 db.users.updateMany({rol:"2"},{$set:{filosophy:"New"}})
 db.users.updateMany({rol:"2"},{$set:{mencion:"N"}})

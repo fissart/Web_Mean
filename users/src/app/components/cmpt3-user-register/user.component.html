@@ -9,18 +9,29 @@
 
             <div class="card-body">
                 <div class="form-group mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Apellidos y nombres</label>
+                    <label class="form-label">Apellidos y nombres</label>
                     <input type="text" class="form-control  shadow-none" placeholder="Apellidos y nombres" #name
                         required>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Correo: primernombreapellidopaterno@esfapa.edu.pe</label>
+                    <label class="form-label">Correo: primernombreapellidopaterno@esfapa.edu.pe</label>
                     <input type="email" class="form-control  shadow-none" placeholder="Email" #email required>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Contraseña: dni</label>
+                    <label class="form-label">Contraseña: dni</label>
                     <input type="password" class="form-control  shadow-none" placeholder="Password" #password required>
                 </div>
+                <div class="form-group mb-3">
+                    <label class="form-label">Rol: 1: Administrador, 2: Docente, 3: Estudiante</label>
+                    <select class="form-select" aria-label="Default select example" [disabled]="loading" required
+                        (change)="onChange($event)" name="deviceText">
+                        <option selected>{{subtype}}</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+  
                 <input type="file" accept="image/*" class="d-none" (change)="capturandoFile($event)" #photoInput>
 
             </div>

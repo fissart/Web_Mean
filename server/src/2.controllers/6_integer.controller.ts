@@ -316,9 +316,7 @@ export async function getControllerNotes(req: Request, res: Response): Promise<R
 export async function getControlleruser(req: Request, res: Response): Promise<Response> {
     const { ObjectId } = require("mongodb");
     const id = ObjectId(req.params.id);
-    const user = ObjectId(id);
-    //    const { id } = req.params;
-//          const Curseuser = await Curse.find({curse:curso});
+    const user = ObjectId(id)
     const integers = await Curse.aggregate([
         {
             $match: {

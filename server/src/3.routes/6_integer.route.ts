@@ -32,7 +32,7 @@ router.route('/Controllerintegerscurse/:id')
     router.route('/Controllerintegersaverage/:id')
         .get(getintegerController)
 
-
+ 
 router.route('/Controllerintegeruser/:id')
     .get(getControlleruser)
 

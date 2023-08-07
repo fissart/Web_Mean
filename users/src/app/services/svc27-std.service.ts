@@ -38,7 +38,6 @@ export class Svc27STDService {
   }  
 
   getstd(idcurso:string, mension:string, ciclo:string, codigo:string) {
-    console.log(mension,ciclo,codigo) 
   return this.http.get<any>(`${environment.apiURL}/api/users/ControllerGetusers/${idcurso}/${mension}/${ciclo}/${codigo}`);
   }
 

@@ -135,10 +135,10 @@ File
         REGISTRAR USUARIO
       </button>
       <button *ngIf="rol=='1' || rol=='5'" class="btn btn-light" routerLink="/user">
-        USUARIOS (DOCENTES/TODOS)
+        DOCENTES/TODOS
       </button>
       <button *ngIf="rol=='1' || rol=='5'" class="btn btn-light" (click)="GetAllstd()">
-        ESTUDIANTES
+        ESTUDIANTES STD
       </button>
     </div>
   </div>
@@ -173,9 +173,9 @@ File
 
 
 
-  
-  <form *ngIf="rol=='1'" (submit)="getFirstAverages(ciclo, mencion, year)"
-    class="row p-1 my-0 mx-0 w-100 bg-light rounded mt-1">
+
+  <form *ngIf="rol=='1'" (submit)="getFirstAverages(ciclo, mencion, year)" class="row p-1 my-0 mx-0 w-100 rounded mt-1"
+    style="background-color:rgba(177, 214, 219, 0.95)">
     <div class="col-md-4 form-group mb-2 py-0 px-1">
       <label class="form-label">Ciclo: I, II, ..., X</label>
       <input type="text" class="form-control" placeholder="Ciclo" #ciclo [value]="'V'">
@@ -190,11 +190,11 @@ File
     </div>
     <div class="col-md-12 form-group mb-2 py-0 px-1 align-self-end ml-auto">
       <label class="form-label"></label>
-      <button class="btn btn-outline-info text-uppercase w-100" [disabled]="loading">Cargar Notas</button>
+      <button class="btn btn-info text-uppercase w-100" [disabled]="loading">Cargar Notas</button>
     </div>
   </form>
   <button *ngIf="order.length!=0 && rol=='1'" (click)="generateExcel()"
-  class="btn btn-warning rounded-0 w-100 text-uppercase text-light">Acta en Excel</button>
+    class="btn btn-warning rounded-0 w-100 text-uppercase text-light">Acta en Excel</button>
 
   <div *ngIf="califications.length!==0 && rol=='3'" class="container text-center text-uppercase"
     style='font-weight: bold'>
@@ -246,48 +246,72 @@ File
 
 
 
-  <div *ngFor="let std of userstd index as i" class="p-1">
-    <div class="bg-warning rounded">Rol: {{std._id}} Cantidad con el rol {{std._id}}: {{std.total}}</div>
+  <div *ngFor="let std of userstd index as i">
+    <!-- <div class="bg-warning rounded">Rol: {{std._id}} Cantidad con el rol {{std._id}}: {{std.total}}</div> -->
     <div *ngFor="let stdw of std.mencions index as i">
       Mencion: {{stdw._id}} Cantidad con la mención {{stdw._id}}: {{stdw.total}}
-      <div class="container border rounded bg-info p-0">
-        <div *ngFor="let stdww of stdw.cycles index as i" class="bg-light rounde border m-1"
-          style="margin: .5em; padding: .5em">
-          <div class="bg-light text-center rounded border border-warning text-warning">{{stdw._id}} [{{stdww._id}}]
-          </div>
-          <div class="row justify-content-center align-items-center" style="margin: .1em">
-            <div *ngFor="let stdwww of stdww.ussers index as i" class="col-md-3 p-1">
-              <div class="p-1 text-center  rounded bg-light">{{i+1}}
-                <input type="text" class="form-control"
-                  (blur)="onBlurUser($event, stdwww._id,  stdwww.ciclo,  stdwww.mencion, '1')" placeholder="Name" #ciclo
-                  [value]=stdwww.name>
-                <select class="form-select" aria-label="Default select example" (change)="onChange1($event, stdwww._id)"
-                  name="deviceText">
-                  <option selected>{{stdwww.mencion}}</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="P">P</option>
-                  <option value="ED">ED</option>
-                  <option value="N">N</option>
-                </select>
-
-                <select class="form-select" aria-label="Default select example" (change)="onChange($event, stdwww._id)"
-                  name="deviceText">
-                  <option selected>{{stdwww.ciclo}}</option>
-                  <option value="I">I</option>
-                  <option value="II">II</option>
-                  <option value="III">III</option>
-                  <option value="IV">IV</option>
-                  <option value="V">V</option>
-                  <option value="VI">VI</option>
-                  <option value="VII">VII</option>
-                  <option value="VIII">VIII</option>
-                  <option value="IX">IX</option>
-                  <option value="X">X</option>
-                  <option value="N">N</option>
-                </select>
-              </div>
+      <div
+        [ngClass]="[stdw._id=='E'?'container border rounded bg-light p-0':stdw._id=='G'?'container border rounded bg-info p-0':stdw._id=='P'?'container border rounded bg-primary p-0':stdw._id=='ED'?'container border rounded bg-secondary p-0':'container border rounded bg-warning p-0']">
+        <div *ngFor="let stdww of stdw.cycles index as i" class="border m-1 p-1 rounded">
+          <div>
+            <div style="font-weight: 700" class="text-center bg-warning rounded"> 
+              {{stdw._id=='E'?'ESCULTURA':stdw._id=='P'?'PINTURA':stdw._id=='ED'?'EDUCACIÓN
+              ARTÍSTICA':stdw._id=='G'?'GRABADO':'NO MATRICULADOS'}} [{{stdww._id}}]
             </div>
+            <table *ngIf="stdww.length!=0 && rol=='1'">
+              <tr>
+                <th>N</th>
+                <th>DNI</th>
+                <th>NOMBRE</th>
+                <th>MENCIÓN</th>
+                <th>CICLO</th>
+                <th></th>
+              </tr>
+              <ng-container *ngFor="let stdwww of stdww.ussers index as i">
+                <tr>
+                  <td>{{i+1}}</td>
+                  <td>{{stdwww.dni}}</td>
+                  <td>
+                    <input type="text" class="form-control" [disabled]="loading"
+                      (blur)="onBlurUser($event, stdwww._id,  stdwww.ciclo,  stdwww.mencion, '1')" placeholder="Name"
+                      #ciclo [value]=stdwww.name>
+                  </td>
+                  <td>
+                    <select class="form-select" aria-label="Default select example" [disabled]="loading"
+                      (change)="onChange($event, stdwww._id, stdwww.ciclo,  stdwww.name)" name="deviceText">
+                      <option selected>{{stdwww.mencion}}</option>
+                      <option value="E">E</option>
+                      <option value="G">G</option>
+                      <option value="P">P</option>
+                      <option value="ED">ED</option>
+                      <option value="N">N</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-select" aria-label="Default select example" [disabled]="loading"
+                      (change)="onChange1($event, stdwww._id, stdwww.mencion,  stdwww.name)" name="deviceText">
+                      <option selected>{{stdwww.ciclo}}</option>
+                      <option value="I">I</option>
+                      <option value="II">II</option>
+                      <option value="III">III</option>
+                      <option value="IV">IV</option>
+                      <option value="V">V</option>
+                      <option value="VI">VI</option>
+                      <option value="VII">VII</option>
+                      <option value="VIII">VIII</option>
+                      <option value="IX">IX</option>
+                      <option value="X">X</option>
+                      <option value="N">N</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button *ngIf="rol=='1'" class="btn btn-info" (click)="GetAllstd()">
+                      Actualizar
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
           </div>
         </div>
       </div>
@@ -463,16 +487,32 @@ File
           <button class="btn btn-warning shadow-none card-photo" (click)="goCurse( $any(photo).cursse[0]._id)">
             <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             Ir al curso
-          </button>
+          </button> 
         </div>
+        <button class="btn btn-warning shadow-none" 
+        style='position: absolute;  bottom: 8px; left: 8px'
+        (click)="hidecursestd( $any(photo).cursse[0]._id)">  
+         Archivar
+        </button>
       </div>
     </div>
   </div>
 
+  <h6 class='text-info rounded p-1  text-center my-2 text-center'>
+    <div *ngIf="user && newws.length!==0" class="container justify-content-center">
+      <button [ngClass]="[showphilosophy?'btn btn-info ':'btn btn-light']" (click)="showphilosophyteacher()">{{
+        showphilosophy
+        ? 'ESCONDER
+        FILOSOFÍA DEL DOCENTE': 'FILOSOFÍA DEL DOCENTE'}}</button>
+    </div>
 
-  <div *ngIf="ussser.length!==0 && rol=='2' && show!='ok'">
+  </h6>
+  <div *ngIf="ussser.length!==0 && rol=='2' && show!='ok' && showphilosophy">
     <div class="container h3 text-center">
-      CARPETA DOCENTE {{ussser.dni}}
+      CARPETA DOCENTE {{ussser.name}}
+    </div>
+    <div class="container h3 text-center">
+       {{ussser.dni}}
     </div>
     <div class="container h5 text-center">
       Escuela Superior de Formación Artística Pública
@@ -480,21 +520,18 @@ File
     <div class="container h6 text-center">
       “Felipe Guamán Poma de Ayala”
     </div>
-
-    <div class="container col-md-3 p-1 justify-content-center align-items-center">
+    <div class="container col-md-3 p-1 justify-content-center align-items-center text-center">
       <img src="./assets/esfap.png" class="img-fluid" alt="Responsive image">
     </div>
-    <h6 class='text-info rounded p-1  text-center my-2 text-center'>
-      <div *ngIf="user && newws.length!==0" class="container justify-content-center">
-        <button [ngClass]="[showphilosophy?'btn btn-info ':'btn btn-light']" (click)="showphilosophyteacher()">{{
-          showphilosophy
-          ? 'ESCONDER
-          FILOSOFÍA DEL DOCENTE': 'FILOSOFÍA DEL DOCENTE'}}</button>
-      </div>
-
-    </h6>
-
-    <div [innerHTML]="froala" contenteditable="true" *ngIf="showphilosophy"
+    
+    <div class="container h6 text-center">
+      ARTISTA PROFESIONAL, ESPECIALIDAD ARTES PLÁSTICAS Y VISUALES, MENCIÓN PINTURA
+    </div>
+    
+    <div class="container h5 mt-3 text-center">
+      FILOSOFÍA DEL DOCENTE
+    </div>
+    <div [innerHTML]="froala" contenteditable="true" 
       (blur)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)">
     </div>
   </div>
@@ -506,9 +543,12 @@ File
     style="margin:0; background-color: rgb(243, 233, 204);">
     <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacher index as i">
       <div
-        [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX'?'card bg-warning':'card bg-success']">
+        [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX'?'card bg-warning':'card bg-light']">
         <div class="text-center text-uppercase">
-          {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
+          {{photo.title}}
+        </div>
+        <div class="text-center text-uppercase">
+          [{{photo.mencion}}-{{photo.ciclo}}-{{photo.codigo}} ({{photo.integers.length}})]
         </div>
         <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
         <div class="mytesttop w-100 text-center">
@@ -520,7 +560,7 @@ File
               <!--<mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
               Ingresar
             </button>
-            <button class="btn btn-outline-secondary  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
+            <button class="btn btn-outline-primary  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
           </div>
         </div>
       </div>
@@ -538,11 +578,11 @@ File
     CURSOS ARCHIVADOS DOCENTE {{ussser.dni}}
   </div>
   <div *ngIf="user && CurseTeacherHiden.length!=0 &&  rol=='2'" class="row d-flex justify-content-center rounded my-3"
-    style="margin:0; background-color: rgb(3, 54, 58);">
+    style="margin:0; background-color: rgb(41, 172, 182);">
     <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacherHiden index as i">
       <div class='card bg-info'>
         <div class="text-center text-uppercase">
-          {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}] ({{photo.integers.length}})
+          {{photo.title}} [{{photo.mencion}}-{{photo.ciclo}}] ({{photo.integers.length}})
         </div>
         <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
         <div class="mytesttop w-100 text-center">
@@ -638,84 +678,110 @@ File
     <div class="container text-center h5 mt-3">
       MATERIALES EDUCATIVOS
     </div>
-    <h6 class='text-info rounded p-1  text-center my-2'>
-      <button type="button" name="button" (click)="Filecurse.click(); Type('material',ussser._id)"
-        class="btn btn-info">Cargar</button>
-
-
-    </h6>
-    <div class="" *ngFor="let file of ussser.archivos index as i">
-      <div *ngIf="file.type=='material'" class=' text-center input-group d-flex' style='padding:.1em'>
-        <input type="text" class="form-control" placeholder="" [value]="file.title"
-          (blur)="onBlurFilosophyUpdate($event, file._id )">
-        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+    <div class="row text-center border rounded justify-content-center">
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='material'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('material',ussser._id)"
+          class="btn btn-info">Cargar material</button>
       </div>
     </div>
 
     <div class="container text-center h5 mt-3">
       REGISTROS DE EVALUACIÓN
     </div>
-    <h6 class='text-info rounded p-1  text-center my-2'>
-      <button type="button" name="button" (click)="Filecurse.click(); Type('registro',ussser._id)"
-        class="btn  btn-info">Cargar</button>
-
-    </h6>
-    <div class="" *ngFor="let file of ussser.archivos index as i">
-      <div *ngIf="file.type=='registro'" class=' text-center input-group d-flex' style='padding:.1em'>
-        <input type="text" class="form-control" placeholder="" [value]="file.title"
-          (blur)="onBlurFilosophyUpdate($event, file._id )">
-        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+    <div class="row text-center border rounded justify-content-center">
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='registro'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('registro',ussser._id)"
+          class="btn btn-info">Cargar registro</button>
       </div>
     </div>
 
     <div class="container text-center h5 mt-3">
       HORARIO
     </div>
-    <h6 class='text-info rounded p-1  text-center my-2'>
-      <button type="button" name="button" (click)="Filecurse.click(); Type('horario',ussser._id)"
-        class="btn btn-info">Cargar</button>
-
-    </h6>
-    <div class="" *ngFor="let file of ussser.archivos index as i">
-      <div *ngIf="file.type=='horario'" class=' text-center input-group d-flex' style='padding:.1em'>
-        <input type="text" class="form-control" placeholder="" [value]="file.title"
-          (blur)="onBlurFilosophyUpdate($event, file._id )">
-        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+    <div class="row text-center border rounded justify-content-center">
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='horario'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('horario',ussser._id)"
+          class="btn btn-info">Cargar horario</button>
       </div>
     </div>
 
     <div class="container text-center h5 mt-3">
       OCURRENCIAS
     </div>
-    <h6 class='text-info rounded p-1  text-center my-2'>
-      <button type="button" name="button" (click)="Filecurse.click(); Type('ocurrencia',ussser._id)"
-        class="btn btn-info">Cargar</button>
-    </h6>
-    <div class="" *ngFor="let file of ussser.archivos index as i">
-      <div *ngIf="file.type=='ocurrencia'" class=' text-center input-group d-flex' style='padding:.1em'>
-        <input type="text" class="form-control" placeholder="" [value]="file.title"
-          (blur)="onBlurFilosophyUpdate($event, file._id )">
-        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+    <div class="row text-center border rounded justify-content-center">
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='ocurrencia'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('ocurrencia',ussser._id)"
+          class="btn btn-info">Cargar ocurrencia</button>
       </div>
     </div>
 
     <div class="container text-center h5 mt-3">
       PLAN DE TRABAJO ANUAL
     </div>
-    <h6 class='text-info rounded p-1  text-center my-2'>
-      <button type="button" name="button" (click)="Filecurse.click(); Type('plan',ussser._id)"
-        class="btn btn-info">Cargar</button>
-    </h6>
-    <div class="" *ngFor="let file of ussser.archivos index as i">
-      <div *ngIf="file.type=='plan'" class=' text-center input-group d-flex' style='padding:.1em'>
-        <input type="text" class="form-control" placeholder="" [value]="file.title"
-          (blur)="onBlurFilosophyUpdate($event, file._id )">
-        <button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-        <button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+    <div class="row text-center border rounded justify-content-center">
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='plan'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('plan',ussser._id)"
+          class="btn btn-info">Cargar plan</button>
       </div>
     </div>
 

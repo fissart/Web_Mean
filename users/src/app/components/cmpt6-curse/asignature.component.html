@@ -19,14 +19,13 @@
             <div class="col-md-6 p-2" *ngFor="let subItem of photo['temascopy'] index as i">
               <div class="border rounded p-1">
                 <div class="">
-                  <a class="btn w-100" style="width:100%" style="font-weight: 500"
-                    (click)="open1(ww, $any(subItem).description, $any(subItem).img)">
+                  <a class="btn w-100" style="width:100%" style="font-weight: 500">
                     S{{i+1}}: {{subItem.title}}
                   </a>
                 </div>
                 <div class='border-0 p-0 btn-group d-flex  my-1'>
                   <button class="btn btn-light"
-                    (click)="open1(ww, $any(subItem).task, $any(subItem)._id)">Copiar</button>
+                    (click)="savethemecopy(subItem.title,subItem.description,subItem.time,subItem.task,subItem.img)">Copiar</button>
                 </div>
               </div>
             </div>
@@ -97,9 +96,37 @@
     showphilosophy
     ? 'DOCENTE': 'DOCENTE'}}</button>
 </div>
-<div *ngIf="photouserteacher.filosophy &&  show!='ok' && showphilosophy" class="p-2 my-3 container">
+<div *ngIf="show!='ok' && showphilosophy" class="p-2 my-3 container">
+
+  <div class="container h3 text-center">
+    CARPETA DOCENTE <!-- {{photouserteacher.name}} -->
+  </div>
+  <div class="container h3 text-center">
+    {{photouserteacher.dni}}
+  </div>
+  <div class="container h5 text-center">
+    Escuela Superior de Formación Artística Pública
+  </div>
+  <div class="container h6 text-center">
+    “Felipe Guamán Poma de Ayala”
+  </div>
+  <div class="container col-md-3 p-1 justify-content-center align-items-center text-center">
+    <img src="./assets/esfap.png" class="img-fluid" alt="Responsive image">
+  </div>
+
+  <div class="container h6 text-center">
+    ARTISTA PROFESIONAL, ESPECIALIDAD ARTES PLÁSTICAS Y VISUALES, MENCIÓN PINTURA
+  </div>
+
+  <div class="container h5 mt-3 text-center">
+    FILOSOFÍA DEL DOCENTE
+  </div>
   <ng-katex-html *ngIf="photouserteacher.filosophy" [html]="photouserteacher.filosophy"></ng-katex-html>
+
 </div>
+
+
+
 
 <div class="container mt-1">
   <div class="row" *ngIf="!$any(photo); else main_content">
@@ -112,7 +139,8 @@
       <div class="border"
         style="background-color:rgba(100,100,100,0.5);   position: absolute;      top: 50%;      left: 50%;      transform: translate(-50%, -50%);      border-radius: .5em;      width: 95%;      z-index: 1;      padding: .5em;      color: white">
         <div style="font-weight: bold" class="text-uppercase">
-          {{photo.title}}-{{photo.mencion=='P'?'AP PINTURA':photo.mencion=='E'?'AP ESCULTURA':photo.mencion=='ED'?'EA EDUCACIÓN ARTÍSTICA':'AP GRABADO'}}-CICLO {{photo.ciclo}}  
+          {{photo.title}}-{{photo.mencion=='P'?'AP PINTURA':photo.mencion=='E'?'AP ESCULTURA':photo.mencion=='ED'?'EA
+          EDUCACIÓN ARTÍSTICA':'AP GRABADO'}}-CICLO {{photo.ciclo}} [{{photo.codigo}}]
         </div>
         <div>
           Crédito: {{photo.credito}}
@@ -157,7 +185,7 @@
               Unidad {{i+1}}: {{photo.title}}
             </a>
             <div class='border-0 p-0 btn-group d-flex' *ngIf="photouser.rol==1 || photouser.rol==2">
-              <button class="btn rounded-0 btn-outline-warning shadow-none" (click)="opencopy(wwcopy)">Crear copy
+              <button class="btn rounded-0 btn-outline-warning shadow-none" (click)="opencopy(wwcopy, photo._id)">Copiar
                 <!-- <mat-icon svgIcon="file" aria-hidden="flase" aria-label="Example thumbs up SVG icon"></mat-icon> -->
               </button>
               <button class="btn rounded-0 btn-outline-warning shadow-none" (click)="savetheme(photo._id)">Crear
@@ -251,7 +279,7 @@
 
     </div>
 
-    <div *ngIf="photouserteacher.filosophy &&  show!='ok'" class="p-2 my-3">
+    <div *ngIf="show!='ok'" class="p-2 my-3">
 
       <div *ngIf="photouserteacher.archivos&&photouserteacher.archivos.length > 0"
         class="justify-content-center align-items-center">

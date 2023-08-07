@@ -38,6 +38,10 @@ export class ThemesService {
     return this.http.put<any>(`${this.URL}/${id}`, fd, { reportProgress: true, observe: "events" })
   }
 
+  createthemecopy(unidad: string, curse: string, user: string, title: string, description: string, time: string, task: string, file: string) {
+    return this.http.post<any>(this.URL, { title, description, task, time, unidad, curse, user, file })
+  }
+
   gettheme(id: string, curssse: string) {
     return this.http.get(`${environment.apiURL}/api/themes/ControllerThemeUser/${id}/${curssse}`)
   }

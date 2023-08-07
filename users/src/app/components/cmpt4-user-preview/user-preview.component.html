@@ -5,108 +5,106 @@
 <div class="height"></div>
 
 <div class="container d-flex justify-content-center align-items-center ">
-
   <form class="row p-0 w-100" (submit)="updatePhoto(name, correo, password, rol, celular, carrera, sexo, dni )">
+    <div class="container d-flex justify-content-center align-items-center ">
 
-    <div class="col-md-8 p-0">
+      <div class="col-md-8 p-0">
+        <div class="row p-0 my-0 mx-0 w-100">
+          <div class="col-md-6 form-group mb-2 py-0 px-1">
+            <label class="form-label text-info text-uppercase">Apellidos y nombres</label>
+            <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
+              placeholder="name" [value]="$any(photow).name" #name required>
+          </div>
 
-      <div class="row p-0 my-0 mx-0 w-100">
-        <div class="col-md-6 form-group mb-2 py-0 px-1">
-          <label class="form-label">Nombre</label>
-          <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
-            placeholder="name" [value]="$any(photow).name" #name required>
-        </div>
+          <div class="col-md-6 form-group mb-2 py-0 px-1">
+            <label class="form-label text-info text-uppercase">Correo</label>
+            <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
+              placeholder="correo" [value]="$any(photow).email" #correo required>
+          </div>
 
-        <div class="col-md-6 form-group mb-2 py-0 px-1">
-          <label class="form-label">Correo</label>
-          <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
-            placeholder="correo" [value]="$any(photow).email" #correo required>
-        </div>
+          <div class="col-md-3 form-group mb-2 py-0 px-1">
+            <label class="form-label text-info text-uppercase">Password</label>
+            <input type="text" class="form-control shadow-none" placeholder="password" [value]="$any(photow).password"
+              #password>
+          </div>
 
-        <div class="col-md-3 form-group mb-2 py-0 px-1">
-          <label class="form-label">Password</label>
-          <input type="text" class="form-control shadow-none" placeholder="password" [value]="$any(photow).password"
-            #password>
-        </div>
+          <div class="col-md-3 form-group mb-2 py-0 px-1">
+            <label class="form-label text-info text-uppercase">Rol</label>
+            <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
+              placeholder="Rol" [value]="$any(photow).rol" #rol>
+          </div>
 
-        <div class="col-md-3 form-group mb-2 py-0 px-1">
-          <label class="form-label">Rol</label>
-          <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true" placeholder="Rol"
-            [value]="$any(photow).rol" #rol>
-        </div>
+          <div class="col-md-3 form-group mb-2 py-0 px-1">
+            <label class="form-label text-info text-uppercase">DNI</label>
+            <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
+              placeholder="dni" [value]="$any(photow).dni" #dni>
+          </div>
+          <div class="col-md-3 form-group mb-2 py-0 px-1">
+            <label class="form-label text-info text-uppercase">Celular</label>
+            <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
+              placeholder="celular" [value]="$any(photow).celular" #celular>
+          </div>
 
-        <div class="col-md-3 form-group mb-2 py-0 px-1">
-          <label class="form-label">DNI</label>
-          <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true" placeholder="dni"
-            [value]="$any(photow).dni" #dni>
-        </div>
-        <div class="col-md-3 form-group mb-2 py-0 px-1">
-          <label class="form-label">Celular</label>
-          <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
-            placeholder="celular" [value]="$any(photow).celular" #celular>
-        </div>
+          <div class="col-md-6 form-group mb-2 py-0 px-1 d-none">
+            <label class="form-label text-info text-uppercase">Carrera</label>
+            <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
+              placeholder="carrera" [value]="$any(photow).carrera" #carrera>
+          </div>
+          <div  *ngIf="userrol == '1'" class="col-md-6 form-group mb-2 py-0 px-1">
+            <label class="form-label text-info text-uppercase">Mención</label>
+            <select class="form-select bg-light" aria-label="Default select example" (change)="onChange($event)"
+              name="deviceText">
+              <option selected>{{subtype}}</option>
+              <option value="E">E</option>
+              <option value="G">G</option>
+              <option value="P">P</option>
+              <option value="ED">ED</option>
+              <option value="N">N</option>
 
-        <div class="col-md-6 form-group mb-2 py-0 px-1 d-none">
-          <label class="form-label">Carrera</label>
-          <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
-            placeholder="carrera" [value]="$any(photow).carrera" #carrera>
-        </div>
-        <div class="col-md-4 form-group mb-2 py-0 px-1">
-          <label class="form-label">Mención</label>
-          <select class="form-select" aria-label="Default select example"
-            [ngModel]="selectedDevice ? selectedDevice : subtype" (ngModelChange)="onChange($event)" name="deviceText">
-            <option selected>{{subtype}}</option>
-            <option value="E">E</option>
-            <option value="G">G</option>
-            <option value="P">P</option>
-            <option value="ED">ED</option>
-            <option value="N">N</option>
+            </select>
+          </div>
+          <div  *ngIf="userrol == '1'" class="col-md-6 form-group mb-2 py-0 px-1">
+            <label class="form-label text-info text-uppercase">Ciclo</label>
+            <select class="form-select bg-light" aria-label="Default select example" (change)="onChange1($event)"
+              name="deviceText">
+              <option selected>{{subtype1}}</option>
+              <option value="I">I</option>
+              <option value="II">II</option>
+              <option value="III">III</option>
+              <option value="IV">IV</option>
+              <option value="V">V</option>
+              <option value="VI">VI</option>
+              <option value="VII">VII</option>
+              <option value="VIII">VIII</option>
+              <option value="IX">IX</option>
+              <option value="X">X</option>
+              <option value="N">N</option>
+            </select>
+          </div>
 
-          </select>
-        </div>
-        <div class="col-md-4 form-group mb-2 py-0 px-1">
-          <label class="form-label">Ciclo</label>
-          <select class="form-select rounded border" aria-label="Default select example"
-            [ngModel]="selectedDevice ? selectedDevice1 : subtype1" (ngModelChange)="onChange1($event)" name="deviceText">
-            <option selected>{{subtype1}}</option>
-            <option value="I">I</option>
-            <option value="II">II</option>
-            <option value="III">III</option>
-            <option value="IV">IV</option>
-            <option value="V">V</option>
-            <option value="VI">VI</option>
-            <option value="VII">VII</option>
-            <option value="VIII">VIII</option>
-            <option value="IX">IX</option>
-            <option value="X">X</option>
-            <option value="N">N</option>
-          </select>
-        </div>
+          <div class="col-md-3 form-group mb-2 py-0 px-1 d-none">
+            <label class="form-label text-info text-uppercase">Sexo</label>
+            <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
+              placeholder="sexo" [value]="$any(photow).sexo" #sexo>
+          </div>
 
-        <div class="col-md-3 form-group mb-2 py-0 px-1 d-none">
-          <label class="form-label">Sexo</label>
-          <input type="text" class="form-control shadow-none" [disabled]="userrol == '1'? false: true"
-            placeholder="sexo" [value]="$any(photow).sexo" #sexo>
         </div>
-
+        <div class="col-md-12 form-group mb-2 py-0 px-1">
+          <button *ngIf="photow.password" class="btn btn-info shadow-none mt-1 w-100" [disabled]="loading">{{
+            loading=='false' ? 'Cargando '+value+'%':
+            'Actualizar'}}
+          </button>
+        </div>
       </div>
-      <div class="col-md-12 form-group mb-2 py-0 px-1">
 
-        <button *ngIf="photow.password" class="btn btn-info shadow-none mt-1 w-100" [disabled]="loading">{{
-          loading=='false' ? 'Cargando '+value+'%':
-          'Actualizar'}}
-        </button>
+      <div class="col-md-4 p-0 d-flex justify-content-center align-items-center ">
+        <input type="file" accept="image/*" class="d-none" (change)="capturandoFile($event)" #photoInput>
+        <img *ngIf="userrol == '1'" [src]="photoSelected || apiUrl+'/'+ $any(photow).foto" (error)="onImgError($event)"
+          alt="No image" class="w-100 cursorpoint rounded" (click)="photoInput.click()">
+        <img *ngIf="userrol == '2' || userrol == '3'" [src]="apiUrl+'/'+ $any(photow).foto" (error)="onImgError($event)"
+          alt="No image" class="w-100 rounded ">
       </div>
+      
     </div>
-
-    <div class="col-md-4 p-0 d-flex justify-content-center align-items-center ">
-      <input type="file" accept="image/*" class="d-none" (change)="capturandoFile($event)" #photoInput>
-      <img *ngIf="userrol == '1'" [src]="photoSelected || apiUrl+'/'+ $any(photow).foto" (error)="onImgError($event)"
-        alt="No image" class="w-100 cursorpoint rounded" (click)="photoInput.click()">
-      <img *ngIf="userrol == '2' || userrol == '2'" [src]="apiUrl+'/'+ $any(photow).foto" (error)="onImgError($event)"
-        alt="No image" class="w-100 rounded ">
-    </div>
-
-
   </form>
 </div>

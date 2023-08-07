@@ -526,7 +526,10 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
       this.getcalificationsuser()
       this.getintegersuser()
     }
-
+    //localStorage.removeItem('id');
+    localStorage.removeItem('codigo');
+    localStorage.removeItem('idcurso');
+    localStorage.removeItem('imguser');
   }
 
   goCurse(id: string) {

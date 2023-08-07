@@ -20,15 +20,13 @@ export class UserPreviewComponent implements OnInit {
 
     public userrol: any = localStorage.getItem('rol');
 
-    subtype!:string
-    selectedDevice!: string
+    subtype!: string
     onChange(event: any) {
-        this.subtype = event;
+        this.subtype = event.target.value
     }
-    subtype1!:string
-    selectedDevice1!: string
+    subtype1!: string
     onChange1(event: any) {
-        this.subtype1 = event;
+        this.subtype1 = event.target.value
     }
 
 
@@ -69,7 +67,7 @@ export class UserPreviewComponent implements OnInit {
                         this.photow = res[0];
                         this.subtype = res[0].mencion;
                         this.subtype1 = res[0].ciclo;
-                        //console.log(this.photow);
+                        console.log(this.subtype);
                     },
                     err => console.log(err)
                 )
@@ -107,7 +105,7 @@ export class UserPreviewComponent implements OnInit {
                 console.log(res.total);
                 console.log(res.loaded);
                 if (res.total == res.loaded && res.type > 0) {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/dashboard']);
                 }
             });
         return false;

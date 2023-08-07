@@ -18,7 +18,7 @@ export async function getSController(req: Request, res: Response): Promise<Respo
     const mencion = req.params.www;
     const ciclo = req.params.ciclo;
     const codigo = req.params.codigo;
-    const curse = ObjectId(id);
+    const idcurso = ObjectId(id);
     const usersww = await User.aggregate([
         {
             $match: {
@@ -27,24 +27,12 @@ export async function getSController(req: Request, res: Response): Promise<Respo
                 'ciclo': ciclo,
             },
         },
-        /*
-        {
-          $lookup: {
-            from: 'integers',
-            let: { userId: '$_id' },
-            pipeline: [
-                {$match: { $expr: { $and: [{ $eq: ["$user", "$$userId"] }, { $eq: ["$curse",  curse] },] } }},
-            ],
-            as: 'www'
-          }
-        },
-        */
         {
             $lookup: {
                 from: "averages",
                 let: { wwwww: "$_id" },
                 pipeline: [
-                    { $match: { $expr: { $and: [{ $eq: ["$user", "$$wwwww"] }, { $eq: ["$codigo", codigo] }, { $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", ciclo] }] } } },
+                    { $match: { $expr: { $and: [{ $eq: ["$user", "$$wwwww"] }, { $eq: ["$codigo", codigo] }, { $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", ciclo] }, { $eq: ["$curse", idcurso]  }] } } },
                     {
                         $lookup: {
                             from: "users",
@@ -62,7 +50,7 @@ export async function getSController(req: Request, res: Response): Promise<Respo
     ]).collation({ locale: 'es' }).sort({ "name": 1 })
     return res.json(usersww);
 }
-
+ 
 //Usuarios opiniones 1-2/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
@@ -179,20 +167,18 @@ export async function getControllerstd(req: Request, res: Response): Promise<Res
                                         as: "ussers",
                                     },
                                 },
-                                { $sort: { "name": 1 } },
+                                { $sort: { "_id": -1 } },
                             ],
                             as: "cycles",
                         },
                     },
                     { $sort: { "_id": 1 } },
-
                 ],
                 as: "mencions",
             },
         },
         { $sort: { "_id": -1 } },
     ])
-
 
 
     return res.json(Useers);
@@ -206,29 +192,23 @@ export async function updaterestricted_date(req: Request, res: Response): Promis
     return res.json("ok");
 };
 
- 
+
 //2/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
 export async function createController(req: Request, res: Response): Promise<Response> {
-    const { name, email, password } = req.body;
+    const { name, email, rol, password } = req.body;
     //console.log(req);
-
-    const foto = '';
-    if (req.file) {
-        const foto = req.file.path;
-    } else {
-        const foto = 'User';
-    }
+    const foto = req.file ? req.file.path : 'uploads/user/' + password + '.jpg'
     const Curse = await User.findOne({ email: email });
-    //const user = await User.findOne({ email: re });
-    if (Curse) //return res.status(401).send('The email doen\' exists');
+    if (Curse)
         return res.json({
             user: { "msg": "El usuario ya esta registrado" }
         });
 
-    const newCurse = { name, email, password, rol: "3", foto };
-    const user = new User(newCurse);
+    const newCursej = { name, email, password, dni: password, celular: password, rol: rol, foto, ciclo: 'N', mencion: 'N' };
+    const newCurse = { name, email, password, dni: password, celular: password, rol: rol, foto };
+    const user = new User(rol != '3' ? newCurse : newCursej);
     await user.save();
 
     return res.json({

@@ -200,7 +200,7 @@ export class ThemePreviewComponent implements OnInit {
             //const datte = new Date(res[0].time)
             this.markdown2 = res[0].task
             this.id = res[0]._id
-            console.log(res[0])
+            console.log(res)
             this.loading = ""
 
           },
@@ -215,13 +215,7 @@ export class ThemePreviewComponent implements OnInit {
 
   public opttions: Object = {
     language: 'es',
-    //charCounterCount: false,
-    //toolbarButtons: ['undo', 'redo' , 'alert', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent', 'clearFormatting', 'insertTable', 'html'],
-    //toolbarButtonsXS: ['undo', 'redo' , '-', 'bold', 'italic', 'underline']
-    //toolbarButtons: ['bold', 'italic', 'underline','alert'],
-    //toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-    //toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-    //toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    
   }
 
   onImgError(event: any) {

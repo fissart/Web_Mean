@@ -55,7 +55,7 @@
 	</div>
 
 	<div class="modal-footer p-0" [ngStyle]="{background:'rgb(250,250,250)'}">
-		<button type="button" class="btn btn-success shadow-none w-100"
+		<button type="button" class="btn btn-light shadow-none w-100"
 			(click)="modal.close('Save click')">Cerrar</button>
 	</div>
 </ng-template>
@@ -188,7 +188,7 @@
 	<ng-template swiperSlide *ngFor="let photo of newws index as i">
 		<img [src]="apiURL+'/'+photo.img" (error)="onImgError($event)" style="z-index: 0">
 		<div style="position: absolute;	top: 50%; left: 50%; transform: translate(-50%, -50%)">
-			<div class="btn-group bg-white p-1 text-center" role="group" aria-label="Basic example">
+			<div class="btn-group p-1 text-center" style="background-color:rgba(218, 163, 12, 0.95)" role="group" aria-label="Basic example">
 				<button *ngIf="rol=='1' && photo.show=='false'" class="btn btn-success shadow-none"
 					(click)="newsemergent( $any(photo)._id, 'true')">
 					<!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
@@ -196,7 +196,7 @@
 				</button>
 				<button *ngIf="rol=='1'  && photo.show=='true'" class="btn btn-info shadow-none"
 					(click)="newsemergent( $any(photo)._id, 'false')">
-					<mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+					<!-- <mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
 					Esconder
 				</button>
 				<button *ngIf="rol=='1'" class="btn btn-warning shadow-none" (click)="deletenews( $any(photo)._id)">
@@ -210,7 +210,7 @@
 				</button>
 			</div>
 			<hr class="text-light">
-			<div class="btn-group bg-white border border-info" role="group" aria-label="Basic example">
+			<div class="btn-group" style="background-color:rgba(218, 163, 12, 0.95)" role="group" aria-label="Basic example">
 				<button class="btn w-100" (click)="openwww(new, photo.title, photo.description, photo.img)">
 					<span class="h2 text text-dark text-uppercase">
 						{{photo.title}}
@@ -261,7 +261,7 @@
 		</mat-progress-bar>
 	</div>
 
-	<h4 class='text-center rounded p-1 my-2'>
+	<h4 *ngIf="ussser.length!=0" class='text-center rounded p-1 my-2'>
 		<button *ngIf="rol=='1'" type="button" name="button" (click)="Filecurse.click(); Type('image','ussser._id')"
 			class="btn btn-info">
 			Cargar
@@ -269,13 +269,13 @@
 		IMAGENES
 	</h4>
 
-	<div *ngIf="ussser" class="row d-flex justify-content-center">
+	<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center">
 		<ng-container *ngFor="let file of ussser index as i">
 			<div *ngIf="file.type=='image'" class="rounded p-1 col-md-6 col-lg-4 col-xl-4">
 				<div class="p-0"
 					[ngStyle]="{background:'url('+apiURL+'/'+file.img+')', 'background-size': '50000px 50000px'}">
 					<div class="p-2" [ngStyle]="{background:'rgba(210,210,210, 0.5)'}">
-						<div class="h5 text-center">{{file.title}}</div>
+						<div class="h5 text-center text-light">{{file.title}}</div>
 						<input *ngIf="rol=='1'" type="text" class="form-control" placeholder="" [value]="file.title"
 							(blur)="FriendUpdate1($event, file._id, file.description, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )">
 						<div *ngIf="rol=='1'" class="btn-group w-100">
@@ -286,7 +286,7 @@
 							</button>
 						</div>
 						<button class="btn p-0 w-100" (click)="openfile(filew, file.img)">
-							<img [src]="apiURL+'/'+file.img" class="img-card-top imgcurse"
+							<img [src]="apiURL+'/'+file.img" class="img-card-top imgland"
 								(error)="onImgError($event)">
 							{{file.description}}
 						</button>
@@ -300,7 +300,7 @@
 		</ng-container>
 	</div>
 
-	<h4 class='text-center rounded p-1 my-2 mt-5'>
+	<h4 *ngIf="ussser.length!=0" class='text-center rounded p-1 my-2 mt-5'>
 		<button *ngIf="rol=='1'" type="button" name="button" (click)="FileCurssse('videosyoutube')"
 			class="btn btn-info">Cargar</button>
 		VIDEOS YOUTUBE
@@ -330,7 +330,7 @@
 		</ng-container>
 	</div>
 
-	<h4 class='text-center rounded p-1 my-2  mt-5'>
+	<h4 *ngIf="ussser.length!=0" class='text-center rounded p-1 my-2  mt-5'>
 
 		<button *ngIf="rol=='1'" type="button" name="button"
 			(click)="Filecurse.click(); Type('videosconfidencial',ussser._id)" class="btn btn-info">Cargar</button>
@@ -367,12 +367,12 @@
 
 
 
-	<h4 class='text-center rounded p-1 my-2  mt-5'>
+	<h4 *ngIf="ussser.length!=0" class='text-center rounded p-1 my-2  mt-5'>
 		<button *ngIf="rol=='1'" type="button" name="button" (click)="Filecurse.click(); Type('documentos',ussser._id)"
 			class="btn btn-info">Cargar</button>
 		DOCUMENTOS
 	</h4>
-	<div *ngIf="ussser" class="row d-flex justify-content-center">
+	<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center">
 		<ng-container *ngFor="let file of ussser index as i">
 			<div *ngIf="file.type=='documentos'" class="rounded p-1 col-md-6 col-lg-4 col-xl-4">
 				<div class="">
@@ -401,13 +401,13 @@
 	</div>
 
 
-	<h4 class='text-center rounded p-1 my-2 mt-5'>
+	<h4 *ngIf="ussser.length!=0" class='text-center rounded p-1 my-2 mt-5'>
 		<button *ngIf="rol=='1'" type="button" name="button" (click)="Filecurse.click(); Type('invitados',ussser._id)"
 			class="btn  btn-warning">
 			Agregar</button>
 		INVITADOS
 	</h4>
-	<div *ngIf="ussser" class="row d-flex justify-content-center my-3">
+	<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center my-3">
 		<ng-container *ngFor="let file of ussser index as i">
 			<div *ngIf="file.type=='invitados'" class="rounded p-1 col-md-6 col-lg-4 col-xl-4">
 				<div class="p-0"
@@ -427,7 +427,7 @@
 									(click)="FileCursedelete( file._id)">Eliminar</button>
 							</div>
 							<button class="btn p-0 w-100" (click)="openfile(filew, file.img)">
-								<img [src]="apiURL+'/'+file.img" class="img-card-top imgcurse"
+								<img [src]="apiURL+'/'+file.img" class="img-card-top imgland"
 								(error)="onImgError($event)">
 								
 							</button>
@@ -549,7 +549,7 @@
 	<div *ngIf="rol=='1' || rol=='3' && photointeger.length!==0" class="row d-flex justify-content-center align-items-center">
 	<div class="col-md-4 p-2" *ngFor="let photo of photointeger index as i">
 	<div class='card border-0 p-1 text-align-right '>
-	<img [src]="apiURL+'/'+photo.cursse[0].img" class="img-card-top imgcurse" (error)="onImgError($event)">
+	<img [src]="apiURL+'/'+photo.cursse[0].img" class="img-card-top imgland" (error)="onImgError($event)">
 	<img [src]="apiURL+'/'+photo.userw[0].foto" class="wrapperest5" (error)="onImgError($event)">
 	<div class="text-center text-uppercase text-dark">
 	{{photo.cursse[0].title}}
@@ -579,7 +579,7 @@
 	<div class="text-center text-uppercase">
 	{{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
 	</div>
-	<img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
+	<img [src]="apiURL+'/'+photo.img" class="img-card-top imgland" (error)="onImgError($event)">
 	<div class="mytesttop w-100 text-center">
 	<div class="">
 	<button class="d-none btn btn-light shadow-none card-photo" (click)="goCurse( $any(photo)._id)">

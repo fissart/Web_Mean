@@ -1339,9 +1339,10 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
 
   }
   GetAllstd() {
+    this.loading = "false"
     this.UserService.getstd()
       .subscribe((res) => {
-        this.loading = "";
+        this.loading = ""
         console.log(res, "WWWW std")
         this.userstd = res
         //alert("Fechas guardadas");
@@ -1380,6 +1381,18 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     )
   }
 
+  hidecursestd(id: string) {
+    console.log(id)
+    this.CurseService.cursestdhide(id, "false").subscribe(
+      (res: any) => {
+        this.getintegersuser()
+        //console.log(res[0].curses, "getsCurseTeacherHiden");
+      },
+      err => console.log(err)
+    )
+  }
+
+  
   getsCurseTeacher() {
     this.CurseService.getsCurseTeacher(localStorage.getItem('id') || "", "true").subscribe(
       (res: any) => {
@@ -1496,7 +1509,40 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  froala: string = "www"
+  froala: string = `<p>Mi filosofía docente se ha ido formando y evolucionando a lo largo de mi experiencia en las aulas. Como reflejo de esta experiencia y de mi aprendizaje, hay cuatro objetivos fundamentales en mi forma de enseñar:</p>
+<ol>
+  <li>El alumno siempre debe ser el centro del aprendizaje.</li>
+  <li>La enseñanza debe ser individualizada y adaptada a cada estilo de aprendizaje.</li>
+  <li>La motivación debe estar presente de forma continua en el aula.</li>
+  <li>El aprendizaje dentro del aula tiene que tener relación con la vida y realidad de los alumnos.</li>
+</ol>
+<p>Para conseguir estos cuatro objetivos aplico distintas metodologías en mi aula: aprendizaje cooperativo,
+  aprendizaje basado en proyectos, gamificación, CLIL, incorporación de las TIC's.</p>
+<p>- Aprendizaje Cooperativo: trabajando a través de esta metodología, el rol del profesor cambia de ser un mero comunicador de conocimientos a ser un guía en el aprendizaje de los alumnos. Las sesiones siguen contando con una
+  pequeña parte de lo que hoy en día está tan de moda llamar "clase magistral", pues ciertas explicaciones de
+  contenidos teóricos por parte del profesor siguen siendo necesarias. Sin embargo estas "explicaciones magistrales"
+  son solo una pequeña parte de las sesiones. El resto del tiempo es dedicado a que los alumnos trabajen, se
+  cuestionen dudas entre ellos, se las resuelvan, aprendan los unos de los otros, y por supuesto cuenten con la
+  ayuda del profesor cuando la necesiten. Esta metodología también favorece a adaptar y diversificar el aprendizaje y a incluir a todo tipo de alumnado dentro de la clase.</p>
+<p>- Aprendizaje Basado en Proyectos: esta metodología es la perfecta para contextualizar el aprendizaje. Enseñando   Matemáticas es muy común encontrarse a diario con la pregunta de los alumnos de: ¿Y esto para qué sirve?. Los proyectos son la mejor herramienta para que esta pregunta quede respondida mientras aprenden. Se trata de buscar aplicaciones de esos contenidos teóricos que aprenden en el aula, relacionarlos con otras materias y darles una utilidad. Además los alumnos aprenden a trabajar en equipo, a realizar investigaciones, desarrollan sus destrezas comunicativas, se les da una motivación y un claro objetivo de lo que queremos que aprendan. Otro beneficio de los proyectos es que suelen contener desempeños de distinto tipo, lo cuál hace que los alumnos puedan poner en práctica sus destrezas en los distintos tipo de inteligencias múltiples que poseen, y que todos los miembros del grupo tengan siempre algo que aportar.- Gamificación ¿A quién no le gusta jugar a juegos? ¿Quién no ha aprendido cosas nuevas jugando? Desde mi punto de vista la gamificación es una metodología que engloba todas las
+  desarrolladas en mi actividad docente. Es la mejor herramienta para motivar y enganchar a los alumnos en el
+  aprendizaje. Se crea una narrativa de la que ellos son protagonistas (ellos son el centro del aprendizaje). En esa
+  narrativa aparece una situación problemática que ellos deberán resolver (anda, como en el Aprendizaje Basado en
+  Problemas), según van avanzando en su aprendizaje y superando los retos del juego van ganando puntos (les vamos
+  evaluando su aprendizaje). Están motivados, se divierten aprendiendo y no les cuesta tanto como en otro tipo de
+  situaciones porque tienen un objetivo claro y se lo están pasando bien, encuentran una utilidad a lo que aprenden,
+  y el aprendizaje lo asocian a emociones (Educación Emocional) por lo que no es algo que memorizan para un examen y
+  luego olvidan, sino que es asimilado por el alumno. La gamificación te permite individualizar la enseñanza, puedes
+  crear retos distintos según el nivel de cada alumno, exactamente igual que un videojuego. También favorece el
+  sentido de pertenencia a un grupo y aumenta sus destrezas colaborativas y cooperativas.</p>
+<p>- Incorporación de las TIC's: como profesor de TIC's. Estoy siempre al día de lo último en herramientas Web 2.0
+  que se pueden incorporar a las distintas materias que imparto. Es muy importante que nos demos cuenta de que
+  tenemos alumnos tecnológicos que prácticamente viven pegados a esa tecnología. Si en el aula les separamos de esa
+  realidad, de nuevo estamos descontextualizando el aprendizaje. Aunque de nuevo es necesario un equilibrio entre el
+  uso de la tecnología en el aula y el de otras herramientas no tecnológicas. El uso de la tecnología dentro del
+  aula también ayuda al alumnado a trabajar de forma colaborativa y a prepararse para su futuro, ya que ahora mismo
+  en cualquier trabajo es necesario unos conocimientos mínimos sobre esta, y según vamos avanzando en el tiempo cada
+  vez más.</p>`
 
   str = new Date()
   dt = new Date(this.str).toISOString();
@@ -1507,7 +1553,11 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
       .subscribe(
         (res: any) => {
           this.ussser = res[0];
-          this.froala = res[0].filosophy
+          if(res[0].filosophy==''){
+            console.log('ok')
+          } else {
+            this.froala = res[0].filosophy
+          }
           const datteb = new Date(res[0].dateb);
           const dattee = new Date(res[0].datee);
           const dattteb = new Date(datteb).toISOString();
@@ -1541,10 +1591,10 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if(!localStorage.getItem('id')){
+    if (!localStorage.getItem('id')) {
       this.router.navigate(['/'])
     }
-    
+
     this.date = new Date().getDate()
     var month = new Date().getMonth()
     this.year = new Date().getFullYear();
@@ -1564,12 +1614,20 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
       this.getcalificationsuser()
       this.getintegersuser()
     }
+
+    //localStorage.removeItem('id');
+    localStorage.removeItem('codigo');
+    localStorage.removeItem('idcurso');
+    localStorage.removeItem('imguser');
   }
 
   goCurse(id: string) {
     this.router.navigate(['/curso', id])
-    localStorage.setItem('idcurso', id)  
+    localStorage.setItem('idcurso', id)
   }
+
+  
+
 
   selectedCard(id: string) {
     this.router.navigate(['/photos', id]);
@@ -1627,7 +1685,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  
+
   reset(codeww: HTMLInputElement) {
     if (codeww.value == "esfapa.edu.pe") {
       console.log("okk")
@@ -1750,65 +1808,49 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
   }
 
 
-  subtype!:string
+  subtype!: string
+  subtype1!: string
 
-  onChange(event: any, _id:string) {
-      this.subtype = event.target.value
-      console.log(event.target.value, _id )
-  }
- 
-  onChange1(event: any, _id:string) {
+  onChange(event: any, _id: string, ciclo: string, name: string) {
     this.subtype = event.target.value
-    console.log(event.target.value, _id )
-}
+    this.loading = "false"
+    //console.log(event.target.value, _id, ciclo, name)
+    this.UserService.updateusser(_id, name, ciclo, event.target.value)
+      .subscribe((res: any) => {
+        //this.GetAllstd()
+        this.loading = ""
+      })
+    return false
+  }
 
+  onChange1(event: any, _id: string, mencion: string, name: string) {
+    this.subtype1 = event.target.value
+    this.loading = "false"
+    this.UserService.updateusser(_id, name, event.target.value, mencion)
+      .subscribe((res: any) => {
+        //this.GetAllstd()
+        this.loading = ""
+      })
+  }
 
   userr: string = ""
   cursee: string = ""
-  // db.users.updateMany({rol:"3"}, {$set:{mencion:"N",ciclo:"N"}})
+
 
   onBlurUser(event: any, id: string, str1: string, str2: string, select: string) {
     const evennt = event.target.value
-    console.log(['3', '2'].includes(select))
-    if (['3', '2'].includes(select)) {
-
-      if (!/\s/.test(evennt)) {
-        if (select == '3' && ['N', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'].includes(evennt)) {
-          console.log(id, str1, evennt, str2, select)
-          this.UserService.updateusser(id, str1, evennt, str2)
-            .subscribe((res: any) => {
-              this.GetAllstd()
-              this.loading = "false";
-            });
-          return false
-        } else if (select == '2' && ['E', 'P', 'G', 'ED', 'N'].includes(evennt)) {
-          console.log(id, str2, str1, evennt, select)
-          this.UserService.updateusser(id, str2, str1, evennt)
-            .subscribe((res: any) => {
-              //this.GetAllstd()
-
-            });
-          return false
-        } else {
-          alert("Escriba los campos correctos")
-          this.GetAllstd()
-          return false
-        }
-      } else {
-        alert("Sin espacios")
-        return false
-      }
-
-    } else if (select == '1' && !/\s$/.test(evennt)) {
+    this.loading = "false"
+    if (select == '1' && !/\s$/.test(evennt)) {
       console.log(id, evennt, str1, str2, select);
       this.UserService.updateusser(id, evennt, str1, str2)
         .subscribe((res: any) => {
-          this.GetAllstd()
-          this.loading = "false";
+          //this.GetAllstd()
+          this.loading = ""
         });
       return false
     } else {
       alert("Sin espacios al final del nombre")
+      this.loading = ""
       return false
     }
     return false

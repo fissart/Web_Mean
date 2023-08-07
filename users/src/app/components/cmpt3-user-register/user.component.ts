@@ -50,6 +50,20 @@ export class UserComponent implements OnInit {
         )
     }
 
+    subtype!: string
+
+    onChange(event: any) {
+        this.subtype = event.target.value
+        //this.loading = "false"
+        console.log(event.target.value)
+        /* this.UserService.updateusser(_id, name, ciclo, event.target.value)
+          .subscribe((res: any) => {
+            //this.GetAllstd()
+            this.loading = ""
+          }) */
+        return false
+    }
+
 
     capturandoFile(event: any) {
         //console.log(event.target.files);
@@ -64,14 +78,18 @@ export class UserComponent implements OnInit {
 
 
     uploadPhoto(name: HTMLInputElement, email: HTMLInputElement, password: HTMLInputElement) {
-        console.log(Number(email.value.substr(0, 8)))
         this.www
-            .registro(name.value, email.value, password.value, this.archivos[0])
+            .registro(name.value, email.value, password.value, this.subtype, this.archivos[0])
             .pipe()
             .subscribe(
                 (res: any) => {
                     if (res.user._id) {
-                        this.router.navigate(['/user', res.user._id])
+                        alert("Ok usuario guardado _id: "+res.user._id)
+                        if (this.subtype == '3') {
+                            this.router.navigate(['/user', res.user._id])
+                        } else {
+                            this.router.navigate(['/dashboard'])
+                        }
                         this.loading = "false";
                         //localStorage.setItem('id', res.user._id)
                     } else {
