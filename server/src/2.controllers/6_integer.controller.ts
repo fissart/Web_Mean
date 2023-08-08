@@ -31,41 +31,41 @@ export async function getupdateController(req: Request, res: Response): Promise<
 export async function createController(req: Request, res: Response): Promise<Response> {
 
     var mongoose = require('mongoose');
-    const { curse, user, userteach, codigo} = req.body;
+    const { curse, user, userteach, codigo } = req.body;
 
-    if(mongoose.Types.ObjectId.isValid(curse)){
+    if (mongoose.Types.ObjectId.isValid(curse)) {
 
-    const { ObjectId } = require("mongodb");
-    const id_curse = ObjectId(curse);
-    const id_user = ObjectId(user);
-    const www = await Curso.findById(curse);
-    const wwwww = await User.findById(user);
-    //console.log(www, wwwww);
-    //const integer = await Curse.find({curse:id_curse,user:id_user});
-        if(wwwww && www){
-            const integer = await Curse.find({codigo:codigo, user:id_user});
+        const { ObjectId } = require("mongodb");
+        const id_curse = ObjectId(curse);
+        const id_user = ObjectId(user);
+        const www = await Curso.findById(curse);
+        const wwwww = await User.findById(user);
+        //console.log(www, wwwww);
+        //const integer = await Curse.find({curse:id_curse,user:id_user});
+        if (wwwww && www) {
+            const integer = await Curse.find({ codigo: codigo, user: id_user });
             //console.log(integer)
-            if(integer.length == 0){
-            const userteachwww=www.user;
-            const newCurse = { curse, user, userteach :userteachwww, codigo, show: "true" };
-            const Cursew = new Curse(newCurse);
-            await Cursew.save();
-               }else{
-                 return res.json({
-                msg: 'Algún docente más registró a este estudiante en este curso comunquese si aún no tiene calificación alguna.',
-            });
-               }
-        }else{
+            if (integer.length == 0) {
+                const userteachwww = www.user;
+                const newCurse = { curse, user, userteach: userteachwww, codigo, show: "true" };
+                const Cursew = new Curse(newCurse);
+                await Cursew.save();
+            } else {
+                return res.json({
+                    msg: 'Algún docente más registró a este estudiante en este curso comunquese si aún no tiene calificación alguna.',
+                });
+            }
+        } else {
             return res.json({
                 msg: 'No existe curso o usuario, reinicie sesión',
             });
-             }
-    }else{
+        }
+    } else {
         return res.json({
             msg: 'Código incorrecto',
         });
     }
-        return res.json({
+    return res.json({
         msgok: "ok",
     });
 };
@@ -77,7 +77,7 @@ export async function createController(req: Request, res: Response): Promise<Res
 export async function getintegerController(req: Request, res: Response): Promise<Response> {
     const { ObjectId } = require("mongodb");
     const curso = req.params.id;
-console.log(curso);
+    console.log(curso);
 
     //const curso = ObjectId(id);
     const integers = await Curse.aggregate([
@@ -97,7 +97,7 @@ console.log(curso);
                             from: "averages",
                             let: { wwwww: "$_id" },
                             pipeline: [
-                                 {$match: { $expr: { $and: [{ $eq: ["$user", "$$www"] }, { $eq: ["$codigo",  curso] },] } }},
+                                { $match: { $expr: { $and: [{ $eq: ["$user", "$$www"] }, { $eq: ["$codigo", curso] },] } } },
                             ],
                             as: "averagge",
                         },
@@ -106,7 +106,7 @@ console.log(curso);
                 as: "userw",
             },
         },
-        {'$sort': {  'userw.name': 1 }},
+        { '$sort': { 'userw.name': 1 } },
         {
             $lookup: {
                 from: "users",
@@ -118,7 +118,7 @@ console.log(curso);
             },
         },
     ]);
-  //  console.log(integers);
+    //  console.log(integers);
     return res.json(integers);
 }
 
@@ -129,7 +129,7 @@ export async function getController(req: Request, res: Response): Promise<Respon
     const id = ObjectId(req.params.id);
     const curso = ObjectId(id);
     //    const { id } = req.params;
-//          const Curseuser = await Curse.find({curse:curso});
+    //          const Curseuser = await Curse.find({curse:curso});
     const integers = await Curse.aggregate([
         {
             $match: {
@@ -148,22 +148,28 @@ export async function getController(req: Request, res: Response): Promise<Respon
                             let: { www: "$_id" },
                             pipeline: [
                                 { $match: { $expr: { $eq: ["$user", "$$www"] } } },
-                                { $match: { $expr: {$and: [
-                                    { $eq: ["$user", "$$www"] },
-                                    {
-                                      $eq: ["$curse", curso ],
-                                    },
-                                  ],} } }
+                                {
+                                    $match: {
+                                        $expr: {
+                                            $and: [
+                                                { $eq: ["$user", "$$www"] },
+                                                {
+                                                    $eq: ["$curse", curso],
+                                                },
+                                            ],
+                                        }
+                                    }
+                                }
 
                             ],
                             as: "tasks",
                         },
                     },
                 ],
-                 as: "userw",
-             },
+                as: "userw",
+            },
         },
-        {'$sort': {  'userw.name': 1 }},
+        { '$sort': { 'userw.name': 1 } },
         /*
         {
             $lookup: {
@@ -213,11 +219,11 @@ export async function getController(req: Request, res: Response): Promise<Respon
         },
         */
     ]);
-  //  console.log(integers);
+    //  console.log(integers);
     return res.json(integers);
 }
 
-   
+
 //getControllerNotes/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 export async function getControllerNotes(req: Request, res: Response): Promise<Response> {
@@ -225,7 +231,7 @@ export async function getControllerNotes(req: Request, res: Response): Promise<R
     const id = ObjectId(req.params.id);
     const curso = ObjectId(id);
     //    const { id } = req.params;
-//          const Curseuser = await Curse.find({curse:curso});
+    //          const Curseuser = await Curse.find({curse:curso});
     const integers = await Curse.aggregate([
         {
             $match: {
@@ -244,12 +250,18 @@ export async function getControllerNotes(req: Request, res: Response): Promise<R
                             let: { www: "$_id" },
                             pipeline: [
                                 { $match: { $expr: { $eq: ["$user", "$$www"] } } },
-                                { $match: { $expr: {$and: [
-                                    { $eq: ["$user", "$$www"] },
-                                    {
-                                      $eq: ["$curse", curso ],
-                                    },
-                                  ],} } }
+                                {
+                                    $match: {
+                                        $expr: {
+                                            $and: [
+                                                { $eq: ["$user", "$$www"] },
+                                                {
+                                                    $eq: ["$curse", curso],
+                                                },
+                                            ],
+                                        }
+                                    }
+                                }
 
                             ],
                             as: "tasks",
@@ -259,19 +271,19 @@ export async function getControllerNotes(req: Request, res: Response): Promise<R
                 as: "userw",
             },
         },
-        {'$sort': {  'userw.name': 1 }},
+        { '$sort': { 'userw.name': 1 } },
         {
             $lookup: {
                 from: "curses",
-                let: { wwwww: "$curse",  www_: "$user" },
+                let: { wwwww: "$curse", www_: "$user" },
                 pipeline: [
                     { $match: { $expr: { $eq: ["$_id", "$$wwwww"] } } },
                     {
                         $lookup: {
                             from: "sections",
-                            let: { www: "$codigo" },//_id
+                            let: { www: "$_id" },//codigo
                             pipeline: [
-                                { $match: { $expr: { $eq: ["$codecurse", "$$www"] } } },//curse
+                                { $match: { $expr: { $eq: ["$curse", "$$www"] } } },//codecurse
                                 {
                                     $lookup: {
                                         from: "themes",
@@ -283,13 +295,19 @@ export async function getControllerNotes(req: Request, res: Response): Promise<R
                                                     from: "tasks",
                                                     let: { www: "$_id" },
                                                     pipeline: [
-                                                      { $match: { $expr: { $and: [
-                                                             { $eq: ["$theme", "$$www"] },
-                                                             {
-                                                               $eq: ["$user", "$$www_"],
-                                                             },
-                                                           ] } } }
-                                          ],
+                                                        {
+                                                            $match: {
+                                                                $expr: {
+                                                                    $and: [
+                                                                        { $eq: ["$theme", "$$www"] },
+                                                                        {
+                                                                            $eq: ["$user", "$$www_"],
+                                                                        },
+                                                                    ]
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
                                                     as: "task",
                                                 },
                                             },
@@ -320,7 +338,7 @@ export async function getControlleruser(req: Request, res: Response): Promise<Re
     const integers = await Curse.aggregate([
         {
             $match: {
-              $expr: { $and: [ { $eq: ["$user", user] }, { $eq: ["$show", "true"] } ] }
+                $expr: { $and: [{ $eq: ["$user", user] }, { $eq: ["$show", "true"] }] }
 
             },
         },
@@ -345,7 +363,7 @@ export async function getControlleruser(req: Request, res: Response): Promise<Re
             },
         },
     ]);
-//    console.log(integers);
+    //    console.log(integers);
     return res.json(integers);
 }
 

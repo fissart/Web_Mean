@@ -1235,7 +1235,7 @@ right: { style: 'medium' }
   public photow: any = [];
   public nota: string = "";
   public text: string = "";
-  public codigo: string = localStorage.getItem('codigo')+''
+  public codigo: string = localStorage.getItem('codigo') + ''
   public unitytitle: string = "";
   public themetitle: string = "";
   public texto: string = "";
@@ -1372,9 +1372,9 @@ right: { style: 'medium' }
         .subscribe(
           (res: any) => {
             this.curse = res[0];
-            if(res[0].codigo!=this.codigo){
+            if (res[0].codigo != this.codigo) {
               this.routerr.navigate(['/dashboard'])
-            }else{
+            } else {
               console.log("ok")
             }
             console.log(res[0], "getCurseOnly")
@@ -1386,7 +1386,7 @@ right: { style: 'medium' }
                     this.datastd = res
                     this.loading = ""
                     console.log(res, "resstd")
-                      var notas = []
+                    var notas = []
                     for (var k = 0; k < res.length; k++) {
                       notas.push(res[k].averagge.length)
                     }
@@ -1420,9 +1420,9 @@ right: { style: 'medium' }
   }
 
   ngOnInit(): void {
-    if(localStorage.getItem('id') && localStorage.getItem('idcurso')  && localStorage.getItem('codigo')){
+    if (localStorage.getItem('id') && localStorage.getItem('idcurso') && localStorage.getItem('codigo')) {
       console.log("ok")
-    }else{
+    } else {
       this.routerr.navigate(['/dashboard'])
     }
     this.year = new Date().getFullYear()
@@ -1457,54 +1457,51 @@ right: { style: 'medium' }
 
   erraseinteger(id: string) {
     if (window.confirm('Desea retirar del curso?')) {
-      console.log(id)
-
       this.curseService.deleteinteger(id)
         .subscribe(res => {
-          this.getCurseOnly();
-          this.getCurse();
-          //this.getIntegeraverage()
+          //this.getCurseOnly();
+          //this.getCurse();
+          this.getCurseNotes()
         });
-
     }
   };
-  
+
   onBlurMean(event: any, user: string, title: string, ciclo: string, credito: string, mencion: string) {
     this.loading = "false"
     if (event.target.value != "") {
-    if (!/\s/.test(event.target.value)) {
-      if (event.target.value <= 20 && event.target.value >= 0 || event.target.value == "R" || event.target.value == "L") {
-        if (event.target.value == 'L') {
-          this.nota = "-0";
+      if (!/\s/.test(event.target.value)) {
+        if (event.target.value <= 20 && event.target.value >= 0 || event.target.value == "R" || event.target.value == "L") {
+          if (event.target.value == 'L') {
+            this.nota = "-0";
+          }
+          if (event.target.value == 'R' || event.target.value == '0') {
+            this.nota = "0";
+          }
+          if (event.target.value > 0) {
+            this.nota = event.target.value;
+          }
+          console.log(this.nota, this.codigo, this.user, user, this.curso, title, ciclo, credito, mencion, this.year)
+          this.task.create_average(this.nota, this.codigo, this.user, user, this.curso, title, ciclo, credito, mencion, this.year)
+            .subscribe((res: any) => {
+              if (res) {
+                this.getCurseOnly()
+              }
+            });
+          return false;
+        } else {
+          this.getCurseOnly()
+          alert("La calificación es vigesimal, L : Licencia o R : Retirado")
+          return false;
         }
-        if (event.target.value == 'R' || event.target.value == '0') {
-          this.nota = "0";
-        }
-        if (event.target.value > 0) {
-          this.nota = event.target.value;
-        }
-        console.log(this.nota, this.codigo, this.user, user, this.curso, title, ciclo, credito, mencion, this.year)
-        this.task.create_average(this.nota, this.codigo, this.user, user, this.curso, title, ciclo, credito, mencion, this.year)
-          .subscribe((res: any) => {
-            if (res) {
-              this.getCurseOnly()
-            }
-          });
-        return false;
       } else {
-        this.getCurseOnly()
-        alert("La calificación es vigesimal, L : Licencia o R : Retirado")
+        this.getCurseOnly()//this.getIntegeraverage();
+        alert("Introdusca calificación sin espacios")
         return false;
       }
     } else {
-      this.getCurseOnly()//this.getIntegeraverage();
-      alert("Introdusca calificación sin espacios")
+      this.loading = ""
       return false;
     }
-  } else {
-    this.loading=""
-    return false;
-  }
   }
   name = 'Angular';
 

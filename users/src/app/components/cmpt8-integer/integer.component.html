@@ -75,9 +75,9 @@
       <td>{{ i+1 }}
       </td>
       <td>
-        <!--         <img [src]="apiURL+'/'+ww_w.foto" class="img-card-top"
+          <img [src]="apiURL+'/'+ww_w.foto" class="img-card-top"
           style='width: 40px; height: 40px; border-radius:20px; position: relative; object-fit: cover;'
-          (error)="onImgError($event)"> -->
+          (error)="onImgError($event)">
       </td>
       <td class="">{{ ww_w.name }}: <span style="font-size: 8pt"
           class="text-success">{{ww_w.averagge.length==1?'('+ww_w.averagge[0].teach[0].name+')
@@ -135,13 +135,13 @@
       </td>
       <td>
         <button class="btn shadow-none" (click)="open1($any(www).userw[0]._id)">
-          <!-- <img [src]="apiURL+'/'+www.userw[0].foto" class="img-card-top imgcurse"
+          <img [src]="apiURL+'/'+www.userw[0].foto" class="img-card-top imgcurse"
             style='width: 40px; height: 40px; border-radius:20px; position: relative; object-fit: cover;'
-            (error)="onImgError($event)"> -->
+            (error)="onImgError($event)">
         </button>
       </td>
       <td>
-        <button class="btn btn-info shadow-none" (click)="erraseinteger($any(www).userw[0]._id)">
+        <button class="btn btn-info shadow-none" (click)="erraseinteger($any(www)._id)">
           Retirar
         </button>
       </td>

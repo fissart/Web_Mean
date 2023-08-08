@@ -40,7 +40,7 @@ router.route('/ControllerCurseTeacher/:id/:curseshow')
 router.route('/getcursesources')
     .get(getcursesources);
 
-//Inicio
+//Inicio 
 router.route('/ControllerAll/:id/:idw')
     .get(getController)
 

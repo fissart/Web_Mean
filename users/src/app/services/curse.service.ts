@@ -179,6 +179,7 @@ export class CurseService {
 
 
   deleteinteger(idinteger: string) {
+    console.log(idinteger)
     return this.http.delete(`${environment.apiURL}/api/integer/Controller/${idinteger}`);
   }
 

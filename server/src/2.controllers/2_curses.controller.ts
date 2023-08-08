@@ -266,9 +266,9 @@ export async function getController(req: Request, res: Response): Promise<Respon
         {
             $lookup: {
                 from: "filecurses",
-                let: { www: "$codigo" },
+                let: { www: "$_id" },
                 pipeline: [
-                    { $match: { $expr: { $eq: ["$codigo", "$$www"] } } },
+                    { $match: { $expr: { $eq: ["$curse", "$$www"] } } },
                 ],
                 as: "archivos",
             },
