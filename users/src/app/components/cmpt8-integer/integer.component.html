@@ -75,23 +75,24 @@
       <td>{{ i+1 }}
       </td>
       <td>
-        <img [src]="apiURL+'/'+ww_w.foto" class="img-card-top"
+        <!--         <img [src]="apiURL+'/'+ww_w.foto" class="img-card-top"
           style='width: 40px; height: 40px; border-radius:20px; position: relative; object-fit: cover;'
-          (error)="onImgError($event)">
+          (error)="onImgError($event)"> -->
       </td>
       <td class="">{{ ww_w.name }}: <span style="font-size: 8pt"
-          class="text-success">{{ww_w.averagge.length==1?'('+ww_w.averagge[0].teach[0].name+')':""}}
+          class="text-success">{{ww_w.averagge.length==1?'('+ww_w.averagge[0].teach[0].name+')
+          ['+ww_w.averagge[0].cursse[0].title+']':""}}
           {{ww_w.averagge.length==1?'['+ww_w.averagge[0].codigo+']':''}}</span> </td>
       <td class="w-15" *ngIf="show=='true' || rol=='1'">
-        <input *ngIf="ww_w.averagge.length==0" type="text" class="form-control p-1 input-sm" [disabled]="loading"
-          [value]="" (blur)="onBlurMean($event, ww_w._id, curse.title, curse.ciclo, curse.credito, curse.mencion)">
         <span class="input-group">
+          <input *ngIf="ww_w.averagge.length==0" type="text" class="form-control p-1 input-sm" [disabled]="loading"
+            [value]="" (blur)="onBlurMean($event, ww_w._id, curse.title, curse.ciclo, curse.credito, curse.mencion)">
           <input *ngIf="ww_w.averagge.length!=0" [disabled]="loading || ww_w.averagge[0].teacher!=user" type="text"
             class="form-control"
             [ngClass]="[ww_w.averagge[0].nota=='0' ? 'form-control bg-light ' : ww_w.averagge[0].nota=='-0' ? 'form-control bg-success ' : 'form-control bg-info text-dark']"
             [value]="ww_w.averagge[0].nota=='-0'? 'L': ww_w.averagge[0].nota=='0'?'R': ww_w.averagge[0].nota"
             (blur)="onBlurMeanUpdate($event, ww_w.averagge[0]._id)">
-          <button *ngIf="ww_w.averagge.length!=0 && rol<=2 && ww_w.averagge[0].teacher==user  || rol=='1'"
+          <button  [disabled]="loading" *ngIf="ww_w.averagge.length!=0 && rol<=2 && ww_w.averagge[0].teacher==user  || rol=='1'"
             class="btn btn-warning shadow-none" (click)="delete_average(ww_w.averagge[0]._id)">Borrar</button>
         </span>
       </td>
@@ -134,9 +135,9 @@
       </td>
       <td>
         <button class="btn shadow-none" (click)="open1($any(www).userw[0]._id)">
-          <img [src]="apiURL+'/'+www.userw[0].foto" class="img-card-top imgcurse"
+          <!-- <img [src]="apiURL+'/'+www.userw[0].foto" class="img-card-top imgcurse"
             style='width: 40px; height: 40px; border-radius:20px; position: relative; object-fit: cover;'
-            (error)="onImgError($event)">
+            (error)="onImgError($event)"> -->
         </button>
       </td>
       <td>

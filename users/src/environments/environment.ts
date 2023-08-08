@@ -725,6 +725,11 @@ db.averages.updateMany({codigo:"FECER413", ciclo:"VIII", year:"2022",mencion:"ED
 db.averages.updateMany({codigo:"AFPCE413", ciclo:"VI", year:"2022",mencion:"E"},{$set:{codigo:"FECER318"}})
 
 
+db.averages.updateMany({codigo:"AFPTE417", ciclo:"VII", year:"2023",mencion:"ED"},{$set:{codigo:"AFPRE409k"}})
+db.averages.updateMany({codigo:"AFPRE409", ciclo:"VII", year:"2023",mencion:"ED"},{$set:{codigo:"AFPTE417"}})
+db.averages.updateMany({codigo:"AFPRE409k", ciclo:"VII", year:"2023",mencion:"ED"},{$set:{codigo:"AFPRE409"}})
+
+
 db.averages.updateMany({codigo:"ABCOM101", ciclo:"I", year:"2023",mencion:"E"},{$set:{codigo:"FGCOM101"}})
 db.averages.updateMany({codigo:"AFPDI107", ciclo:"I", year:"2023",mencion:"E"},{$set:{codigo:"FEDIB115"}})
 db.averages.updateMany({codigo:"ABMES103", ciclo:"I", year:"2023",mencion:"E"},{$set:{codigo:"FGMES105"}})

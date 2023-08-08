@@ -1377,7 +1377,7 @@ right: { style: 'medium' }
             }else{
               console.log("ok")
             }
-            //console.log(res[0], "getCurseOnly")
+            console.log(res[0], "getCurseOnly")
             //console.log(this.curso, res[0].mencion, res[0].ciclo, res[0].codigo)
             if (res) {
               this.svc27STDService.getstd(this.curso, res[0].mencion, res[0].ciclo, res[0].codigo)
@@ -1385,7 +1385,7 @@ right: { style: 'medium' }
                   (res: any) => {
                     this.datastd = res
                     this.loading = ""
-                    //console.log(res, "resstd")
+                    console.log(res, "resstd")
                       var notas = []
                     for (var k = 0; k < res.length; k++) {
                       notas.push(res[k].averagge.length)

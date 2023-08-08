@@ -32,7 +32,7 @@ export async function getSController(req: Request, res: Response): Promise<Respo
                 from: "averages",
                 let: { wwwww: "$_id" },
                 pipeline: [
-                    { $match: { $expr: { $and: [{ $eq: ["$user", "$$wwwww"] }, { $eq: ["$codigo", codigo] }, { $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", ciclo] }, { $eq: ["$curse", idcurso]  }] } } },
+                    { $match: { $expr: { $and: [{ $eq: ["$user", "$$wwwww"] }, { $eq: ["$codigo", codigo] }, { $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", ciclo] }] } } },
                     {
                         $lookup: {
                             from: "users",
@@ -43,6 +43,16 @@ export async function getSController(req: Request, res: Response): Promise<Respo
                             as: "teach",
                         },
                     },
+                    {
+                        $lookup: {
+                            from: "curses",
+                            let: { www: "$curse" },
+                            pipeline: [
+                                { $match: { $expr: { $eq: ["$_id", "$$www"] } } },
+                            ],
+                            as: "cursse",
+                        },
+                    },//{ $eq: ["$curse", idcurso]  }
                 ],
                 as: "averagge",
             },
