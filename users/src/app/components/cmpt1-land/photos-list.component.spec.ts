@@ -8,9 +8,9 @@ describe('PhotosListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhotosListComponent ]
+      declarations: [PhotosListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -23,4 +23,3 @@ describe('PhotosListComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-  

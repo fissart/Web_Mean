@@ -20,7 +20,7 @@ import {
 
 router.route('/Controller')
     .post(upload.single('image'), createController)
-    .get(getsController); 
+    .get(getsController);
 
 router.route('/Controller/:id')
     .get(getupdateController)

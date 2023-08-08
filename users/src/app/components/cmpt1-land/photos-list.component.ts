@@ -1392,7 +1392,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     )
   }
 
-  
+
   getsCurseTeacher() {
     this.CurseService.getsCurseTeacher(localStorage.getItem('id') || "", "true").subscribe(
       (res: any) => {
@@ -1553,7 +1553,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
       .subscribe(
         (res: any) => {
           this.ussser = res[0];
-          if(res[0].filosophy==''){
+          if (res[0].filosophy == '') {
             console.log('ok')
           } else {
             this.froala = res[0].filosophy
@@ -1626,7 +1626,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     localStorage.setItem('idcurso', id)
   }
 
-  
+
 
 
   selectedCard(id: string) {
