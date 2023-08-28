@@ -167,7 +167,7 @@ export async function getupdateController(req: Request, res: Response): Promise<
 ///////////////////////////////////////////////////////////////////////////
 export async function createController(req: Request, res: Response): Promise<Response> {
     const { title, description, user, especialidad, mencion, credito, ciclo, codigo, requisito, year } = req.body;
-    const usser = await Curse.findOne({ user: user, codigo: codigo, mencion: mencion })
+    const usser = await Curse.findOne({ user: user, codigo: codigo, mencion: mencion, show: "true", year: year })
     //console.log(usser);
     const newCurse = { title, description, user, especialidad, mencion, credito, ciclo, codigo, requisito, year, img: "imagen", show: "true" };
     const Cursew = new Curse(newCurse);

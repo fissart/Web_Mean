@@ -74,7 +74,8 @@ export class ThemePreviewComponent implements OnInit {
   }
 
   savetask(event: any, theme: string, unity: string, curse: string, user: string) {
-    console.log(event.target.value)
+    //console.log(event.target.value)
+    this.loading="false"
     if (event.target.value <= 20 && event.target.value >= 0) {
       //console.log(event.target.value, "this.idunity", theme, unity, curse, user)
       this.task.savetaskready(event.target.value, "Tarea entregada", theme, unity, curse, user, 'P', this.archivos[0])
@@ -92,6 +93,7 @@ export class ThemePreviewComponent implements OnInit {
 
   updateTask(event: any, id: string, task: string, asistence: string) {
     if (event.target.value <= 20 && event.target.value >= 0) {
+      this.loading="false"
       this.task.updatetaskready(task, event.target.value, id, asistence ? asistence : '', this.archivos[0])
         .subscribe((res: any) => {
           this.gettheme()
@@ -106,13 +108,11 @@ export class ThemePreviewComponent implements OnInit {
 
   saveasistant(theme: string, unity: string, curse: string, user: string, asistence: string) {
     this.loading = "false"
-
     //console.log('', "this.idunity", theme, unity, curse, user, asistence)
     this.task.savetaskready('', "Editar registro", theme, unity, curse, user, asistence, this.archivos[0])
       .subscribe(
         (res: any) => {
           this.gettheme()
-
         },
         err => console.log(err)
       )
@@ -120,12 +120,10 @@ export class ThemePreviewComponent implements OnInit {
   }
 
   updateasistant(id: string, task: string, nota: string, asistence: string) {
-
     this.loading = "false"
     this.task.updatetaskready(task, nota ? nota : '', id, asistence, this.archivos[0])
       .subscribe((res: any) => {
         this.archivos = []
-        //        this.loading = ""
         this.gettheme()
 
       })
@@ -134,15 +132,14 @@ export class ThemePreviewComponent implements OnInit {
 
   updatetasskimg(event: any, id: string, task: string, note: string, asistencia: string) {
     //alert(asistencia)
+    this.loading = "false"
     if (event.target.files[0]) {
       this.task.updatetask(task, note, id, asistencia, event.target.files[0])
         .subscribe((res: any) => {
-          this.loading = "false"
           this.value = Math.round((100 / res.total) * res.loaded)
           console.log(res.total)
           console.log(res.loaded)
           if (res.total == res.loaded && res.type > 0) {
-            this.loading = ""
             this._value = 0
             this.archivos = []
             this.gettheme()
@@ -153,15 +150,14 @@ export class ThemePreviewComponent implements OnInit {
 
   createtaskimg(event: any, theme: string, unity: string, curse: string, user: string) {
     if (event.target.files[0]) {
+      this.loading = "false"
       this.task.savetask('', "Tarea entregada", theme, unity, curse, user, 'P', event.target.files[0])
         .subscribe(
           (res: any) => {
-            this.loading = "false"
             this.value = Math.round((100 / res.total) * res.loaded)
             console.log(res.total)
             console.log(res.loaded)
             if (res.total == res.loaded && res.type > 0) {
-              this.loading = ""
               this._value = 0
               this.archivos = []
               this.gettheme()
@@ -176,6 +172,7 @@ export class ThemePreviewComponent implements OnInit {
 
   errasetask(idtask: string) {
     if (window.confirm('Desea eliminar la tarea?')) {
+      this.loading="false"
       this.themesService.deletetask(idtask)
         .subscribe(res => {
           this.gettheme()
@@ -202,7 +199,6 @@ export class ThemePreviewComponent implements OnInit {
             this.id = res[0]._id
             console.log(res)
             this.loading = ""
-
           },
           err => console.log(err)
         )

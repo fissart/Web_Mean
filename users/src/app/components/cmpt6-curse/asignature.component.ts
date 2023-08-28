@@ -340,15 +340,17 @@ export class AsignatureComponent implements OnInit {
 
     CreateSection(iduser: string, idcurse: string, cursecode: string,) {
         //console.log(localStorage.getItem('id'))
+        this.loading="false"
         this.curseService.createUnity(iduser, idcurse, cursecode)
-            .subscribe(res => {
-                this.router.params.subscribe(params => {
-                    this.curseService.getCurse(localStorage.getItem('idcurso') || "")
+        .subscribe(res => {
+            this.router.params.subscribe(params => {
+                this.curseService.getCurse(localStorage.getItem('idcurso') || "")
                         .subscribe(
                             (res: any) => {
                                 this.photo = res[0]
                                 //this.routerr.navigate(['#www'])
                                 console.log('res[0]')
+                                this.loading=""
                             },
                             err => console.log(err)
                         )

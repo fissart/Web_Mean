@@ -46,8 +46,7 @@
           {{$any(w).dni}}</span>
             <a *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id'
             style="cursor:pointer" class="btn btn-  btn-outline-info" (click)="selectedUser($any(w)._id)">Editar usuario </a>
-            <a  class="d-none" *ngIf='$any(photos).rol == 1' style="cursor:pointer; color: rgb(165, 126, 42);"
-              (click)="deleteUser($any(w)._id, $any(w).cursse.length, $any(w).integer.length)">Borrar usuario</a>
+            <a  class="btn btn-light" *ngIf='$any(photos).rol == 1' (click)="deleteUser($any(w)._id, $any(w).cursse.length, $any(w).integer.length)">Borrar usuario</a>
             <!-- <button *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-info shadow-none"
               (click)="NewCurse($any(w)._id)">New curse</button> -->
         </div>

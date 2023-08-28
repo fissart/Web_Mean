@@ -29,12 +29,9 @@ export async function getupdateController(req: Request, res: Response): Promise<
 //createController/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 export async function createController(req: Request, res: Response): Promise<Response> {
-
     var mongoose = require('mongoose');
     const { curse, user, userteach, codigo } = req.body;
-
     if (mongoose.Types.ObjectId.isValid(curse)) {
-
         const { ObjectId } = require("mongodb");
         const id_curse = ObjectId(curse);
         const id_user = ObjectId(user);
@@ -43,8 +40,8 @@ export async function createController(req: Request, res: Response): Promise<Res
         //console.log(www, wwwww);
         //const integer = await Curse.find({curse:id_curse,user:id_user});
         if (wwwww && www) {
-            const integer = await Curse.find({ codigo: codigo, user: id_user });
-            //console.log(integer)
+            const integer = await Curse.find({ curse: id_curse, user: id_user });
+            console.log(integer)
             if (integer.length == 0) {
                 const userteachwww = www.user;
                 const newCurse = { curse, user, userteach: userteachwww, codigo, show: "true" };

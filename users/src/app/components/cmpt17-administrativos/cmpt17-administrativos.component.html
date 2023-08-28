@@ -98,10 +98,8 @@
   <div class="p-2" *ngFor="let doc of data index as i">
     <div class="card bg-info p-2">
         <span class="h5">{{doc.title}}</span>
-          <ng-katex-html *ngIf="doc" [html]="doc.description"></ng-katex-html>
-
+          <ng-katex-html *ngIf="doc.description" [html]="doc.description"></ng-katex-html>
           <div *ngIf="doc.file" class="p-0">
-
           <ngx-doc-viewer *ngIf="doc.file.split('.').pop()=='doc'"
           [url]="apiUrl+'/'+ doc.file"
           viewer="google"

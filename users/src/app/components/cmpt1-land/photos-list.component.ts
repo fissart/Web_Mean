@@ -1717,12 +1717,12 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
             this.loading = "false";
             if (res.msgok) {
               console.log(res);
+              this.modal.dismissAll()
               this.CurseService.getPhotosUser(localStorage.getItem('id') || "").subscribe(
                 (res: any) => {
-                  this.integeruser = res;
-                  console.log(res)
-                  this.loading = "";
-                  this.modal.dismissAll();
+                  this.integeruser = res
+                  //console.log(res)
+                  this.loading = ""
                 },
                 err => console.log(err)
               )
@@ -1745,8 +1745,9 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     if (window.confirm('Desea salir del curso?')) {
       this.CurseService.deleteinteger(id)
         .subscribe(res => {
-          console.log(res);
-          alert("Ok eliminado del curso, elimine otro. Si desea visualizar resultados actualice la página")
+          console.log(res)
+          this.getintegersuser()
+          //alert("Ok curso liminado")
         });
     }
   }
@@ -1860,17 +1861,14 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
 
   onBlurMean(event: any, codigo: string, user: string, curse: string, title: string, ciclo: string, credito: string, mencion: string) {
     this.loading = "false";
-
     if (user == this.userr && curse == this.cursee) {
       this.loading = "";
-      //this.getIntegeraverage();
       alert("Solo puede calificar un vez en este casillero, antes de cargar otra vez. Realice el mismo proceso con otras calificaciones")
       return false;
     } else {
       if (!/\s/.test(event.target.value)) {
         if (event.target.value <= 20 && event.target.value > 0 || event.target.value == "R" || event.target.value == "L") {
-          console.log(event.target.value == 'L');
-
+          console.log(event.target.value == 'L')
           if (event.target.value == 'L') {
             this.nota = "-0";
           }
@@ -1882,7 +1880,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
           }
           console.log(codigo, this.user, user, curse, title, ciclo, credito, mencion)
           //teacher: string, user: string, curse:
-          /*
+          
           this.taskService.create_average(this.nota, codigo, this.user + "", user, curse, title, ciclo, credito, mencion, this.year)//curse ciclo carrera year user nombre
             .subscribe((res: any) => {
               this.loading = ""
@@ -1890,7 +1888,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
               this.cursee = curse
               alert("Calificación guardada, recarge y verifique o realice el mismo proceso con otras calificaciones")//this.getIntegeraverage();
             });
-*/
+          
           return false;
         } else {
           this.loading = "";

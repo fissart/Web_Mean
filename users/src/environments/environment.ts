@@ -1,10 +1,11 @@
 export const environment = {
   production: false,
   title: 'Local Environment Heading',
-  apiURL: 'http://localhost:8000'
-  //apiURL: 'https://www.esfapa.edu.pe:8000'
+  //apiURL: 'http://localhost:8000'
+  apiURL: 'https://www.esfapa.edu.pe:8000'
 };
 /*
+
 
 db.users.updateMany({}, {"$set": {"ciclo": ''}})
 

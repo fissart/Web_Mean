@@ -19,7 +19,6 @@ File
       <!--{{idcurso}}{{idcurso}}--{{iduserteach}}-->
     </div>
     <button class="btn d-none" [disabled]="loading" #www></button>
-
   </form>
   <div class="modal-footer">
     <button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
@@ -190,7 +189,9 @@ File
     </div>
     <div class="col-md-12 form-group mb-2 py-0 px-1 align-self-end ml-auto">
       <label class="form-label"></label>
-      <button class="btn btn-info text-uppercase w-100" [disabled]="loading">Cargar Notas</button>
+      <button class="btn btn-info text-uppercase text-light w-100" [disabled]="loading">
+        {{ loading=='false' ? 'Cargando Notas':'Cargar notas'}}
+      </button>
     </div>
   </form>
   <button *ngIf="order.length!=0 && rol=='1'" (click)="generateExcel()"
@@ -465,7 +466,7 @@ File
 
 
   <div *ngIf="photointeger.length!==0 && rol=='1' || rol=='3'" class="container text-center mt-3 ">
-    CURSOS ESTUDIANTE DEL SEMESTRE
+    CURSOS ESTUDIANTE
   </div>
   <div *ngIf="rol=='3' && photointeger.length!==0"
     class="row d-flex justify-content-center align-items-center border border-warning">
@@ -480,18 +481,19 @@ File
           (error)="onImgError($event)">
         <div class="w-100 text-center"
           style='position: absolute;  top: 20%; left: 50%; transform: translate(-50%, -50%);'>
-          <button class="btn shadow-none text-info card-photo d-none" (click)="deleteinteger( $any(photo)._id)">
-            <mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-            Salir del curso
-          </button>
           <button class="btn btn-warning shadow-none card-photo" (click)="goCurse( $any(photo).cursse[0]._id)">
             <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             Ir al curso
           </button>
         </div>
-        <button class="btn btn-warning shadow-none" style='position: absolute;  bottom: 8px; left: 8px'
+        <button class="btn btn-dark shadow-none" style='position: absolute;  bottom: 49px; left: 8px'
+          (click)="deleteinteger( $any(photo)._id)">
+          <!--<mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
+          Salir del curso
+        </button>
+        <button class="btn btn-dark shadow-none" style='position: absolute;  bottom: 8px; left: 8px'
           (click)="hidecursestd( $any(photo).cursse[0]._id)">
-          Archivar
+          Archivar curso
         </button>
       </div>
     </div>
@@ -547,19 +549,20 @@ File
           {{photo.title}}
         </div>
         <div class="text-center text-uppercase">
-          [{{photo.mencion}}-{{photo.ciclo}}-{{photo.codigo}} ({{photo.integers.length}})]
+          [{{photo.mencion}}-{{photo.ciclo}}-{{photo.codigo}} (<span
+            class="text-info">{{photo.integers.length}}</span>)]
         </div>
         <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
         <div class="mytesttop w-100 text-center">
           <div class="btn-group">
-            <button class="w-100 btn btn-outline-info" (click)="updatecurseHide( $any(photo)._id)">
+            <button class="w-100 btn btn-info" (click)="updatecurseHide( $any(photo)._id)">
               Archivar
             </button>
+            <button class="btn btn-warning  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
             <button class="btn btn-light shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
               <!--<mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
               Ingresar
             </button>
-            <button class="btn btn-outline-primary  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
           </div>
         </div>
       </div>

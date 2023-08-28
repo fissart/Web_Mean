@@ -153,18 +153,18 @@
         </div>
         <div class="d-flex justify-content-center bg-highlight">
           <div class="btn-group mt-2 w-100" role="group" aria-label="Basic example">
-            <button class="btn btn-info" (click)="open1(ww, $any(photo).description,$any(photo).img)">
+            <button class="btn btn-info" (click)="open1(ww, $any(photo).description,$any(photo).img)"  [disabled]="loading" >
               <mat-icon svgIcon="expand" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             </button>
             <button *ngIf="photouser.rol==1 || photouser.rol==2 && show!='ok'" class="btn btn-light shadow-none"
-              (click)="CreateSection(photo.user, photo._id, photo.codigo)">
+              (click)="CreateSection(photo.user, photo._id, photo.codigo)"  [disabled]="loading" >
               <mat-icon svgIcon="file" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             </button>
-            <button class="btn btn-warning shadow-none" (click)="std(photo._id)">
+            <button class="btn btn-warning shadow-none" (click)="std(photo._id)"  [disabled]="loading" >
               <mat-icon svgIcon="student" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             </button>
             <button *ngIf="photouser.rol==1 || photouser.rol==2 && show!='ok'" class="btn btn-info shadow-none"
-              (click)="selectedCard(photo._id)">
+              (click)="selectedCard(photo._id)"  [disabled]="loading" >
               <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             </button>
           </div>
@@ -185,16 +185,16 @@
               Unidad {{i+1}}: {{photo.title}}
             </a>
             <div class='border-0 p-0 btn-group d-flex' *ngIf="photouser.rol==1 || photouser.rol==2">
-              <button class="btn rounded-0 btn-outline-warning shadow-none" (click)="opencopy(wwcopy, photo._id)">Copiar
+              <button class="btn btn-light shadow-none" (click)="opencopy(wwcopy, photo._id)">Copiar
                 <!-- <mat-icon svgIcon="file" aria-hidden="flase" aria-label="Example thumbs up SVG icon"></mat-icon> -->
               </button>
-              <button class="btn rounded-0 btn-outline-warning shadow-none" (click)="savetheme(photo._id)">Crear
+              <button class="btn btn-warning shadow-none" (click)="savetheme(photo._id)">Crear
                 <!-- <mat-icon svgIcon="file" aria-hidden="flase" aria-label="Example thumbs up SVG icon"></mat-icon> -->
               </button>
-              <button class="btn rounded-0 btn-outline-primary shadow-none" (click)="editunity(photo._id)">Editar
+              <button class="btn btn-primary shadow-none" (click)="editunity(photo._id)">Editar
                 <!-- <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
               </button>
-              <button class="btn rounded-0 btn-outline-danger shadow-none"
+              <button class="btn btn-danger shadow-none"
                 (click)="errasesection(photo._id, photo.temas.length)">
                 Borrar
               </button>
@@ -222,14 +222,14 @@
                 </div>
 
                 <div class='border-0 p-0 btn-group d-flex  my-1'>
+                  <button *ngIf="photouser.rol==1 || photouser.rol==2" class="btn btn-info shadow-none"
+                    (click)="themecalificacion(subItem._id, 'theme')">Revisar tareas</button>
+                </div>
+                <div class='border-0 p-0 btn-group d-flex  my-1'>
                   <button class="btn btn-outline-info"
                     (click)="open1(ww, $any(subItem).task, $any(subItem)._id)">Tarea</button>
                 </div>
 
-                <div class='border-0 p-0 text-center  my-1'>
-                  <button *ngIf="photouser.rol==1 || photouser.rol==2" class="btn btn-info shadow-none"
-                    (click)="themecalificacion(subItem._id, 'theme')">Revisar tareas</button>
-                </div>
 
                 <div class='border-0 p-0 text-center'>
                   <button *ngIf="subItem.usertask.length==0 && subItem.time>DateNow && photouser.rol==3"

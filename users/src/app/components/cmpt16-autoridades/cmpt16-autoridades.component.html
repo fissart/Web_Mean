@@ -99,7 +99,7 @@
   <div *ngFor="let doc of data index as i">
     <div class="text-center">
         <span class="h5">{{doc.title}}</span>
-        <ng-katex-html *ngIf="doc" [html]="doc.description"></ng-katex-html>
+        <ng-katex-html *ngIf="doc.description" [html]="doc.description"></ng-katex-html>
 
         <div *ngIf="doc.file" class="p-0 mt-1">
         <img *ngIf="doc.file.split('.').pop()=='png'||doc.file.split('.').pop()=='jpg'||doc.file.split('.').pop()=='jpeg'||doc.file.split('.').pop()=='svg'||doc.file.split('.').pop()=='webp'" [src]="apiUrl+'/'+ doc.file" class="img-fluid w-100" (error)="onImgError($event)">
