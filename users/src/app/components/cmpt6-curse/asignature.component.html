@@ -153,18 +153,19 @@
         </div>
         <div class="d-flex justify-content-center bg-highlight">
           <div class="btn-group mt-2 w-100" role="group" aria-label="Basic example">
-            <button class="btn btn-info" (click)="open1(ww, $any(photo).description,$any(photo).img)"  [disabled]="loading" >
+            <button class="btn btn-info" (click)="open1(ww, $any(photo).description,$any(photo).img)"
+              [disabled]="loading">
               <mat-icon svgIcon="expand" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             </button>
             <button *ngIf="photouser.rol==1 || photouser.rol==2 && show!='ok'" class="btn btn-light shadow-none"
-              (click)="CreateSection(photo.user, photo._id, photo.codigo)"  [disabled]="loading" >
+              (click)="CreateSection(photo.user, photo._id, photo.codigo)" [disabled]="loading">
               <mat-icon svgIcon="file" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             </button>
-            <button class="btn btn-warning shadow-none" (click)="std(photo._id)"  [disabled]="loading" >
+            <button class="btn btn-warning shadow-none" (click)="std(photo._id)" [disabled]="loading">
               <mat-icon svgIcon="student" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             </button>
             <button *ngIf="photouser.rol==1 || photouser.rol==2 && show!='ok'" class="btn btn-info shadow-none"
-              (click)="selectedCard(photo._id)"  [disabled]="loading" >
+              (click)="selectedCard(photo._id)" [disabled]="loading">
               <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
             </button>
           </div>
@@ -194,8 +195,7 @@
               <button class="btn btn-primary shadow-none" (click)="editunity(photo._id)">Editar
                 <!-- <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
               </button>
-              <button class="btn btn-danger shadow-none"
-                (click)="errasesection(photo._id, photo.temas.length)">
+              <button class="btn btn-danger shadow-none" (click)="errasesection(photo._id, photo.temas.length)">
                 Borrar
               </button>
             </div>
@@ -271,8 +271,9 @@
       <div class="row justify-content-center border rounded">
         <div *ngFor="let subItem of photo.archivos index as i" class="col-md-4 p-1">
           <div class="justify-content-center rounded bg-info p-1 d-flex">
-            <button class="btn  btn-light my-1 card-photo shadow-none"
+            <button class="btn btn-light my-1 card-photo shadow-none"
               (click)="open2(www, subItem.img)">{{subItem.title}}</button>
+            <a [href]="apiUrl+'/'+ subItem.img" class="btn btn-outline-info">Download</a>
           </div>
         </div>
       </div>
@@ -293,6 +294,9 @@
                 <button *ngIf="file.type=='silabo'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
+              <a [href]="apiUrl+'/'+ file.img" class="btn btn-outline-info">
+                <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              </a>
             </div>
           </ng-container>
         </div>
@@ -308,6 +312,9 @@
                 <button *ngIf="file.type=='resumen'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
+              <a [href]="apiUrl+'/'+ file.img" class="btn btn-outline-info">
+                <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              </a>
             </div>
           </ng-container>
         </div>
@@ -322,6 +329,9 @@
                 <button *ngIf="file.type=='material'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
+              <a [href]="apiUrl+'/'+ file.img" class="btn btn-outline-info">
+                <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              </a>
             </div>
           </ng-container>
         </div>
@@ -336,6 +346,9 @@
                 <button *ngIf="file.type=='registro'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
+              <a [href]="apiUrl+'/'+ file.img" class="btn btn-outline-info">
+                <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              </a>
             </div>
           </ng-container>
         </div>
@@ -350,6 +363,9 @@
                 <button *ngIf="file.type=='horario'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
+              <a [href]="apiUrl+'/'+ file.img" class="btn btn-outline-info">
+                <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              </a>
             </div>
           </ng-container>
         </div>
@@ -364,6 +380,9 @@
                 <button *ngIf="file.type=='ocurrencia'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
+              <a [href]="apiUrl+'/'+ file.img" class="btn btn-outline-info">
+                <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              </a>
             </div>
           </ng-container>
         </div>
@@ -377,6 +396,9 @@
                 <button *ngIf="file.type=='plan'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
+              <a [href]="apiUrl+'/'+ file.img" class="btn btn-outline-info">
+                <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              </a>
             </div>
           </ng-container>
         </div>
@@ -391,6 +413,9 @@
                 <button *ngIf="file.type=='proyecto'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
+              <a [href]="apiUrl+'/'+ file.img" class="btn btn-outline-info">
+                <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              </a>
             </div>
           </ng-container>
         </div>

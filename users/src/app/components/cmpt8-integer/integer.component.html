@@ -80,7 +80,7 @@
           (error)="onImgError($event)">
       </td>
       <td class="">{{ ww_w.name }}: <span style="font-size: 8pt"
-          class="text-success">{{ww_w.averagge.length==1?'('+ww_w.averagge[0].teach[0].name+')
+          class="text-success">{{ww_w.averagge.length==1?'('+ww_w.averagge[0].teach[0].email + ')
           ['+ww_w.averagge[0].cursse[0].title+']':""}}
           {{ww_w.averagge.length==1?'['+ww_w.averagge[0].codigo+']':''}}</span> </td>
       <td class="w-15" *ngIf="show=='true' || rol=='1'">
