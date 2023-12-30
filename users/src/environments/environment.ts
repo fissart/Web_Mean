@@ -270,9 +270,9 @@ db.users.updateMany( {"ciclo" : "I CICLO" }, {$set:{'ciclo':'I'}});
 db.users.updateMany( {"ciclo" : "III CICLO" }, {$set:{'ciclo':'III'}});
 db.users.updateMany( {"ciclo" : "V CICLO" }, {$set:{'ciclo':'V'}});
 db.users.updateMany( {"ciclo" : "VII CICLO" }, {$set:{'ciclo':'VII'}});
-db.users.updateMany( {"ciclo" : "IX CICLO" }, {$set:{'ciclo':'IX'}});
+db.users.updateMany({codigo:"AFPTE417",year:"2023",title:"Retrato I"}, {$set:{'codigo':'AFPRE409'}});
 ...5
-
+db.averages.find({codigo:"AFPTE417",year:"2023",title:"Retrato I"}).pretty()
 //4
 db.averages.updateMany( {"title" : "Ecosistema" }, {$set:{'title':'Ecosistema	'}} );
 db.averages.updateMany( {"title" : "Fundamentos Visuales III" }, {$set:{'title':'Fundamentos Visuales III	'}} );
@@ -317,7 +317,7 @@ Dibujo III
 
 //3
 db.cursesources.insertMany(
-[
+[ 
 {ciclo:"I", mension:"AP", mencion:"G", codigo:"FGCOM101", title:"Comunicación I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
 {ciclo:"I", mension:"AP", mencion:"G", codigo:"FGMAA103", title:"Matemática Aplicada al Arte", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
 {ciclo:"I", mension:"AP", mencion:"G", codigo:"FGMES105", title:"Métodos de Estudios Superiores", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
@@ -660,7 +660,7 @@ db.users.updateMany( { rol:"2" }, { $unset: { year: "" } })
 db.curses.update( { '_id':ObjectId('62dfeb1e3715ea8dcc8fcddf') }, {$set:{'name':'Comunicación I', 'number':'39', 'ciclo':'I', especialidad:"ED", credito:"4"}})
 
 //insertar nuevo campo a toda la colleccion con dato en particular
-db.averages.updateMany({}, {"$set": {"filosophy": "wwwwwwwwwwwwwwwww"}})
+db.curses.updateMany({}, {"$set": {"show": "false"}})
 
 //insertar nuevo campo a algunos datos de la colleccion con un dato en particular
 db.users.update( { 'carreramension':'EDUCACIÓN ARTÍSTICA' }, {$set:{'mension':'ED'}} )
@@ -753,4 +753,70 @@ db.averages.updateMany({codigo:"AFPDI211", ciclo:"III", year:"2023",mencion:"P"}
 db.averages.updateMany({codigo:"CAHAR401", ciclo:"V", year:"2023",mencion:"P"},{$set:{codigo:"CAHAR305"}})
 db.averages.updateMany({codigo:"AFPDI313", ciclo:"V", year:"2023",mencion:"P"},{$set:{codigo:"FEDIB313"}})
 
+
+
+Comunicación II	39
+Elementos Estéticos	22	
+Pintura IV	17
+Pintura IV	21
+Grabado II	12
+Grabado II	14
+Investigación I	15
+Curric. Tec. Y Gest.III	24
+Tut. y Práct. Pedg IV	20
+Tut. y Práct. Pedg IV	27
+Pintura II	15
+Pintura II	36	
+Teoria de la Educ. I	29
+Hist. del Arte II	14
+Tall. Regional II	14
+Tall. Regional II	17	
+Cerámica II	21
+Retrato II	19
+Retrato II	26
+Danza II	29
+Tut. y Práct. Pedg IV	20
+Tut. y Práct. Pedg IV	27
+Método de est.virt.	30
+Elementos Estéticos	22
+Didáct.de las Artes I	14
+Teoria de la Educ. I	29
+Psicología	24
+Did.de las Art. P. III	37
+Curric. Tec. Y Gest.I	29
+Filosofía I	17
+Tut. y Práct. Pedg II	20
+Tut. y Práct. Pedg II	27
+Investigación III	33
+Investigación III	37
+Morfologia Visual II	16
+Dibujo II	13	
+Dibujo II	24
+Escultura IV	32
+Escultura IV	7	
+Música	38
+Dibujo VI	9
+Dibujo VI	22	
+Estadística	25
+Estadística	
+Teatro II	29
+Tut. y Práct. Pedg IV	20
+Tut. y Práct. Pedg IV	27
+Escultura II	13
+Escultura II	32
+Dibujo IV	8
+Dibujo IV	36
+Sociedad	29
+Música	38
+Quechua	24
+Educ.Intercult.Artis	36
+Integración Artística	14
+Integración Artística	24
+Curric. Tec. Y Gest.III	24
+Obra Artística	9
+Obra Artística	33
+Tut. y Práct. Pedg IV	20
+Tut. y Práct. Pedg IV	27
+
 */
+

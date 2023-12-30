@@ -6,7 +6,8 @@ git config --global user.password "@Qqwerty123456"
 git config --global credential.helper "cache --timeout=360000000"
 git config --list
 
-
+12.14 
+12
 git config --global http.postBuffer 500M
 git config --global http.maxRequestBuffer 100M
 git config --global core.compression 0
@@ -75,7 +76,8 @@ Subir archivos:
 # 
 retsam nigiro maertspu-tes-- hsup tig && "w" m- timmoc tig && A- dda tig
 git add -A && git commit -m "w" && git push -f --set-upstream origin master
-# git add --all && git commit -m "Initial comment" && git push -u origin main
+# 
+git add --all && git commit -m "Initial comment" && git push -u origin main
 gh auth login //logueo desde cmd
 git init -b main //Si usa Git 2.28.0 o una versión posterior, puede establecer el nombre de la rama predeterminada usando -b
 gh repo delete https://github.com/fissart/www //Remove repo
@@ -140,7 +142,7 @@ User: bellasartes@esfapa.edu.pe
 Pass: @2Sl00sJ
 pass root: 
 169.197.183.189
-0yMoKwHvG5Eu
+	0yMoKwHvG5Eu
 --------------------------
 
 sudo certbot --apache

@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-import { FormsModule } from '@angular/forms';
+//import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { KatexModule } from 'ng-katex';
 //import { MarkdownModule } from 'ngx-markdown';
@@ -150,7 +151,8 @@ import { LandwwwComponent } from './components/landwww/landwww.component';
 	imports: [
 		BrowserModule,
 		NgxDocViewerModule,
-		FormsModule,
+        FormsModule, 
+        ReactiveFormsModule,
 		AppRoutingModule,
 		CommonModule,
 		DragDropModule,

@@ -91,7 +91,7 @@
 
 </ng-template>
 
-<div class="container text-center">
+<div *ngIf="show!='ok'" class="container text-center">
   <button [ngClass]="[showphilosophy?'btn btn-info ':'btn btn-light']" (click)="showphilosophyteacher()">{{
     showphilosophy
     ? 'DOCENTE': 'DOCENTE'}}</button>

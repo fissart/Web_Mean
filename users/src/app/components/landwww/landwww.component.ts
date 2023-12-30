@@ -101,8 +101,8 @@ export class LandwwwComponent implements OnInit {
     private UserService: UsersService,
     private Tw: Title,
     private modal: NgbModal,
-    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-
+    private iconRegistry: MatIconRegistry,
+    private sanitizer: DomSanitizer
   ) {
     iconRegistry.addSvgIconLiteral('messenger', sanitizer.bypassSecurityTrustHtml(`
   <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M12 0c-6.627 0-12 4.975-12 11.111 0 3.497 1.745 6.616 4.472 8.652v4.237l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111 0-6.136-5.373-11.111-12-11.111zm1.193 14.963l-3.056-3.259-5.963 3.259 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/></svg>
@@ -217,9 +217,13 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22.814 9.031h-1.95c-1 0-1.185-.764-1.185-1.707.001-4.045-3.272-7.324-7.308-7.324h-5.062c-4.037 0-7.309 3.279-7.309 7.324v9.352c0 4.045 3.272 7.324 7.309 7.324h9.383c4.036 0 7.308-3.279 7.308-7.324v-6.457c0-.657-.531-1.188-1.186-1.188zm-15.428-3.031h4.229c.765 0 1.385.671 1.385 1.5s-.62 1.5-1.386 1.5h-4.228c-.766 0-1.386-.671-1.386-1.5s.62-1.5 1.386-1.5zm9.134 12h-9.04c-.817 0-1.48-.672-1.48-1.5 0-.83.663-1.5 1.48-1.5h9.039c.817 0 1.48.67 1.48 1.5.001.828-.662 1.5-1.479 1.5z"/></svg>
 `));
 
+
+
   }
-
-
+  
+  sanitize(url:string){
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+}
 
   onContentChanged = (event: any) => {
     this.froala = event.html;
@@ -269,7 +273,7 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
       delay: 2000,
       disableOnInteraction: true
     },
-    //pagination: { clickable: true, type: 'progressbar' },
+    pagination: { clickable: true, type: 'progressbar' },
     scrollbar: { draggable: true },
   };
 
@@ -488,15 +492,29 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
     this.CurseService.getfiles()
       .subscribe(
         (res: any) => {
-          console.log(res, "w_W")
-          this.ussser = res;
           //this.froala = res[0].filosophy;
+          
+          const arrayReverseObj = (res:any) => {
+            let newArray: any = []
+          
+            Object.keys(res)
+              .reverse()
+              .forEach(key => {
+                console.log(key)
+                newArray.push( res[key])
+              })
+              this.ussser=newArray
+            console.log(newArray)
+            return newArray  
+          }
+          arrayReverseObj(res)
 
         },
         (err: any) => console.log(err)
       );
   }
 
+  
   getFirstAverages(ciclo: HTMLInputElement, mension: HTMLInputElement, year: HTMLInputElement) {
     this.loading = "false";
     this.CurseService.getFirstAverages(ciclo.value, mension.value, year.value)

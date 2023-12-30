@@ -68,7 +68,7 @@
             <div class="rounded p-1"
               [ngClass]="[subItem.ciclo=='I'||subItem.ciclo=='III'||subItem.ciclo=='V'||subItem.ciclo=='VII'||subItem.ciclo=='IX'?'btn btn-success shadow-none w-100':'btn btn-info shadow-none w-100']">
               <div class="text-center">
-                {{subItem.title}} {{subItem.mension}}-[{{subItem.ciclo}}]
+                {{subItem.title}} <span class="text-light">[{{subItem.mencion}}-{{subItem.ciclo}}]</span>
               </div>
               <!--Modal2-->
               <div class="btn-group d-flex">
@@ -125,19 +125,19 @@
   </div>
   <div *ngIf="cursessource.length!=0 &&  rol=='2'" class="row d-flex justify-content-center align-items-center my-3">
     <ng-container *ngFor="let photo of cursessource index as i">
-      <div *ngIf="photo.mension=='EA'" class="rounded p-1 col-md-4 p-1 text-center"
-        [ngClass]="[photo.mension=='EA'?'border-success':'border-warning']">
+      <div *ngIf="photo.mencion=='ED'" class="rounded p-1 col-md-4 p-1 text-center"
+        [ngClass]="[photo.mension=='ED'?'border-success':'border-warning']">
         <div class="">
-          <button type="button" *ngIf="photo.mension=='EA'"
+          <button type="button" *ngIf="photo.mencion=='ED'"
             (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'ED', photo.credito, photo.ciclo, photo.codigo, photo.requisito)"
             [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'btn btn-info':'btn btn-warning']"
             (click)="Getcursesources()">
-            {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
+            {{photo.title}} <span class="text-light">[{{photo.mencion}}-{{photo.ciclo}}]</span>
           </button>
-          <span *ngIf="photo.mension=='AP'"
+          <span *ngIf="photo.mension=='ED'"
             [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'text-dark':'']"
             (click)="Getcursesources()">
-            {{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
+            {{photo.title}} <span class="text-warning">[{{photo.mencion}}-{{photo.ciclo}}]</span>
           </span>
         </div>
 
@@ -145,6 +145,71 @@
     </ng-container>
   </div>
 
+  <div *ngIf="cursessource.length!=0 &&  rol=='2'" class="container text-center h5 mt-3 ">
+    CURSOS ARTISTA PROFESIONAL (P) - SEMESTRE {{cursessource[0].ciclo=="I" || cursessource[0].ciclo=="III" ||
+    cursessource[0].ciclo=="V" || cursessource[0].ciclo=="VII" || cursessource[0].ciclo=="IX"?"IMPAR":"PAR"}} {{year}}
+  </div>
+  <div *ngIf="cursessource.length!=0 &&  rol=='2'" class="row d-flex justify-content-center align-items-center my-3">
+    <ng-container *ngFor="let photo of cursessource index as i">
+      <div *ngIf="photo.mencion=='P'" class="rounded p-1 col-md-4 p-1 text-center"
+        [ngClass]="[photo.mension=='P'?'border-success':'border-warning']">
+        <div class="">
+          <button type="button" *ngIf="photo.mencion=='P'"
+            (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'P', photo.credito, photo.ciclo, photo.codigo, photo.requisito)"
+            [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'btn btn-info':'btn btn-primary']"
+            (click)="Getcursesources()">
+            {{photo.title}} <span class="text-warning">[{{photo.mencion}}-{{photo.ciclo}}]</span>
+          </button>
+        </div>
+
+      </div>
+    </ng-container>
+  </div>
+
+
+  <div *ngIf="cursessource.length!=0 &&  rol=='2'" class="container text-center h5 mt-3 ">
+    CURSOS ARTISTA PROFESIONAL (G) - SEMESTRE {{cursessource[0].ciclo=="I" || cursessource[0].ciclo=="III" ||
+    cursessource[0].ciclo=="V" || cursessource[0].ciclo=="VII" || cursessource[0].ciclo=="IX"?"IMPAR":"PAR"}} {{year}}
+  </div>
+  <div *ngIf="cursessource.length!=0 &&  rol=='2'" class="row d-flex justify-content-center align-items-center my-3">
+    <ng-container *ngFor="let photo of cursessource index as i">
+      <div *ngIf="photo.mencion=='G'" class="rounded p-1 col-md-4 p-1 text-center"
+        [ngClass]="[photo.mension=='G'?'border-success':'border-warning']">
+        <div class="">
+          <button type="button" *ngIf="photo.mencion=='G'"
+            (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'G', photo.credito, photo.ciclo, photo.codigo, photo.requisito)"
+            [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'btn btn-info':'btn bg-success']"
+            (click)="Getcursesources()">
+            {{photo.title}} <span class="text-light">[{{photo.mencion}}-{{photo.ciclo}}]</span>
+          </button>
+        </div>
+
+      </div>
+    </ng-container>
+  </div>
+
+  <div *ngIf="cursessource.length!=0 &&  rol=='2'" class="container text-center h5 mt-3 ">
+    CURSOS ARTISTA PROFESIONAL (E) - SEMESTRE {{cursessource[0].ciclo=="I" || cursessource[0].ciclo=="III" ||
+    cursessource[0].ciclo=="V" || cursessource[0].ciclo=="VII" || cursessource[0].ciclo=="IX"?"IMPAR":"PAR"}} {{year}}
+  </div>
+  <div *ngIf="cursessource.length!=0 &&  rol=='2'" class="row d-flex justify-content-center align-items-center my-3">
+    <ng-container *ngFor="let photo of cursessource index as i">
+      <div *ngIf="photo.mencion=='E'" class="rounded p-1 col-md-4 p-1 text-center"
+        [ngClass]="[photo.mension=='E'?'border-success':'border-warning']">
+        <div class="">
+          <button type="button" *ngIf="photo.mencion=='E'"
+            (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'E', photo.credito, photo.ciclo, photo.codigo, photo.requisito)"
+            [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'btn btn-info':'btn btn-info']"
+            (click)="Getcursesources()">
+            {{photo.title}} <span class="text-light">[{{photo.mencion}}-{{photo.ciclo}}]</span>
+          </button>
+        </div>
+
+      </div>
+    </ng-container>
+  </div>
+
+<!--
   <div *ngIf="cursessource.length!=0 && rol=='2'" class="container text-center h5 mt-3 ">
     CURSOS ARTISTA PROFESIONAL - SEMESTRE {{cursessource[0].ciclo=="I" || cursessource[0].ciclo=="III" ||
     cursessource[0].ciclo=="V" || cursessource[0].ciclo=="VII" || cursessource[0].ciclo=="IX"?"IMPAR":"PAR"}} {{year}}
@@ -179,6 +244,6 @@
     </ng-container>
   </div>
 
-
+-->
 
 </div>

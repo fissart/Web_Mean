@@ -262,7 +262,7 @@ iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml
                                     const datttee = new Date(dattee).toISOString()
                                     //console.log(res[0].dateb)
                                     if (dattteb < this.dt && this.dt < datttee) {
-                                        this.show = "ok"
+                                          this.show = "ok"
                                         console.log("true")
                                     } else {
                                         this.show = "none"

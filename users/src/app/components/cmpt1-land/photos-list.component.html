@@ -145,7 +145,7 @@ File
 
   <div class="container text-center">
     <button *ngIf="rol=='3'" class="btn btn-info mt-2 shadow-none text-light" (click)="open1(ww, 'www', 'www')">
-      <mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+      <!--<mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
       Integrarse a un curso
     </button>
   </div>
@@ -153,7 +153,7 @@ File
     loading=='false' ? 'Cargando': 'Cargar cursos y relativos'}}</button>
 
 
-  <form *ngIf="rol=='1'" (submit)="fechanotas(iniciar, culminar)" class="row p-1 my-0 mx-0 w-100 mt-1 bg-light rounded">
+  <form *ngIf="rol=='1'" (submit)="fechanotas(iniciar, culminar)" class="row p-1 my-0 mx-0 w-100 mt-1 bg-light border border-info rounded">
     <div class="col-md-6 form-group mb-2 py-0 px-1">
       <label class="form-label">Inicio notas</label>
       <input type="datetime-local" class="form-control" placeholder="1" #iniciar [value]=ussser.dateb>
@@ -171,36 +171,38 @@ File
   </form>
 
 
-
-
-  <form *ngIf="rol=='1'" (submit)="getFirstAverages(ciclo, mencion, year)" class="row p-1 my-0 mx-0 w-100 rounded mt-1"
-    style="background-color:rgba(177, 214, 219, 0.95)">
-    <div class="col-md-4 form-group mb-2 py-0 px-1">
-      <label class="form-label">Ciclo: I, II, ..., X</label>
-      <input type="text" class="form-control" placeholder="Ciclo" #ciclo [value]="'V'">
-    </div>
-    <div class="col-md-4 form-group mb-2 py-0 px-1">
-      <label class="form-label">Mención: P, G, E y ED</label>
-      <input type="text" class="form-control" placeholder="Year" #mencion [value]="'E'">
-    </div>
-    <div class="col-md-4 form-group mb-2 py-0 px-1">
-      <label class="form-label">Año: 2022, 2023</label>
-      <input type="text" class="form-control" placeholder="Year" #year [value]="'2023'">
-    </div>
-    <div class="col-md-12 form-group mb-2 py-0 px-1 align-self-end ml-auto">
-      <label class="form-label"></label>
-      <button class="btn btn-info text-uppercase text-light w-100" [disabled]="loading">
-        {{ loading=='false' ? 'Cargando Notas':'Cargar notas'}}
-      </button>
-    </div>
+<div *ngIf="rol=='1'" class="border border-primary p-1 my-1 rounded">
+  <form [formGroup]="form" class="row p-0 mx-0 w-100 input-group">
+    <select formControlName="mencion" class="form-select col-md-4">
+      <option *ngFor="let state of menciones" [ngValue]="state">
+        {{ state.name }}
+      </option>
+    </select>
+  
+    <select formControlName="ciclo" class="form-select col-md-4">
+      <option *ngFor="let state of ciclos" [ngValue]="state">
+        {{ state.name }}
+      </option>
+    </select>
+  
+    <select formControlName="yearr" class="form-select col-md-4">
+      <option *ngFor="let state of yearrs" [ngValue]="state">
+        {{ state.name }}
+      </option>
+    </select>
+  
   </form>
+  <button class="btn btn-info text-uppercase text-light w-100 mt-1" (click)="getFirstAverages()" [disabled]="loading">
+  {{ loading=='false' ? 'Cargando Notas ('+this.form.value.mencion.name+'-'+this.form.value.ciclo.abbrev+'-'+this.form.value.yearr.name+')':'Cargar notas'}}
+</button>
+</div>
+
   <button *ngIf="order.length!=0 && rol=='1'" (click)="generateExcel()"
     class="btn btn-warning rounded-0 w-100 text-uppercase text-light">Acta en Excel</button>
 
   <div *ngIf="califications.length!==0 && rol=='3'" class="container text-center text-uppercase"
     style='font-weight: bold'>
-    Boleta de notas
-    <div *ngIf="user && newws.length!==0" class="container justify-content-center">
+    <div *ngIf="user" class="container justify-content-center">
       <button
         [ngClass]="[shownotes?'btn btn-secondary mt-1 w-100 text-uppercase':'btn btn-warning mt-1 w-100 text-uppercase']"
         (click)="showcalifications()">{{ shownotes ? 'Esconder
@@ -466,11 +468,11 @@ File
 
 
   <div *ngIf="photointeger.length!==0 && rol=='1' || rol=='3'" class="container text-center mt-3 ">
-    CURSOS ESTUDIANTE
+    TUS CURSOS {{ussser.name}}
   </div>
   <div *ngIf="rol=='3' && photointeger.length!==0"
     class="row d-flex justify-content-center align-items-center border border-warning">
-    <div class="col-md-4 p-2" *ngFor="let photo of photointeger index as i">
+    <div class="col col-md-6 p-2" *ngFor="let photo of photointeger index as i">
       <div class='card border-0 p-1 text-align-right '>
         <div class="text-center text-uppercase text-dark">
           {{photo.cursse[0].title}}
@@ -489,7 +491,7 @@ File
         <button class="btn btn-dark shadow-none" style='position: absolute;  bottom: 49px; left: 8px'
           (click)="deleteinteger( $any(photo)._id)">
           <!--<mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
-          Salir del curso
+          Eliminar de tus cursos
         </button>
         <button class="btn btn-dark shadow-none" style='position: absolute;  bottom: 8px; left: 8px'
           (click)="hidecursestd( $any(photo).cursse[0]._id)">
@@ -499,15 +501,12 @@ File
     </div>
   </div>
 
-  <h6 class='text-info rounded p-1  text-center my-2 text-center'>
-    <div *ngIf="user && newws.length!==0" class="container justify-content-center">
+  <div *ngIf="user && newws.length!==0 && rol=='2'" class="container justify-content-center text-center">
       <button [ngClass]="[showphilosophy?'btn btn-info ':'btn btn-light']" (click)="showphilosophyteacher()">{{
         showphilosophy
         ? 'ESCONDER
         FILOSOFÍA DEL DOCENTE': 'FILOSOFÍA DEL DOCENTE'}}</button>
     </div>
-
-  </h6>
   <div *ngIf="ussser.length!==0 && rol=='2' && show!='ok' && showphilosophy">
     <div class="container h3 text-center">
       CARPETA DOCENTE {{ussser.name}}
@@ -537,10 +536,10 @@ File
     </div>
   </div>
 
-  <div *ngIf="CurseTeacher.length!==0 && rol=='1' || rol=='2'" class="container text-center h5 mt-3">
+  <div *ngIf="rol=='2'" class="container text-center h5 mt-3">
     CURSOS DOCENTE {{ussser.name}}
   </div>
-  <div *ngIf="user && CurseTeacher.length!==0 ||  rol=='2'" class="row d-flex justify-content-center rounded my-2"
+  <div *ngIf="user && CurseTeacher.length!=0 ||  rol=='2'" class="row d-flex justify-content-center rounded my-2"
     style="margin:0; background-color: rgb(243, 233, 204);">
     <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacher index as i">
       <div
@@ -555,10 +554,10 @@ File
         <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
         <div class="mytesttop w-100 text-center">
           <div class="btn-group">
-            <button class="w-100 btn btn-info" (click)="updatecurseHide( $any(photo)._id)">
+            <button *ngIf="show!='ok'" class="w-100 btn btn-info" (click)="updatecurseHide( $any(photo)._id)">
               Archivar
             </button>
-            <button class="btn btn-warning  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
+            <button *ngIf="show!='ok'" class="btn btn-warning  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
             <button class="btn btn-light shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
               <!--<mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
               Ingresar
@@ -567,12 +566,12 @@ File
         </div>
       </div>
     </div>
-    <div class="container text-center my-1">
+    <div *ngIf="rol=='2'" class="container text-center my-1">
       <a class="btn btn-info" href="/user" style='text-decoration:none'>GENERAR CURSOS</a>
     </div>
   </div>
 
-  <button *ngIf="rol=='2'" class="btn btn-light text-uppercase w-100 mb-2" (click)="getsCurseTeacherHiden()">
+  <button *ngIf="rol=='2' && CurseTeacher.length!==0" class="btn btn-light border border-info text-uppercase w-100 mb-2" (click)="getsCurseTeacherHiden()">
     Mostrar cursos archivados
   </button>
 
@@ -589,14 +588,14 @@ File
         <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
         <div class="mytesttop w-100 text-center">
           <div class="btn-group">
-            <button class="btn btn-danger shadow-none card-photo" (click)="updatecurseShow( $any(photo)._id)">
+            <button *ngIf="show!='ok'" class="btn btn-danger shadow-none card-photo" (click)="updatecurseShow( $any(photo)._id)">
               Show
             </button>
             <button class="btn btn-info shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
               <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
               Ir al curso
             </button>
-            <button class="btn btn-secondary  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
+            <button *ngIf="show!='ok'" class="btn btn-secondary  shadow-none" (click)="deleteCurse(photo._id)">Borrar</button>
           </div>
         </div>
       </div>

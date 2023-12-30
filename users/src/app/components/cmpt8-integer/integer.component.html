@@ -43,33 +43,24 @@
 
 
 <div class="container">
-
-
-
-
-
-
-  <div *ngIf="curse.title" class="h5 text-center bg-light border p-3 rounded">
+  <div *ngIf="curse.title" class="h5 text-center bg-light border p-1 rounded">
     <span class="text-info">{{curse.title}}</span> Ciclo: <span class="text-info">{{curse.ciclo}}</span>
     Créditos: <span class="text-info">{{curse.credito}}</span> (<span class="text-info">{{curse.mencion=='P'?'AP
       PINTURA':curse.mencion=='E'?'AP ESCULTURA':curse.mencion=='ED'?'EA EDUCACIÓN ARTÍSTICA':'AP
       GRABADO'}}</span>)-{{codigo}}
     <button *ngIf="datastd.length!=0 && rol==2 && ifexcel=='T'" (click)="generateExcelaverage()"
-      class="btn btn-light btn-outline-primary w-100 my-1">Registro en excel</button>
+      class="btn btn-primary w-100 mt-1 text-uppercase">Registro en excel</button>
   </div>
-  <button *ngIf="Notes.length!==0 && notasum>10" (click)="generateExcel()" class="btn  w-100 btn-info">Excel
-    source</button>
 
-  <div *ngIf="show=='true' && rol=='2'" class="text-center">{{teacher.name}}. Rellenar notas entre {{teacher.dateb}} y
-    {{teacher.datee}}</div>
-  <div *ngIf="show=='true' && rol=='2'" class="text-center">Promedio (R:Retirado - L:Licencia - y Nota vigesimal)</div>
-
-  <table *ngIf="datastd.length!=0 && (rol==1 || rol==2)" id="season-tble" class="">
+  <div *ngIf="show=='true' && rol=='2'" class="text-center">{{teacher.name}}. Rellenar notas entre las fechas <span class="text-info">{{teacher.dateb.slice(0,10)+' ('+teacher.dateb.slice(11,16)+')'}}</span> y
+    <span class="text-info">{{teacher.datee.slice(0,10)+' ('+teacher.datee.slice(11,16)+')'}}</span></div>
+  <div *ngIf="show=='true' && rol=='2'" class="text-center">R:Retirado - L:Licencia - [0,20]</div>
+  <table *ngIf="datastd.length!=0 && (rol==1 || rol==2)" id="season-tble">
     <tr *ngIf="datastd.length!=0 && (rol==1 || rol==2)">
       <th>N</th>
       <th></th>
-      <th>Apellidos y nombres</th>
-      <th>Promedio</th>
+      <th height="50" class="text-uppercase">Apellidos y nombres</th>
+      <th class="text-uppercase">Promedio</th>
     </tr>
     <tr *ngFor="let ww_w of datastd index as i">
       <td>{{ i+1 }}
@@ -80,8 +71,8 @@
           (error)="onImgError($event)">
       </td>
       <td class="">{{ ww_w.name }}: <span style="font-size: 8pt"
-          class="text-success">{{ww_w.averagge.length==1?'('+ww_w.averagge[0].teach[0].email + ')
-          ['+ww_w.averagge[0].cursse[0].title+']':""}}
+          class="text-success">{{ww_w.averagge.length==1?'('+ww_w.averagge[0].teach[0].email + ')':""}}
+          {{ww_w.averagge.length==1&&ww_w.averagge[0].cursse.length==1?'['+ww_w.averagge[0].cursse[0].title+']':"acta"}}
           {{ww_w.averagge.length==1?'['+ww_w.averagge[0].codigo+']':''}}</span> </td>
       <td class="w-15" *ngIf="show=='true' || rol=='1'">
         <span class="input-group">
@@ -109,23 +100,14 @@
     </tr>
   </table>
 
+  <h1 *ngIf="show!='ok'" class="py-5"></h1>
 
-
-
-
-
-
-
-
-
-
-
-  <table *ngIf='Notes.length!=0' id="season-tble">
+  <table *ngIf='Notes.length!=0'>
     <tr>
       <th>N</th>
       <th></th>
       <th></th>
-      <th>NOMBRE</th>
+      <th height="50">NOMBRE</th>
       <ng-container *ngFor="let www of themes index as i">
         <th *ngFor="let ww_ of www['themes'] index as i">{{ww_.title.substring(0,3)}}...</th>
       </ng-container>
@@ -134,14 +116,14 @@
       <td>{{ i+1 }}
       </td>
       <td>
-        <button class="btn shadow-none" (click)="open1($any(www).userw[0]._id)">
+        <button class="btn" style="padding: 0cm" (click)="open1($any(www).userw[0]._id)">
           <img [src]="apiURL+'/'+www.userw[0].foto" class="img-card-top imgcurse"
             style='width: 40px; height: 40px; border-radius:20px; position: relative; object-fit: cover;'
             (error)="onImgError($event)">
         </button>
       </td>
       <td>
-        <button class="btn btn-info shadow-none" (click)="erraseinteger($any(www)._id)">
+        <button *ngIf="www.userw[0].rol!='3'" class="btn btn-info shadow-none" (click)="erraseinteger($any(www)._id)">
           Retirar
         </button>
       </td>
@@ -149,11 +131,12 @@
       <ng-container *ngFor="let w of www['cursse'] index as i">
         <ng-container *ngFor="let ww of w['units'] index as i" class="text-info">
           <ng-container *ngFor="let wwwww of ww['themes'] index as i" class="text-success">
-            <td *ngIf="wwwww.task.length!=0">{{wwwww.task[0].note?wwwww.task[0].note:""}}</td>
+            <td *ngIf="wwwww.task.length!=0">{{wwwww.task[0].note?wwwww.task[0].note:"*"}}</td>
             <td *ngIf="wwwww.task.length==0"></td>
           </ng-container>
         </ng-container>
       </ng-container>
     </tr>
   </table>
+  <button *ngIf="Notes.length!==0 && notasum>10" (click)="generateExcel()" class="btn  w-100 btn-warning text-uppercase">Reporte - notas semestral (Excel)</button>
 </div>
