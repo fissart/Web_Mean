@@ -3,9 +3,11 @@ import { Schema, model, Document } from 'mongoose'
 const schema = new Schema({
     foto: String,
     rol: String,
+    tipostd: String,
     dateb: String,
     datee: String,
     celular: String,
+    logindate: String,
     carrera: String,
     mencion: String,
     ciclo: String,
@@ -23,9 +25,11 @@ const schema = new Schema({
 export interface IUser extends Document {
     foto: string;
     rol: string;
+    tipostd: string;
     dateb: string,
     datee: string,
     celular: string,
+    logindate: string,
     carrera: string,
     mencion: string,
     ciclo: string,

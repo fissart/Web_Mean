@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LandwwwComponent } from './components/landwww/landwww.component';
 
+import { LandwwwComponent } from './components/landwww/landwww.component';
 import { PhotosListComponent } from './components/cmpt1-land/photos-list.component'
 import { LoginComponent } from './components/cmpt5-login/login.component';
 import { PhotoPreviewComponent } from './components/cmpt7-curse-preview/curse-preview.component'
@@ -29,42 +29,43 @@ import { Cmpt20APPComponent } from './components/cmpt20-ap-p/cmpt20-ap-p.compone
 import { Cmpt22APEComponent } from './components/cmpt22-ap-e/cmpt22-ap-e.component';
 import { Cmpt23TESISComponent } from './components/cmpt23-tesis/cmpt23-tesis.component';
 import { Cmpt24BIBLIOTECAComponent } from './components/cmpt24-biblioteca/cmpt24-biblioteca.component';
-import { Cmpt25ADMISIONComponent } from './components/cmpt25-admision/cmpt25-admision.component';
 import { Cmpt26PREComponent } from './components/cmpt26-pre/cmpt26-pre.component';
-import { Cmpt27STDComponent } from './components/cmpt27-std/cmpt27-std.component';
 import { Cmpt28EGRESADOSComponent } from './components/cmpt28-egresados/cmpt28-egresados.component';
-import { Cmpt29EVENTOSComponent } from './components/cmpt29-eventos/cmpt29-eventos.component';
 import { Cmpt30DOCUMENTOSComponent } from './components/cmpt30-documentos/cmpt30-documentos.component';
-import { Cmpt31ORGANIGRAMAComponent } from './components/cmpt31-organigrama/cmpt31-organigrama.component';
-import { Cmpt32CRONOGRAMAComponent } from './components/cmpt32-cronograma/cmpt32-cronograma.component';
-import { Cmpt33RECLAMOSComponent } from './components/cmpt33-reclamos/cmpt33-reclamos.component';
-import { Cmpt34PREGUNTASComponent } from './components/cmpt34-preguntas/cmpt34-preguntas.component';
-import { Cmpt35MESADEPARTESComponent } from './components/cmpt35-mesadepartes/cmpt35-mesadepartes.component';
-import { Cmpt36HORARYComponent } from './components/cmpt36-horary/cmpt36-horary.component';
-import { Cmpt37SILABOSComponent } from './components/cmpt37-silabos/cmpt37-silabos.component';
-import { Cmpt38NOTASComponent } from './components/cmpt38-notas/cmpt38-notas.component';
-import { CmptGalery360Component } from './components/cmpt-galery360/cmpt-galery360.component';
-import { CmptImagenesComponent } from './components/cmpt-imagenes/cmpt-imagenes.component';
-import { CmptVideosComponent } from './components/cmpt-videos/cmpt-videos.component';
-import { CmptFapComponent } from './components/cmpt-fap/cmpt-fap.component';
-import { CmptVirtualComponent } from './components/cmpt-virtual/cmpt-virtual.component';
 import { CmptPromocionComponent } from './components/cmpt-promocion/cmpt-promocion.component';
 import { CmptDocentesComponent } from './components/cmpt-docentes/cmpt-docentes.component';
 import { CmptStoreEsfaComponent } from './components/cmpt-store-esfa/cmpt-store-esfa.component';
 
-import { WWComponent } from './components/w-w/w-w.component';
-import { WWwComponent } from './components/w-ww/w-ww.component';
-import { WWwwComponent } from './components/w-www/w-www.component';
-import { WWwwwComponent } from './components/w-wwww/w-wwww.component';
-import { PinacotecaComponent } from './components/pinacoteca/pinacoteca.component';
+//import { Cmpt25ADMISIONComponent } from './components/cmpt25-admision/cmpt25-admision.component';
+//import { Cmpt27STDComponent } from './components/cmpt27-std/cmpt27-std.component';
+//import { Cmpt29EVENTOSComponent } from './components/cmpt29-eventos/cmpt29-eventos.component';
+//import { Cmpt31ORGANIGRAMAComponent } from './components/cmpt31-organigrama/cmpt31-organigrama.component';
+//import { Cmpt32CRONOGRAMAComponent } from './components/cmpt32-cronograma/cmpt32-cronograma.component';
+//import { Cmpt33RECLAMOSComponent } from './components/cmpt33-reclamos/cmpt33-reclamos.component';
+//import { Cmpt34PREGUNTASComponent } from './components/cmpt34-preguntas/cmpt34-preguntas.component';
+//import { Cmpt35MESADEPARTESComponent } from './components/cmpt35-mesadepartes/cmpt35-mesadepartes.component';
+//import { Cmpt36HORARYComponent } from './components/cmpt36-horary/cmpt36-horary.component';
+//import { Cmpt37SILABOSComponent } from './components/cmpt37-silabos/cmpt37-silabos.component';
+//import { Cmpt38NOTASComponent } from './components/cmpt38-notas/cmpt38-notas.component';
+//import { CmptGalery360Component } from './components/cmpt-galery360/cmpt-galery360.component';
+//import { CmptImagenesComponent } from './components/cmpt-imagenes/cmpt-imagenes.component';
+//import { CmptVideosComponent } from './components/cmpt-videos/cmpt-videos.component';
+//import { CmptFapComponent } from './components/cmpt-fap/cmpt-fap.component';
+//import { CmptVirtualComponent } from './components/cmpt-virtual/cmpt-virtual.component';
+
+//import { WWComponent } from './components/w-w/w-w.component';
+//import { WWwComponent } from './components/w-ww/w-ww.component';
+//import { WWwwComponent } from './components/w-www/w-www.component';
+//import { WWwwwComponent } from './components/w-wwww/w-wwww.component';
+// import { PinacotecaComponent } from './components/pinacoteca/pinacoteca.component';
 
 const routes: Routes = [
-  { path: 'w_w', component: WWComponent },
+  //{ path: 'w_w', component: WWComponent },
   { path: '', component: LandwwwComponent },
-  { path: 'w_ww', component: WWwComponent },
-  { path: 'w_www', component: WWwwComponent },
-  { path: 'w_wwww', component: WWwwwComponent },
-  { path: 'PinacotecaComponent', component: PinacotecaComponent },
+  //{ path: 'w_ww', component: WWwComponent },
+  //{ path: 'w_www', component: WWwwComponent },
+  //{ path: 'w_wwww', component: WWwwwComponent },
+  // { path: 'PinacotecaComponent', component: PinacotecaComponent },
 
   { path: 'Cmpt14MVComponent', component: Cmpt14MVComponent },
   { path: 'Cmpt15RHComponent', component: Cmpt15RHComponent },
@@ -78,26 +79,26 @@ const routes: Routes = [
   { path: 'Cmpt22APEComponent', component: Cmpt22APEComponent },
   { path: 'Cmpt23TESISComponent', component: Cmpt23TESISComponent },
   { path: 'Cmpt24BIBLIOTECAComponent', component: Cmpt24BIBLIOTECAComponent },
-  { path: 'Cmpt25ADMISIONComponent', component: Cmpt25ADMISIONComponent },
   { path: 'Cmpt26PREComponent', component: Cmpt26PREComponent },
-  { path: 'Cmpt27STDComponent', component: Cmpt27STDComponent },
   { path: 'Cmpt28EGRESADOSComponent', component: Cmpt28EGRESADOSComponent },
-  { path: 'Cmpt29EVENTOSComponent', component: Cmpt29EVENTOSComponent },
   { path: 'Cmpt30DOCUMENTOSComponent', component: Cmpt30DOCUMENTOSComponent },
-  { path: 'Cmpt31ORGANIGRAMAComponent', component: Cmpt31ORGANIGRAMAComponent },
-  { path: 'Cmpt32CRONOGRAMAComponent', component: Cmpt32CRONOGRAMAComponent },
-  { path: 'Cmpt33RECLAMOSComponent', component: Cmpt33RECLAMOSComponent },
-  { path: 'Cmpt34PREGUNTASComponent', component: Cmpt34PREGUNTASComponent },
-  { path: 'Cmpt35MESADEPARTESComponent', component: Cmpt35MESADEPARTESComponent },
-  { path: 'Cmpt36HORARYComponent', component: Cmpt36HORARYComponent },
-  { path: 'oficinas_institucionales', component: Cmpt37SILABOSComponent },
-  { path: 'Cmpt38NOTASComponent', component: Cmpt38NOTASComponent },
+  //{ path: 'Cmpt25ADMISIONComponent', component: Cmpt25ADMISIONComponent },
+  //{ path: 'Cmpt27STDComponent', component: Cmpt27STDComponent },
+  //{ path: 'Cmpt29EVENTOSComponent', component: Cmpt29EVENTOSComponent },
+  //{ path: 'Cmpt31ORGANIGRAMAComponent', component: Cmpt31ORGANIGRAMAComponent },
+  //{ path: 'Cmpt32CRONOGRAMAComponent', component: Cmpt32CRONOGRAMAComponent },
+  //{ path: 'Cmpt33RECLAMOSComponent', component: Cmpt33RECLAMOSComponent },
+  //{ path: 'Cmpt34PREGUNTASComponent', component: Cmpt34PREGUNTASComponent },
+  //{ path: 'Cmpt35MESADEPARTESComponent', component: Cmpt35MESADEPARTESComponent },
+//  { path: 'Cmpt36HORARYComponent', component: Cmpt36HORARYComponent },
+  //{ path: 'oficinas_institucionales', component: Cmpt37SILABOSComponent },
+  //{ path: 'Cmpt38NOTASComponent', component: Cmpt38NOTASComponent },
 
-  { path: 'CmptGalery360Component', component: CmptGalery360Component },
-  { path: 'CmptImagenesComponent', component: CmptImagenesComponent },
-  { path: 'CmptVideosComponent', component: CmptVideosComponent },
-  { path: 'CmptFapComponent', component: CmptFapComponent },
-  { path: 'CmptVirtualComponent', component: CmptVirtualComponent },
+  //{ path: 'CmptGalery360Component', component: CmptGalery360Component },
+  //{ path: 'CmptImagenesComponent', component: CmptImagenesComponent },
+  //{ path: 'CmptVideosComponent', component: CmptVideosComponent },
+  //{ path: 'CmptFapComponent', component: CmptFapComponent },
+  //{ path: 'CmptVirtualComponent', component: CmptVirtualComponent },
   { path: 'CmptPromocionComponent', component: CmptPromocionComponent },
   { path: 'CmptDocentesComponent', component: CmptDocentesComponent },
   { path: 'CmptStoreEsfaComponent', component: CmptStoreEsfaComponent },

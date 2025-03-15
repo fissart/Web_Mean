@@ -7,7 +7,7 @@ import {
     createController,
     getupdateController,
     getController,
-    getsController,
+    getControllerNotesnew,
     updateController,
     deleteController,
     getControlleruser,
@@ -26,8 +26,10 @@ router.route('/Controller/:id')
 router.route('/Controllerintegerscurse/:id')
     .get(getController)
 
-router.route('/Controllerintegerscursenotes/:id')
+router.route('/Controllerintegerscursenotes/:id/:mencion/:ciclo/:codigo')
     .get(getControllerNotes)
+router.route('/Controllerintegerscursenotesnew/:id')
+    .get(getControllerNotesnew)
 
 router.route('/Controllerintegersaverage/:id')
     .get(getintegerController)

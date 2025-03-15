@@ -11,10 +11,11 @@ export class TaskService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  savetask(note: string, task: string, theme: string, unidad: string, curse: string, user: string, asistence: string, filew: File) {
+  savetask(note: string, task: string, respuesta: string, theme: string, unidad: string, curse: string, user: string, asistence: string, filew: File) {
     //console.log(asistence)
     const fd = new FormData();
     fd.append('task', task);
+    fd.append('solution', respuesta);
     fd.append('note', note);
     fd.append('theme', theme);
     fd.append('unidad', unidad);
@@ -25,10 +26,11 @@ export class TaskService {
     return this.http.post(`${environment.apiURL}/api/task/Controller`, fd, { reportProgress: true, observe: "events" });
   }
 
-  savetaskready(note: string, task: string, theme: string, unidad: string, curse: string, user: string, asistence: string, filew: File) {
+  savetaskready(note: string, task: string, respuesta: string, theme: string, unidad: string, curse: string, user: string, asistence: string, filew: File) {
     //console.log(filew, "archivo")
     const fd = new FormData();
     fd.append('task', task);
+    fd.append('solution', respuesta);
     fd.append('note', note);
     fd.append('theme', theme);
     fd.append('unidad', unidad);
@@ -45,19 +47,21 @@ export class TaskService {
     return this.http.get<any>(`${environment.apiURL}/api/task/Controller/${user}`);
   }
 
-  updatetask(task: string, note: string, id: string, asistence: string, archivo: File) {
+  updatetask(task: string, solution: string, note: string, id: string, asistence: string, archivo: File) {
     //alert(asistence)
     const fd = new FormData();
     fd.append('task', task);
+    fd.append('solution', solution);
     fd.append('note', note);
     fd.append('asistence', asistence);
     fd.append('image', archivo);
     return this.http.put(`${environment.apiURL}/api/task/Controller/${id}`, fd, { reportProgress: true, observe: "events" });
   }
 
-  updatetaskready(task: string, note: string, id: string, asistence: string, archivo: File) {
+  updatetaskready(task: string, respuesta: string, note: string, id: string, asistence: string, archivo: File) {
     const fd = new FormData();
     fd.append('task', task);
+    fd.append('solution', respuesta);
     fd.append('note', note);
     fd.append('asistence', asistence);
     fd.append('image', archivo);
@@ -85,3 +89,4 @@ export class TaskService {
 
 
 }
+

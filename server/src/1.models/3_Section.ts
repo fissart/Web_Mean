@@ -10,6 +10,9 @@ const schema = new Schema({
   task: String,
   time: String,
   timeex: String,
+  conceptual: String,
+  procedimental: String,
+  actitudinal: String,
   curse: {
     type: Schema.Types.ObjectId,
   },
@@ -27,6 +30,9 @@ export interface ISection extends Document {
   task: string,
   time: string,
   timeex: string,
+  conceptual: string,
+  procedimental: string,
+  actitudinal: string,
   curse: {
     type: Schema.Types.ObjectId,
   },

@@ -6,11 +6,40 @@
 
 
 
-<!--modal contenido ww-->
+<!-- <div id="edwww" [(ngModel)]="tasskk" class="bg-info" (change)="onChange($event)">
+  www<span class="math-tex"> www </span>
+</div>
+<ckeditor editorUrl="https://cdn.jsdelivr.net/gh/isaul32/ckeditor5@c3463fe834049bf5d805d1d22402108a9c0576bd/packages/ckeditor5-build-classic/build/ckeditor.js" (change)="onChange($event)"></ckeditor>
+
+
+<div id="editorwww">
+  <p>wwwww luck... <span class="math-tex"> \sum_1^3=\int_1^3 </span> ...ipsum</p>
+  <p>wwwww luck... <span class="math-tex"> \[ \sum_1^3=\int_1^3 \] </span> ...ipsum</p>
+  wwwwwwwwwwwwwwwwwwww
+</div>
+<div id="editor-preview" class="bg-info"></div>
+<pre id="editor-preview-html" style="word-wrap: break-word; white-space: pre-wrap;"></pre>
+
+<div id="w3"></div>
+ -->
+
+
+
+
+
 <ng-template #ww let-modal>
   <div class="modal-body">
-    <!--<markdown [data]="text" katex [katexOptions]="options"></markdown>-->
-    <ng-katex-html [html]="text"></ng-katex-html>
+    <div class="row">
+      <quill-editor *ngIf="solution" class="my-0 col-md-6" [ngModelOptions]="{standalone:true}" [(ngModel)]="solution"
+        placeholder="Enter Text" (onSelectionChanged)="taskssimilars($event)"
+        (onContentChanged)="taskssimilarswww($event)"></quill-editor>
+      <ng-katex-html *ngIf="solution" class="col-md-6 p-0" [html]="soluttion"></ng-katex-html>
+      <hr style="color: rgb(1, 19, 19);">
+      <quill-editor class="my-0 col-md-6" [ngModelOptions]="{standalone:true}" [(ngModel)]="tasskk"
+        placeholder="Enter Text" (onSelectionChanged)="taskssimilars($event)"
+        (onContentChanged)="taskssimilarswww($event)"></quill-editor>
+      <ng-katex-html class="col-md-6 p-0" [html]="ttasskk"></ng-katex-html>
+    </div>
 
     <img
       *ngIf="file && file.split('.').pop()=='png'||file.split('.').pop()=='jpg'||file.split('.').pop()=='jpeg'||file.split('.').pop()=='svg'||file.split('.').pop()=='webp'"
@@ -29,60 +58,88 @@
 
   </div>
   <div class="modal-footer py-1 px-1">
-    <button class="btn btn-info shadow-none" (click)="modal.close()">Close</button>
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Close {{ ttrue=='false' ? 'working':
+      'ok'}}</button>
   </div>
 </ng-template>
 
+<div class="container">
+  <div *ngIf="photo" class="container justify-content-center text-center">
+    <button [ngClass]="[formshow?'btn btn-info ':'btn btn-light']" (click)="formshowteacher()">{{
+      formshow
+      ? 'ESCONDER EDITOR': 'EDITAR TEMA'}}</button>
+  </div>
 
-<form *ngIf="!theme" class="container p-3" (submit)="updatetheme(title, description, task, time)">
-  <div class="row p-0">
+</div>
 
-    <div class="form-group mb-3">
-      <label for="exampleFormControlInput1" class="form-label text-info">Titulo</label>
-      <input type="text" class="form-control" placeholder="Photo's Title" #title [value]="photo.title">
-    </div>
 
-    <div class="form-group mb-3 ">
-      <label for="exampleFormControlInput1" class="form-label text-info">Sesión</label>
-      <div class="row mx-1">
-        <div class="col-md-12 p-0 bg-white p-1">
-          <quill-editor [ngModelOptions]="{standalone:true}" [(ngModel)]="markdown" placeholder="Enter Text"
-            (onContentChanged)="onContentChanged($event)"></quill-editor>
-          <textarea rows="50" cols="0" class="variable-textarea form-control d-none" [(ngModel)]="markdown"
-            [ngModelOptions]="{standalone:true}" [value]="$any(photo).description" #description></textarea>
-        </div>
-        <div class="form-group p-1 col-md-7">
-          <ng-katex-html class="d-none" [html]="markdown"></ng-katex-html>
-        </div>
+<form *ngIf="formshow" class="container p-3" (submit)="updatetheme(title, description, task, solution, time)">
+  <div class="form-group mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Título {{photo.title}}
+    </label>
+    <input type="text" class="form-control" placeholder="Photo's Title" #title [value]="photo.title">
+  </div>
+  <div class="form-group mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Sesión</label>
+    <div class="row mx-1">
+      <div class="col-md-6 p-1">
+        <quill-editor class="my-0" [ngModelOptions]="{standalone:true}" [(ngModel)]="markdown" placeholder="Enter Text"
+          (onContentChanged)="onContentChangedw($event)"></quill-editor>
       </div>
+      <div class="form-group p-1 col-md-6 ql-container ql-snow">
+        <ng-katex-html class="ql-editor p-0" #www [html]="valuew"></ng-katex-html>
+      </div>
+      <textarea rows="50" cols="0" class="variable-textarea form-control d-none" [(ngModel)]="markdown"
+        [ngModelOptions]="{standalone:true}" [value]="valuew" #description></textarea>
     </div>
+  </div>
 
 
+  <div class="row p-0">
     <div class="form-group mb-3">
-
       <label for="exampleFormControlInput1" class="form-label">Tarea</label>
       <div class="row mx-1">
-        <div class="col-md-5 p-0">
-          <textarea rows="5" class="variable-textarea form-control" [(ngModel)]="markdown2"
+        <div class="col-md-6 p-0">
+          <quill-editor class="my-0" [ngModelOptions]="{standalone:true}" [(ngModel)]="markdown2"
+            placeholder="Enter Text" (onContentChanged)="onContentChangeww($event)"></quill-editor>
+          <textarea rows="5" class="variable-textarea form-control d-none" [(ngModel)]="markdown2"
             [ngModelOptions]="{standalone:true}" #task [value]="photo.task"></textarea>
         </div>
-        <div class="col-md-7 rounded ">
-          <ng-katex-html [html]="markdown2"></ng-katex-html>
+        <div class="col-md-6 rounded">
+          <ng-katex-html class="ql-editor p-0" [html]="valueww"></ng-katex-html>
         </div>
       </div>
     </div>
-    {{photo.time}}
+  </div>
+
+  <div class="row p-0">
+    <div class="form-group mb-3 border border-warning d-none">
+      <label for="exampleFormControlInput1" class="form-label">Solución</label>
+      <div class="row mx-1">
+        <div class="col-md-6 p-0">
+          <quill-editor class="my-0" [ngModelOptions]="{standalone:true}" [(ngModel)]="markdown3"
+            placeholder="Enter Text" (onContentChanged)="onContentChangewww($event)"></quill-editor>
+          <textarea rows="5" class="variable-textarea form-control d-none" [(ngModel)]="markdown3"
+            [ngModelOptions]="{standalone:true}" #solution [value]="$any(photo).description"></textarea>
+        </div>
+        <div class="col-md-6 rounded">
+          <ng-katex-html class="ql-editor p-0" [html]="valuewww"></ng-katex-html>
+        </div>
+      </div>
+    </div>
     <div class="form-group mb-3">
-      <label for="exampleFormControlInput1" class="form-label ">Fecha de entrega</label>
+      <label for="exampleFormControlInput1" class="form-label">Fecha de entrega</label>
       <input type="datetime-local" class="form-control" #time [value]="photo.time">
     </div>
-
   </div>
-  <label for="exampleFormControlInput1" class="form-label ">Diapositiva</label>
+
+
+  <label for="exampleFormControlInput1" class="form-label">Diapositiva</label>
   <div *ngIf="!photoSelected" class="text-center">
     <input type="file" class="d-none" (change)="capturandoFile($event)" #photoInput>
-    <img [src]="photoSelected || apiUrl+'/'+ $any(photo).img" class="m-auto w-25 cursorpoint img-fluid"
-      (error)="onImgError($event)" alt="No image" (click)="photoInput.click()">
+    <img [src]="photoSelected || apiUrl+'/'+ $any(photo).img"
+      class="border border-warning  rounded p-1 m-auto cursorpoint img-fluid" (error)="onImgError($event)"
+      style="width: 2cm;" alt="No image" (click)="photoInput.click()">
   </div>
   <div *ngIf="!photoSelected && photo.img" class="bg-light text-center border rounded">
     {{photo.img}}
@@ -101,96 +158,107 @@
 
   <mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar>
 
-  <button class="btn btn-info mt-1" [disabled]="loading">{{ loading=='false' ? 'Cargando '+value+'%':
+  <button class="btn btn-info mt-1 w-100" [disabled]="loading">{{ loading=='false' ? 'Cargando '+value+'%':
     'Actualizar'}}</button>
 
   <button class="btn btn-info shadow-none d-none">Update</button>
 </form>
+
+
+
+<div class="container my-1 border border-info rounded pt-1">
+  <button *ngIf="!theme" class="btn btn-primary w-100 shadow-none"
+    (click)="savetasksimilar(photo._id, photo.unidad, photo.curse, photo.user)">Create task</button>
+  <div class="row justify-content-center pt-0">
+    <div class="col-md-3 border btn-group p-1" *ngFor="let ww_w of photo.tassks index as i">
+      <button [ngClass]="[ww_w.img ? 'btn btn-info':'btn btn-warning']" style="width: 100%"
+        (click)="open1(ww, ww_w._id, ww_w.task,  ww_w.solution, ww_w.img?ww_w.img:'')">
+        {{ww_w.task.length}}.{{ww_w.solution.length}}</button>
+      <button class='btn btn-danger' (click)="errasetask(ww_w._id)"> - </button>
+    </div>
+  </div>
+</div>
 
 <div *ngIf="value > 0" class="fixed-bottom text-warning">
   {{ loading=='false' ? 'Cargando '+value+'%': ''}}
   <mat-progress-bar class="fixed-bottom" color="accent" mode="determinate" [value]="value">
   </mat-progress-bar>
 </div>
+<div class="container text-center" *ngIf="photo">
+  <div class="btn-group">
+    <button class="btn btn-danger" (click)="cleantasks()">Limpiar tareas</button>
+    <button class="btn btn-secondary" (click)="calification()">Calificar similaridad (cs)
+      {{charge>0?charge:null}}</button>
 
-<div class="container p-3" *ngIf="theme">
+    <input [disabled]="loading" class="form-control mx-1" style="width:5em" type="text" placeholder="number"
+      (blur)="calificationadd($event)">
+
+    <!-- <button class="btn btn-info" (click)="calificationadd()">restarsumar</button> -->
+    <button class="btn btn-primary" (click)="calificationsolution()">Calificar sesión (CS)</button>
+  </div>
+</div>
+
+
+<div class="container p-3">
   <h5 class="">{{photo.title}}</h5>
   <table *ngIf="photo.integgers && photo.integgers.length!=0" id="season-tble">
     <tr>
       <th>N</th>
+      <th></th>
       <th>Apellidos y nombres</th>
-
-      <th>Calificación</th>
-      <th>Asistencia</th>
+      <th>Calificación [(10>):{{resumena}}][(=10):{{resumenc}}][(<10):{{resumend}}] </th>
       <th>Fecha</th>
     </tr>
     <tr *ngFor="let ww_w of photo.integgers index as i">
-      <td>{{ i+1 }}
+      <td>{{ i+1 }}{{ww_w.Usser[0].grupo}}
       </td>
-      <td>{{ ww_w.Usser[0].name }}</td>
+      <td>
+        <img [src]="apiUrl+'/'+ww_w.Usser[0].foto" class="img-card-top"
+          style='width: 40px; height: 40px; border-radius:20px; position: relative; object-fit: cover;'
+          (error)="onImgError($event)">
+      </td>
 
+      <td
+        [ngClass]="[ww_w.Usser[0].grupo=='A' ? 'text-uppercase':ww_w.Usser[0].grupo=='B'?'bg-info text-uppercase text-light':'']">
+        {{
+        ww_w.Usser[0].name }}</td>
       <td class="w-15">
         <span *ngFor="let ww_ of ww_w['Usser'] index as i">
           <span *ngIf="ww_.tassk.length==0" class="d-flex">
-            <button class='btn btn-info shadow-none' (click)="linkk.click()">
-              <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-            </button>
             <input type="file" class="d-none"
-              (change)="createtaskimg($event, photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id)" #linkk>
-            <input type="text" style="width:2em" class="form-control p-1 mx-1" [disabled]="loading" [value]=""
+              (change)="createtaskimg($event, photo.respuesta, photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id)"
+              #linkk>
+            <input type="text" style="width:5em" class="form-control p-1 mx-1" [disabled]="loading" [value]=""
               (blur)="savetask($event, photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id )">
           </span>
-
+          <button class='btn btn-info shadow-none' (click)="link.click()">
+            <mat-icon class="text-light" svgIcon="edit" aria-hidden="false"
+              aria-label="Example thumbs up SVG icon"></mat-icon>
+          </button>
+          <button class='btn btn-danger shadow-none' (click)="errasetask(w._id)">
+            <mat-icon svgIcon="remove" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+          </button>
+          <button [ngClass]="[w.img ? 'btn btn-success shadow-none':'btn btn-primary shadow-none']"
+            (click)="open1(ww, w.task, w.img?w.img:'Sin archivo')">
+            <mat-icon svgIcon="file" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+          </button>   
 
           <span *ngFor="let w of ww_['tassk'] index as i" class="d-flex">
             <span class="btn-group">
-              <button class='btn btn-info shadow-none' (click)="link.click()">
-                <mat-icon class="text-light" svgIcon="edit" aria-hidden="false"
-                  aria-label="Example thumbs up SVG icon"></mat-icon>
+              <button class='btn btn-danger' (click)="errasetask(w._id)">
+                -
               </button>
-              <button class='btn btn-danger shadow-none' (click)="errasetask(w._id)">
-                <mat-icon svgIcon="remove" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-              </button>
-              <button [ngClass]="[w.img ? 'btn btn-success shadow-none':'btn btn-primary shadow-none']"
-                (click)="open1(ww, w.task, w.img?w.img:'Sin archivo')">
-                <mat-icon svgIcon="file" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-              </button>
+              <button [ngClass]="[w.img ? 'btn btn-info':'btn btn-warning']" style="width: 5em;"
+                (click)="open1(ww, w._id, w.task, w.solution,  w.img?w.img:'')">
+                {{w.task.length}}.<span class="text-primary">{{w.solution}}</span></button>
+              <button class="btn btn-secondary"
+                (click)="calificationsimilarone(w._id, w.task, w.createdAt )">cs1</button>
+              <button class="btn btn-primary" (click)="calificationsolutionone(w._id, w.task, w.solution)">CS1</button>
             </span>
-            <input type="file" class="d-none" (change)="updatetasskimg($event, w._id, w.task, w.note, w.asistence)"
-              #link>
-            <input [disabled]="loading" class="form-control mx-1" style="width:2em" type="text"
-              [ngClass]="[w.nota=='0' ? 'form-control p-1 bg-danger  border-0':'form-control p-1 bg-info border-0']"
-              [value]="w.note" (blur)="updateTask($event, w._id, w.task, w.asistence)">
+            <input [disabled]="loading" class="form-control mx-1" style="width:5em" type="text"
+              [ngClass]="[w.nota>10 ? 'form-control p-1 bg-danger  border-0':'form-control p-1 bg-info border-0']"
+              [value]="w.note" (blur)="updateTask($event, w.respuesta, w._id, w.task, w.asistence)">
           </span>
-        </span>
-      </td>
-      <td>
-        <span class="d-flex" *ngFor="let ww_ of ww_w['Usser'] index as i">
-          <span class="btn-group" *ngIf="ww_.tassk.length==0">
-            <button class='btn btn-light' [disabled]="loading"
-              (click)="saveasistant(photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id, 'P')">P</button>
-            <button class='btn btn-light' [disabled]="loading"
-              (click)="saveasistant(photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id, 'T')">T</button>
-            <button class='btn btn-light' [disabled]="loading"
-              (click)="saveasistant(photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id, 'F')">F</button>
-            <button class="btn btn-light" [disabled]="loading"
-              (click)="saveasistant(photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id, 'J')">J</button>
-          </span>
-          <ng-container style='margin-left:1em' *ngFor="let w of ww_['tassk'] index as i" class="d-flex">
-            <span class="btn-group" *ngIf="w.length!=0">
-              <button class='btn btn-light border' [disabled]="loading"
-                (click)="updateasistant(w._id, w.task, w.note, 'P')">P</button>
-              <button class='btn btn-light border' [disabled]="loading"
-                (click)="updateasistant(w._id, w.task, w.note, 'T')">T</button>
-              <button class='btn btn-light border' [disabled]="loading"
-                (click)="updateasistant(w._id, w.task, w.note, 'F')">F</button>
-              <button class="btn btn-light border" [disabled]="loading"
-                (click)="updateasistant(w._id, w.task, w.note, 'J')">J</button>
-            </span>
-            <div class="p-2 px-3 mx-2 rounded "
-              [ngClass]="[w.asistence=='P' ? 'bg-success text-light':w.asistence=='F'?'bg-danger text-light':w.asistence=='T'?'bg-warning text-light':'bg-info text-light']">
-              {{w.asistence}}</div>
-          </ng-container>
         </span>
       </td>
       <td>
@@ -203,4 +271,7 @@
       </td>
     </tr>
   </table>
+</div>
+<div class="fixed-bottom">
+  <mat-progress-bar [value]="progresValue" *ngIf="progresValue > 0"></mat-progress-bar>
 </div>

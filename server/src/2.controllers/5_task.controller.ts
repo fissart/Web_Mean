@@ -11,7 +11,7 @@ import Curse, { ICurse } from '../1.models/2_Curse';
 //getsController/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 export async function getsController(req: Request, res: Response): Promise<Response> {
-   const { ObjectId } = require("mongodb");
+    const { ObjectId } = require("mongodb");
     const user = ObjectId(req.params.user);
     const curse = ObjectId(req.params.curse);
     console.log(user, curse);
@@ -24,10 +24,10 @@ export async function getsController(req: Request, res: Response): Promise<Respo
         {
             $lookup: {
                 from: "sections",
-                let: { www: "$codigo" },//_id
+                let: { www: "$_id" },//codigo
                 pipeline: [
-                    { $match: { $expr: { $eq: ["$codecurse", "$$www"] } } },//curse
-                    {
+                    { $match: { $expr: { $eq: ["$curse", "$$www"] } } },//codecurse
+                    {   
                         $lookup: {
                             from: "themes",
                             let: { www: "$_id" },
@@ -63,26 +63,26 @@ export async function getsController(req: Request, res: Response): Promise<Respo
 //getupdateController/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 export async function getupdateController(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
-    const www = await Task.findById(id);
-    console.log(id);
-    return res.json(www);
+        const { id } = req.params;
+        const www = await Task.findById(id);
+        console.log(id);
+        return res.json(www);
 }
 
 
 //createController/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 export async function createController(req: Request, res: Response): Promise<Response> {
-    const {note, task, theme, unidad, curse, user, asistence } = req.body;
-    //console.log(patth);
+    const {note, task, dateb, datee, solution, theme, unidad, curse, user, asistence, codigo, ciclo, mencion, teacher, year  } = req.body;
+    //console.log(patth)
     if (req.file) {
       const patth=req.file.path;
-      const newCurse = { note, img: patth, task, theme, unidad, curse, user, asistence };
+      const newCurse = { note, img: patth, task, dateb, datee, solution, theme, unidad, curse, user, asistence, codigo, ciclo, mencion, teacher, year };
       const userw = new Task(newCurse);
       await userw.save();
     } else {
-      const newCurse = { note, task, theme, unidad, curse, user, asistence };
-      console.log(note, task, theme, unidad, curse, user);
+      const newCurse = { note, task,  dateb, datee, solution, theme, unidad, curse, user, asistence, codigo, ciclo, mencion, teacher, year };
+      console.log(dateb, datee);
       const userw = new Task(newCurse);
     await userw.save();
     }
@@ -158,12 +158,24 @@ export async function deleteController(req: Request, res: Response): Promise<Res
     return res.json({ message: 'Successfully deleted task' });
 };
 
+///////////////////////////////////////////////////////////
+export async function updaterestricted_date(req: Request, res: Response): Promise<Response> {
+    const { ObjectId } = require("mongodb");
+    const id = ObjectId(req.params.id);
+    const { ww, www } = req.body;
+    const setdate = await Task.updateMany({theme:id}, { $set: { dateb: ww, datee: www } });
+    console.log(setdate)
+    return res.json("ok");
+};
+
+
+
 //updateController/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 export async function updateController(req: Request, res: Response): Promise<Response> {
     console.log(req.file)
     const { id } = req.params;
-    const { task, note, asistence } = req.body;
+    const { task, solution, note, asistence } = req.body;
     const updatedCurse = "";
     if (req.file) {
         const patth=req.file.path;
@@ -175,9 +187,9 @@ export async function updateController(req: Request, res: Response): Promise<Res
                 console.error(err);
             }
         }
-        const updatedCurse = await Task.findByIdAndUpdate(id, {note, task, asistence, img: patth });
+        const updatedCurse = await Task.findByIdAndUpdate(id, {note, task, solution, asistence, img: patth });
     } else {
-        const updatedCurse = await Task.findByIdAndUpdate(id, {note, task, asistence });
+        const updatedCurse = await Task.findByIdAndUpdate(id, {note, task, solution, asistence });
     }
     return res.json({
         message: 'Successfully updated',

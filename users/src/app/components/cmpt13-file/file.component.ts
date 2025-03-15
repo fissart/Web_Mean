@@ -43,8 +43,20 @@ export class FileComponent implements OnInit {
     public textt: string = "";
 
     onImgError(event: any) {
-        event.target.src = './assets/negz.png'
+        event.target.src = './assets/photo.svg'
     }
+  
+    get valuew(): string {
+        //console.log(this.markdown2.replace(/\n|\r/g, ''))
+        return this.markdown.replace(/\n|\r/g, '');
+      }
+  
+      get valueww(): string {
+        //console.log(this.markdown2.replace(/\n|\r/g, ''))
+        return this.text.replace(/\n|\r/g, '');
+      }
+
+
     constructor(private TaskService: TaskService, private router: ActivatedRoute, private routerr: Router,
         private modal: NgbModal, private Service: UsersService) { }
     photo: any = [];
@@ -98,20 +110,21 @@ export class FileComponent implements OnInit {
     open2(www: any, textw: string) {
         this.modal.open(www, { size: 'xl', scrollable: true })
         this.text = textw;
-
     }
-    open(good: any, textw: string, textww: string, textwww: string) {
-        this.modal.open(good, { size: 'xl', scrollable: true })
+
+    solution!: string;
+    
+    open(wwwww: any, textw: string, respuesta: string, textww: string, textwww: string) {
+        this.modal.open(wwwww, { size: 'xl', scrollable: true })
         this.text = textw;
         this.markdown = textww;
-        this.textt = textwww;
-
+        this.solution = respuesta;
+        this.textt = textwww
     }
 
     updatenote(idtask: HTMLInputElement, task: HTMLTextAreaElement, note: HTMLInputElement) {
         this.router.params.subscribe(params => {
-
-            this.TaskService.updatetask(task.value, note.value, idtask.value, '', this.archivos[0])
+            this.TaskService.updatetask(task.value, this.solution, note.value, idtask.value, '', this.archivos[0])
                 .subscribe(
                     (res: any) => {
                         this.loading = "false";

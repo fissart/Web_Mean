@@ -100,11 +100,15 @@
                 </div>
                 <mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar>
                 <label for="exampleFormControlInput1" class="form-label text-white">Archivos del curso</label>
-                <input type="file" accept="image/*" class="d-none" (change)="FileCursse($event, $any(photo)._id, $any(photo).codigo)" #Filecurse>
+                <!-- <input type="file" accept="image/*" class="d-none" (change)="FileCursse($event, $any(photo)._id, $any(photo).codigo)" #Filecurse> -->
+                <input type="file" class="d-none" (change)="FileCursse($event, $any(photo)._id, $any(photo).codigo)" #Filecurse>
                 <button type="button" name="button" class="btn btn-info text-light" (click)="Filecurse.click()">
                   Cargar archivos del curso
-                </button>
-
+                </button> 
+                <!-- 
+                  console.log(str.replace(/\$.*?[^\)]\$/g, ''));
+                str.replace(/SELECT (.*?)(?= FROM)/i, "SELECT Count(*)");
+                -->
             </div>
 
         </form>

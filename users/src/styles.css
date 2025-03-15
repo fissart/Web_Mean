@@ -4,26 +4,41 @@
 @import '~swiper/modules/pagination/pagination.min.css';
 @import '~quill/dist/quill.snow.css';
 
-body{
+/* @import '~mathlive/dist/mathlive-static.css'; */
 
-/*
+/* @import '~mathlive/dist/mathlive.css'; */
+body {
+
+    /*
 background: linear-gradient(to bottom, rgb(0,0,0), rgb(50,0,200));
 background: linear-gradient(to bottom, rgb(0,0,0), rgb(150,0,70));
 background: url("/assets/negz.jpg");
 */
-background-size: 100%;
-min-height: 10vh;
-background-attachment: fixed;
+    background-size: 100%;
+    min-height: 10vh;
+    background-attachment: fixed;
 }
 
-iframe{
-    width:100%
+
+.cke_float .cke_top {
+    display: none;
+}
+
+.ck.ck-balloon-panel {
+    left: 50% !important;
+    top: 70%;
+    transform: translate(-50%, 0%);
+}
+
+
+iframe {
+    width: 100%
 }
 
 .nav {
-  background: white;
+    background: white;
 
-  /*
+    /*
   background: linear-gradient(to bottom, rgb(50,0,200), rgb(0,0,0));
   background: linear-gradient(to bottom, rgb(150,0,70), rgb(0,0,0));
   #b32134
@@ -31,31 +46,79 @@ iframe{
 background: url("https://st.depositphotos.com/1193964/3828/i/600/depositphotos_38287089-stock-photo-dark-purple-fractal-swirls-digital.jpg") repeat;
 */
 
-  background-size: cover;
-  min-height: 10vh;
+    background-size: cover;
+    min-height: 10vh;
 }
 
-.ql-editor{
-  padding: 0.3em
+.ql-editor {
+    padding: 0.3em
 }
 
 .ql-toolbar.ql-snow {
-  text-align: center;
-}
-
-.ql-align-center {
+    padding: 0%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: rgb(253, 240, 255);
     text-align: center;
 }
 
-.height{
-  margin-top: 8em;
-}
-.cursorpoint{
-  cursor: pointer;
+.fixed {
+    padding: 0%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: rgb(128, 27, 168)240, 252);
+    text-align: center;
 }
 
-.dropdown-toggle{
-  cursor: pointer;
+.ql-toolbar.ql-snow .ql-formats {
+    margin: .012cm;
+    font-family: inherit;
+    font-size: 12pt;
+    border: .1em solid rgb(178, 168, 187);
+    border-radius: .2em;
+}
+
+.ql-snow .ql-editor h6 {
+    font-size: 1rem;
+}
+
+.ql-snow .ql-editor h5 {
+    font-size: 1.25rem;
+}
+
+.ql-snow .ql-editor h4 {
+    font-size: calc(1.275rem + 0.3vw);
+}
+
+.ql-snow .ql-editor h3 {
+    font-size: 1.5em;
+}
+
+.ql-snow .ql-editor h2 {
+    font-size: 1.7em;
+}
+
+.ql-snow .ql-editor h1 {
+    font-size: 2em;
+}
+
+.katex {
+    /* border: .1em solid blue; */
+    color: rgb(27, 36, 168);
+}
+
+.height {
+    margin-top: 8em;
+}
+
+.cursorpoint {
+    cursor: pointer;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
 
 }
 
@@ -66,7 +129,7 @@ background: url("https://st.depositphotos.com/1193964/3828/i/600/depositphotos_3
 }
 
 .nav-link {
-color: black  !important;
+    color: black !important;
 }
 
 
@@ -77,7 +140,7 @@ color: black  !important;
     right: 0;
     left: 0;
     top: 0;
-  }
+}
 
 .mytest {
     position: absolute;
@@ -86,9 +149,15 @@ color: black  !important;
     transform: translate(-50%, -50%);
     z-index: 0;
 }
+
 .fr-sticky-on {
     position: absolute;
     z-index: 10;
+}
+
+p {
+    margin-top: .5rem !important;
+    margin-bottom: .5rem !important;
 }
 
 .mytesttop {
@@ -98,11 +167,12 @@ color: black  !important;
     transform: translate(-50%, -50%);
     z-index: 0;
 }
+
 .namecursecenter {
     position: absolute;
     bottom: 50%;
     left: 50%;
-    font-family: "le-monde-livre-classic-std-s"f !important;
+    font-family: "le-monde-livre-classic-std-s" f !important;
     transform: translate(-50%, -50%);
     z-index: 0;
 }
@@ -137,21 +207,21 @@ color: black  !important;
 }
 
 .swiper-slide img {
-  width: auto;
-   height: auto;
-   max-width: 85%;
-   max-height: 100%;
-   -ms-transform: translate(-50%, -50%);
-   -webkit-transform: translate(-50%, -50%);
-   -moz-transform: translate(-50%, -50%);
-   transform: translate(-50%, -50%);
-   position: absolute;
-   left: 50%;
-   top: 50%;
+    width: auto;
+    height: auto;
+    max-width: 85%;
+    max-height: 100%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
 
 }
 
-.navbar-nav li:hover > ul.dropdown-menu {
+.navbar-nav li:hover>ul.dropdown-menu {
     display: block;
 }
 
@@ -159,14 +229,14 @@ color: black  !important;
     position: relative;
 }
 
-.dropdown-submenu > .dropdown-menu {
+.dropdown-submenu>.dropdown-menu {
     top: 0;
     left: 100%;
     margin-top: -6px;
 }
 
 /* rotate caret on hover */
-.dropdown-menu > li > a:hover:after {
+.dropdown-menu>li>a:hover:after {
     text-decoration: underline;
     transform: rotate(-90deg);
 }
@@ -176,12 +246,13 @@ table {
 }
 
 table th {
-  text-align: left;
+    text-align: left;
 }
 
-td, th {
-  border: 1px solid rgba(245, 245, 245, 0.7);
-  text-align: left;
+td,
+th {
+    border: 1px solid rgba(245, 245, 245, 0.7);
+    text-align: left;
 }
 
 th,
@@ -190,12 +261,12 @@ td {
 }
 
 tr:nth-child(even) {
-  background-color: rgba(250, 235, 235, 0.7)
+    background-color: rgba(250, 235, 235, 0.7)
 }
 
 tr:nth-child(odd) {
-  color:   black;
-  background-color: rgba(15, 112, 119, 0.7)
+    color: black;
+    background-color: rgba(15, 112, 119, 0.7)
 }
 
 th {
@@ -204,9 +275,9 @@ th {
 
 
 .vertical {
-  -webkit-writing-mode: vertical-rl;
-  -ms-writing-mode: tb-rl;
-  writing-mode: vertical-rl;
+    -webkit-writing-mode: vertical-rl;
+    -ms-writing-mode: tb-rl;
+    writing-mode: vertical-rl;
 }
 
 h1 a {
@@ -275,8 +346,7 @@ blockquote {
     left: 3em;
     */
     position: relative;
-    width: 45px;
-    height: 69px;
+    height: 79px;
 }
 
 .wrapperest5 {
@@ -286,6 +356,7 @@ blockquote {
     border-radius: 50%;
     object-fit: cover;
 }
+
 .wrapperest9 {
     transform: translate(-50%, -50%);
     position: absolute;
@@ -337,7 +408,7 @@ blockquote {
     min-width: 0;
     word-wrap: break-word;
     border-radius: 0.25rem;
-    background: rgba(20,20,200,0.8);
+    background: rgba(20, 20, 200, 0.8);
 
     /*
     border: .15em solid rgb(212, 101, 203);
@@ -358,16 +429,17 @@ blockquote {
 
     background-clip: border-box;
     border-radius: 0.25rem;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
     /*border: .15em solid rgb(212, 101, 203);
     */
 }
+
 .cardnew:hover {
     animation: pulse;
     /*wobble flip bounce pulse referring directly to the animation's @keyframe declaration */
     animation-duration: .1s;
-      box-shadow: 0 3px 5px rgba(0,0,0,0.5);
-    background-color:rgb(250,250,250);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+    background-color: rgb(250, 250, 250);
 }
 
 .cardnew_ {
@@ -377,9 +449,9 @@ blockquote {
     min-width: 0;
     word-wrap: break-word;
     border-radius: 0.25rem;
-background-size:     cover;
-box-shadow: 0 3px 5px rgb(0,0,0,);
-/*
+    background-size: cover;
+    box-shadow: 0 3px 5px rgb(0, 0, 0, );
+    /*
 background: url(https://cdn.elnacional.com/wp-content/uploads/2021/12/Poesia-fractal-parte-2-1024x480.jpg ) no-repeat center;
     background-color: rgba(250,100,200,.8);
     border: .15em solid rgb(212, 101, 203);
@@ -394,9 +466,9 @@ background: url(https://cdn.elnacional.com/wp-content/uploads/2021/12/Poesia-fra
     animation: pulse;
     /*wobble flip bounce pulse referring directly to the animation's @keyframe declaration */
     animation-duration: .1s;
-    box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 
-    }
+}
 
 .componentWrappertop {
     position: absolute;
@@ -418,7 +490,7 @@ background: url(https://cdn.elnacional.com/wp-content/uploads/2021/12/Poesia-fra
     border-radius: .5em;
     width: 95%;
     text-align: center;
-     transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     padding: .5em;
     border: 0.2cm;
     background-color: rgb(212, 101, 203);
@@ -467,7 +539,8 @@ background: url(https://cdn.elnacional.com/wp-content/uploads/2021/12/Poesia-fra
     background-color: rgba(255, 0, 0, 0.1);
     border: 0.2cm;
 }
-.float_title{
+
+.float_title {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -493,11 +566,51 @@ background: url(https://cdn.elnacional.com/wp-content/uploads/2021/12/Poesia-fra
 }
 
 
-.card { background-color: rgba(245, 245, 245, 0.4); }
+.card {
+    background-color: rgba(245, 245, 245, 0.4);
+}
 
-.katex-display { overflow: auto hidden }
-.katex-display > .katex { white-space: normal }
+.katex-display {
+    overflow: visible
+}
+
+.katex-display>.katex {
+    white-space: normal
+}
+
 /* Add space between broken lines: */
-.katex-display > .base { margin: 0.25em 0 }
+.katex-display>.base {
+    margin: 0.0em 0
+}
+
 /* Compensate by reducing space around display math */
-.katex-display { margin: 0.5em 0; }
+.katex-display {
+    margin: 0.5em 0;
+}
+
+.katex .base {
+    padding-top: .1em;
+}
+
+.ql-container {
+    font-size: 16px;
+    font-family: inherit;
+}
+
+ql-hidden {
+    background-color: aquamarine;
+}
+
+ql-tooltip ql-hidden {
+    display: none;
+}
+
+.quill-editor {
+    background-color: aqua;
+    padding: 0%;
+}
+
+
+.ql-container {
+    height: auto;
+}

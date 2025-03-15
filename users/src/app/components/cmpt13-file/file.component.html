@@ -5,7 +5,7 @@
 
 <ng-template #ww let-modal>
   <div class="modal-body bg-succes">
-    <ng-katex-html [html]="text"></ng-katex-html>
+    <ng-katex-html [html]="valueww"></ng-katex-html>
   </div>
   <div class="modal-footer">
     <button class="btn btn-info shadow-none" (click)="modal.close()">Close</button>
@@ -48,8 +48,8 @@
             <textarea rows="10" class="variable-textarea form-control" [(ngModel)]="markdown"
               [ngModelOptions]="{standalone:true}" #task></textarea>
           </div>
-          <div class="col-md-7">
-            <ng-katex-html [html]="markdown"></ng-katex-html>
+          <div class="col-md-7"> 
+            <ng-katex-html [html]="valuew"></ng-katex-html>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
       <img [src]="apiURL+'/'+ thisuser[0].foto" class="img-card-top card-photo"
         style='width: 180px; height: 180px; border-radius:90px; position: relative; object-fit: cover;'
         (error)="onImgError($event)">
-      <h4>
+      <h4 class="text-uppercase">
         {{thisuser[0].name}}
       </h4>
     </div>
@@ -101,7 +101,7 @@
                 <div *ngFor="let www of subItem['usertask'] index as i">
                   <div class="text-center" *ngIf="$any(www).note">Nota {{www.note}}</div>
                   <div *ngIf="$any(user).rol==1 || $any(user).rol==2 && $any(subItem).usertask.length==1">
-                    <button class="btn btn-outline-info" (click)="open(w, www._id, www.task , www.note)">Revizar
+                    <button class="btn btn-outline-info" (click)="open(w, www._id, www.task, www.solution , www.note)">Revizar
                       {{www.note}}</button>
                   </div>
                 </div>

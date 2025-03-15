@@ -35,7 +35,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
 
   menciones = [
     { name: 'Pintura', abbrev: 'P' },
-    { name: 'Esultura', abbrev: 'E' },
+    { name: 'Escultura', abbrev: 'E' },
     { name: 'Grabado', abbrev: 'G' },
     { name: 'Educacion Artística', abbrev: 'ED' }
   ];
@@ -50,7 +50,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     { name: "VIII", abbrev: "VIII" },
     { name: "IX", abbrev: "IX" },
     { name: "X", abbrev: "X" }
-    ];
+  ];
   yearrs = [
     { name: "2022", abbrev: "22" },
     { name: "2023", abbrev: "23" },
@@ -1623,6 +1623,8 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
       );
   }
 
+  public src: string = "";
+
   ngOnInit() {
     if (!localStorage.getItem('id')) {
       this.router.navigate(['/'])
@@ -1631,9 +1633,12 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     this.date = new Date().getDate()
     var month = new Date().getMonth()
     this.year = new Date().getFullYear();
-    this.Tw.setTitle('Inicio ESFAP');
-    var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'setiembre', 'w10', 'w11', 'w12']
+    this.Tw.setTitle('Plataforma');
+    var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'setiembre', 'octubre', 'noviembre', 'diciembre']
     this.mes = meses[month]
+
+    console.log('www' + (month + 1))
+    this.src = 'www' + (month + 1)
 
     if (localStorage.getItem('id')) {
       this.usser();

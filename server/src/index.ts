@@ -1,3 +1,4 @@
+/*
 import app from './app';
 import { startConnection } from './database'
 import * as https from 'https';
@@ -15,7 +16,7 @@ async function startServer() {
 }
 startServer();
 
-/*
+*/
 import app from './app';
 import { startConnection } from './database'
 async function main() {
@@ -24,5 +25,3 @@ async function main() {
   console.log('Server on port', app.get('port'));
 }
 main();
-
-*/

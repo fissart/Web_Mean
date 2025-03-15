@@ -183,7 +183,6 @@ export class PhotoPreviewComponent implements OnInit {
   openfile(file: any, textw: string) {
     this.modal.open(file, { size: 'xl', scrollable: true })
     this.text = textw;
-
   }
 
 

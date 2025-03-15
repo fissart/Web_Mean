@@ -9,6 +9,7 @@ import {
     getController,
     updateController,
     deleteController,
+    updaterestricted_date
 } from '../2.controllers/4_themes.controller'
 
 router.route('/Controller')
@@ -17,6 +18,10 @@ router.route('/Controller')
 router.route('/ControllerThemeUser/:id/:curssse')
     .get(getupdateController)
 
+router.route('/Controller/Updaterestricted_date/:id')
+    .post(updaterestricted_date);
+
+ 
 router.route('/Controller/:id')
     .delete(deleteController)
     .put(upload.single('image'), updateController);

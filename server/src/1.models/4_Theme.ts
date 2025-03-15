@@ -5,6 +5,9 @@ const schema = new Schema({
   title: String,
   description: String,
   task: String,
+  dateb: String,
+  datee: String,
+  solution: String,
   img: String,
   time: String,
   unidad: {
@@ -22,6 +25,9 @@ export interface ITheme extends Document {
   title: string,
   description: string,
   task: string,
+  dateb: string,
+  datee: string,
+  solution: string,
   img: string,
   time: string,
   unidad: {

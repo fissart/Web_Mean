@@ -27,7 +27,7 @@ export async function createController(req: Request, res: Response): Promise<Res
     const { title, description,  curse, test, task, codecurse, user, time, timeex } = req.body;
     console.log("reqwwww");
     //    if (!req.file) return res.status(400).send("No files were uploaded!!");
-    const newCurse = { title, description, curse, test, task, codecurse, user, time,  timeex, img: "imagen" };
+    const newCurse = { title, description, curse, test, task, codecurse, user, time,  timeex, conceptual:".33", procedimental:".33", actitudinal:".33", img: "imagen" };
     const Cursew = new Curse(newCurse);
     await Cursew.save();
     return res.json({
@@ -95,7 +95,7 @@ export async function deleteController(req: Request, res: Response): Promise<Res
 export async function updateController(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     console.log(req.body)
-    const { title, description, task,test,time,timeex } = req.body;
+    const { title, description, task,test,time,timeex, conceptual, procedimental, actitudinal } = req.body;
     const updatedCurse = "";
     if (req.file) {
 
@@ -107,9 +107,9 @@ export async function updateController(req: Request, res: Response): Promise<Res
                 console.error(err);
             }
         }
-        const updatedCurse = await Curse.findByIdAndUpdate(id, { title, description, task,test,time,timeex, img: req.file.path });
+        const updatedCurse = await Curse.findByIdAndUpdate(id, { title, description, task,test,time,timeex, conceptual, procedimental, actitudinal, img: req.file.path });
     } else {
-        const updatedCurse = await Curse.findByIdAndUpdate(id, { title, description, task,test,time,timeex });
+        const updatedCurse = await Curse.findByIdAndUpdate(id, { title, description, task,test,time,timeex, conceptual, procedimental, actitudinal });
     }
     return res.json({
         message: 'Successfully updated'

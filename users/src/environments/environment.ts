@@ -2,11 +2,11 @@ export const environment = {
   production: false,
   title: 'Local Environment Heading',
   //apiURL: 'http://localhost:8000'
-  apiURL: 'https://www.esfapa.edu.pe:8000'
+  apiURL: 'https://www.esfapa.edu.pe:9797'
 };
 /*
-
-
+      
+{{www.length!=0?www.note:null}}
 db.users.updateMany({}, {"$set": {"ciclo": ''}})
 
 db.curses.updateMany({}, {"$set": {"show": "false"}});
@@ -71,7 +71,7 @@ db.users.aggregate([
         { $sort: { "_id": 1 } },
     ], { collation: { locale: "es" }})
 
-db.users.updateMany({mencion:{$nin:["E","G","P","ED"]}, rol:"3"},{$set:{mencion:"N",ciclo:"N"}})
+db.users.updateMany({mencion:{$nin:["E","G","P","ED"]}, rol:"3"},{$set:{dni,{$set:{mencion:"N",ciclo:"N"}})
 db.users.updateMany({},{$set:{filosophy:""}})
 db.users.updateMany({rol:"2"},{$set:{filosophy:"New"}})
 db.users.updateMany({rol:"2"},{$set:{mencion:"N"}})
@@ -258,6 +258,78 @@ db.example.aggregate([
   { $match : { city_state : /[A-Z]{2}/ } },
   { $group : { _id: { "state" : "$city_state" }, total_qty : { "$sum" : "$qty" } } },
 ]);
+
+db.users.insertMany([
+{rol:"3",password:"44334139",dni:"44334139", name:"VILCA PAREJA, YURI ANDERSON", email:"yurivilca@esfapa.edu.pe", celular:"999196122"},
+{rol:"3",password:"76582573",dni:"76582573", name:"VILLANTOY SALCEDO, JUDITH LILIANA", email:"judithvillantoy@esfapa.edu.pe", celular:"976716338"},
+{rol:"3",password:"79625848",dni:"79625848", name:"ZAPATA MENDOZA, YANETH ROSSMERY", email:"yanethzapata@esfapa.edu.pe", celular:"920827337"},
+]);
+
+
+db.users.insertMany([
+{rol:"3", password:"28298872", dni:"28298872", name:"AÑAÑOS CORDOVA, MARCEL MAGALY", email:"marcelañaños@esfapa.edu.pe", celular:"990081022"},
+{rol:"3", password:"72916285", dni:"72916285", name:"AVILES BUSTILLOS, ELIANA PAOLA", email:"alianaaviles@esfapa.edu.pe", celular:"953081356"},
+{rol:"3", password:"60045251", dni:"60045251", name:"ASTO HUAMANI, ANYELI", email:"anyeliasto@esfapa.edu.pe", celular:"925288922"},
+{rol:"3", password:"73048527", dni:"73048527", name:"CANCHO ROMANI, MELANI LUCERO", email:"malanicancho@esfapa.edu.pe", celular:"917439677"},
+{rol:"3", password:"60920241", dni:"60920241", name:"DUEÑAS MICULLYA, JUAN DIEGO", email:"juandueñas@esfapa.edu.pe", celular:"901887170"},
+{rol:"3", password:"71269080", dni:"71269080", name:"ESCRIBA GOMEZ, MIGUEL ANGEL", email:"miguelescriba@esfapa.edu.pe", celular:"935752705"},
+{rol:"3", password:"70654640", dni:"70654640", name:"FELICES CERNA, RICKY ANDERSON", email:"rickyfelices@esfapa.edu.pe", celular:"930255365"},
+{rol:"3", password:"74037346", dni:"74037346", name:"GALVEZ ANDIA, MALU SHANDIRA", email:"malugalvez@esfapa.edu.pe", celular:"961416790"},
+{rol:"3", password:"70293213", dni:"70293213", name:"GAMBOA SALCEDO, FERNANDO JOSE", email:"fernandogamboa@esfapa.edu.pe", celular:"958147256"},
+{rol:"3", password:"74926232", dni:"74926232", name:"GALLARDO JIMENEZ, MARIA GRACIA", email:"mariagallardo@esfapa.edu.pe", celular:"959896185"},
+{rol:"3", password:"70391898", dni:"70391898", name:"HUARIPUMA HUAMANI, ANGIE CRISTELL", email:"angiehuaripuma@esfapa.edu.pe", celular:"930392163"},
+{rol:"3", password:"74966072", dni:"74966072", name:"HUAMAN TINEO, JAVIER", email:"javierhuaman@esfapa.edu.pe", celular:"914905406"},
+{rol:"3", password:"70222446", dni:"70222446", name:"JAIME MAURICIO, WILLIAMS", email:"williamsjaime@esfapa.edu.pe", celular:"913253851"},
+{rol:"3", password:"44800793", dni:"44800793", name:"JULCA JUÁREZ, CECILIA ANDREA", email:"ceciliajulca@esfapa.edu.pe", celular:"966010009"},
+{rol:"3", password:"75550374", dni:"75550374", name:"LUJAN HUAMANI, MAYLI YASURI", email:"maylilujan@esfapa.edu.pe", celular:"993170482"},
+{rol:"3", password:"76942046", dni:"76942046", name:"PARIONA LUNAZCO, ZUNILDA", email:"zunildapariona@esfapa.edu.pe", celular:"982106591"},
+{rol:"3", password:"60280568", dni:"60280568", name:"PEREZ ESPINO, LEYDE ANDREA", email:"leydeperez@esfapa.edu.pe", celular:"943926755"},
+{rol:"3", password:"77223212", dni:"77223212", name:"QUISPE ÑAHUI, KAROL DEVORA", email:"karolquispe@esfapa.edu.pe", celular:"916193977"},
+{rol:"3", password:"77143014", dni:"77143014", name:"QUISPE SOLIER, LISSETH", email:"lissethquisspe@esfapa.edu.pe", celular:"945013747"},
+{rol:"3", password:"71892546", dni:"71892546", name:"QUISPE JORGE, JHONATAN ", email:"jhonatanquispe@esfapa.edu.pe", celular:"914540829"},
+{rol:"3", password:"74203130", dni:"74203130", name:"REMACHI TOMAYLLA, ANA MARIEL", email:"anaremachi@esfapa.edu.pe", celular:"900644603"},
+{rol:"3", password:"60229950", dni:"60229950", name:"ROJAS MIRANDA, ROSA LUZ", email:"rosarojas@esfapa.edu.pe", celular:"973469101"},
+{rol:"3", password:"60862648", dni:"60862648", name:"SALAZAR QUISPE, ERIKA ANAHI", email:"erikasalazar@esfapa.edu.pe", celular:"973814950"},
+{rol:"3", password:"71557596", dni:"71557596", name:"SANTIAGO QUISPE, ANA EDITH", email:"anasantiago@esfapa.edu.pe", celular:"990929928"},
+{rol:"3", password:"70565842", dni:"70565842", name:"TINEO AGUIRRE, FRANK KEVIN", email:"franktineo@esfapa.edu.pe", celular:"970614678"},
+{rol:"3", password:"76256740", dni:"76256740", name:"TORRES HUAMAN, KELLY SHANNON", email:"kellytorres@esfapa.edu.pe", celular:"900948907"},
+{rol:"3", password:"70790755", dni:"70790755", name:"VELARDE HURTADO, IRVIN", email:"irvinvelarde@esfapa.edu.pe", celular:"963440823"},
+{rol:"3", password:"70211974", dni:"70211974", name:"YARANGA MIRANDA, RONY", email:"ronyyaranga@esfapa.edu.pe", celular:"921409438"},
+]);
+
+db.users.insertMany([
+{rol:"3",password:"75168638",dni:"75168638",	name:"AUQUI ROBLES, RAFAEL", email:"rafaelauqui@esfapa.edu.pe", celular:"976860126"},
+{rol:"3",password:"77085317",dni:"77085317",	name:"BECERRA CABRERA, LUZ NELIA", email:"luzbacerra@esfapa.edu.pe", celular:"918699156"},
+{rol:"3",password:"61335202",dni:"61335202",	name:"CAMBORDA MEDINA, ROSETTA JAZMIN", email:"rosettacamborda@esfapa.edu.pe", celular:"991833731"},
+{rol:"3",password:"45459234",dni:"45459234",	name:"DURAND ARAUJO, JOSEPH", email:"josephdurand@esfapa.edu.pe", celular:"993809867"},
+{rol:"3",password:"61421637",dni:"61421637",	name:"GALLARDO PAREDES, LEVY MAHEL", email:"levygallardo@esfapa.edu.pe", celular:"916046647"},
+{rol:"3",password:"74590640",dni:"74590640",	name:"HUALLPA PRETELL, RUBI YOLANDA", email:"rubihuallpa@esfapa.edu.pe", celular:"932777843"},
+{rol:"3",password:"70179787",dni:"70179787",	name:"HUAYTA CHUÑOCCA, CRISTHOFER", email:"cristhoferhuayta@esfapa.edu.pe", celular:"938429646"},
+{rol:"3",password:"60043800",dni:"60043800",	name:"ORIUNDO NUÑEZ, CARL EULER", email:"carloriundo@esfapa.edu.pe", celular:"962933224"},
+{rol:"3",password:"72484120",dni:"72484120",	name:"ORTIZ JUOLIZBERTTY, AZUMI URSULA", email:"azumiortiz@esfapa.edu.pe", celular:"914887369"},
+{rol:"3",password:"73956498",dni:"73956498",	name:"PALOMINO CORAS, HENRY ERIK", email:"henrypalomino@esfapa.edu.pe", celular:"900723925"},
+{rol:"3",password:"60444970",dni:"60444970",	name:"PINCO CAMPOS, JHOSEPH ANTHONY", email:"jhosephpinco@esfapa.edu.pe", celular:"955823415"},
+{rol:"3",password:"47189462",dni:"47189462",	name:"QUISPE HUAYA, BERNABE SANDO", email:"bernabequispe@esfapa.edu.pe", celular:"977118313"},
+{rol:"3",password:"60922696",dni:"60922696",	name:"RAMOS RUA, DIDIER CLEYDER", email:"didierramos@esfapa.edu.pe", celular:"952816479"},
+{rol:"3",password:"72630099",dni:"72630099",	name:"TIPPE TORRES, LUIS CARLOS", email:"luistippe@esfapa.edu.pe", celular:"966699777"},
+{rol:"3",password:"70414626",dni:"70414626",	name:"TUEROS GOMEZ, SHIRLEY", email:"shirleytueros@esfapa.edu.pe", celular:"954274917"},
+{rol:"3",password:"70460587",dni:"70460587",	name:"TUMBALOBOS HUAMAN, ANGIE SHARAI", email:"angietumbalobos@esfapa.edu.pe", celular:"966699777"},
+])
+
+db.users.insertMany([
+{dni:"60862571",password:"60862571", name:"ALEJOS ROJAS, GUSTAVO", email:"gustavoalejos@esfapa.edu.pe",celular:"913215062"},
+{dni:"62041065",password:"62041065", name:"CASAFRANCA ZAMORA, GABI MILAGROS", email:"gabicasafranca@esfapa.edu.pe",celular:"986861082"},
+{dni:"70568815",password:"70568815", name:"GUTIERREZ ALCARRAZ, NORMA", email:"normagutierrez@esfapa.edu.pe",celular:"907841845"},
+{dni:"60998112",password:"60998112", name:"JAIME TACAS, YEREMY JOSE", email:"yeremyjaime@esfapa.edu.pe",celular:"966103810"},
+{dni:"46995549",password:"46995549", name:"LUJAN ROCA, WALTER LEONARDO", email:"walterlujan@esfapa.edu.pe",celular:"931431560"},
+{dni:"44672544",password:"44672544", name:"PALACIOS HUAMAN, MONICA", email:"Mmonicapalacios@esfapa.edu.pe",celular:"937180250"},
+{dni:"61271869",password:"61271869", name:"PALOMINO VARGAS, ADRIANA SOFIA", email:"adrianapalomino@esfapa.edu.pe",celular:"914654877"},
+{dni:"72223376",password:"72223376", name:"PEÑA DE LA CRUZ, MELISSA GRIT", email:"melissapeña@esfapa.edu.pe",celular:"922924918"},
+{dni:"77793910",password:"77793910", name:"POMA CARHUAPOMA, JORGE LUIS", email:"jorgepoma@esfapa.edu.pe",celular:"900174721"},
+{dni:"70463035",password:"70463035", name:"SARAS LLAVE, ERICK YOMAR", email:"ericksaras@esfapa.edu.pe",celular:"945212218"},
+{dni:"73772879",password:"73772879", name:"SALVATIERRA ROA, NATALY SAYURY", email:"natalysalvatierra@esfapa.edu.pe",celular:"910925520"},
+])
+
 
 
 //1
@@ -643,10 +715,14 @@ db.cursesources.aggregate([
      { "_id" : { "day" : 1, "year" : 2014 }, "totalAmount" : 20, "count" : 1 }
      db.wwws.insertMany(
 [
-  {name:"75869653",email: "75869653@w",  size: { h: 14, w: 21, uom: "cm" }, password:"75869653",rol:"3",foto:"uploads/cf0802fd-d079-4eb4-bc60-e0d31ae7c939.jpg",createdAt:ISODate("2021-08-16T20:28:22.674Z"),updateAt:ISODate("2021-08-16T20:28:22.674Z")},
-  {name:"75869653",email: "75869653@w", password:"75869653",rol:"3",foto:"uploads/cf0802fd-d079-4eb4-bc60-e0d31ae7c939.jpg",createdAt:ISODate("2021-08-16T20:28:22.674Z"),updateAt:ISODate("2021-08-16T20:28:22.674Z")}])
+  {name:"75869653",email: "75869653@w",  size: { h: 14, w: 21, uom: "cm" }, password:"75869653",rol:"3",foto:"uploads/dni:"uploads/cf0802fd-d079-4eb4-bc60-e0d31ae7c939.jpg",createdAt:ISODate("2021-08-16T20:28:22.674Z"),updateAt:ISODate("2021-08-16T20:28:22.674Z")},
+  {name:"75869653",email: "75869653@w", password:"75869653",rol:"3",foto:"uploads/dni:"uploads/cf0802fd-d079-4eb4-bc60-e0d31ae7c939.jpg",createdAt:ISODate("2021-08-16T20:28:22.674Z"),updateAt:ISODate("2021-08-16T20:28:22.674Z")}])
 -//Actualizar e ingresar documentos nested
-db.users.update( {_id: ObjectId('623cd42f0ad9cfb39677310e')}, { '$set': {"size.h" : 'www'} });
+
+db.tasks.updateMany( {theme: ObjectId('65e25c9fa590c6fa0206d938')}, { '$set': {"datte" : ''} });
+
+db.themes.updateMany( {_id: ObjectId('65e25c9fa590c6fa0206d938')}, { '$set': {"time" : '2024-03-12T23:57'} });
+
 //Actualizar e ingresar documentos nuevos
 db.wwws.update( {'_id':ObjectId('623bcd104e6f90b190a6d1d7')}, {$set:{'role':'New MongoDB Tutorial', 'rolewww':'New MongoDB Tutorial'}} )
 
@@ -703,7 +779,7 @@ mongodump --out w1.json --db fismart --collection wwws --host localhost
 mongorestore --db namedatabase --collection namecollectionqueenviar w1.json/fisart //restaurar coleccion.
 
 estudnaites mension y ciclo one date
-db.users.updateMany({rol:"3"},{"$set": {"mension": "N", "ciclo":"N"}})
+db.users.updateMany({rol:"3"},{"$dni": {",{"$set": {"mension": "N", "ciclo":"N"}})
 
 
 
@@ -751,7 +827,7 @@ db.averages.updateMany({codigo:"ABMES103", ciclo:"I", year:"2023",mencion:"P"},{
 db.averages.updateMany({codigo:"AFPDI107", ciclo:"I", year:"2023",mencion:"P"},{$set:{codigo:"FEDIB115"}})
 db.averages.updateMany({codigo:"AFPDI211", ciclo:"III", year:"2023",mencion:"P"},{$set:{codigo:"FEDIB215"}})
 db.averages.updateMany({codigo:"CAHAR401", ciclo:"V", year:"2023",mencion:"P"},{$set:{codigo:"CAHAR305"}})
-db.averages.updateMany({codigo:"AFPDI313", ciclo:"V", year:"2023",mencion:"P"},{$set:{codigo:"FEDIB313"}})
+db.averages.updateMany({user:ObjectId("65a16a29bcdc2163944df07b")},{$set:{solution:"0"}})
 
 
 
@@ -817,6 +893,9 @@ Obra Artística	9
 Obra Artística	33
 Tut. y Práct. Pedg IV	20
 Tut. y Práct. Pedg IV	27
+
+
+Cmpt38NOTASComponent
 
 */
 

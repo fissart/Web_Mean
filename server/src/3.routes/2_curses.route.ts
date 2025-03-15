@@ -10,6 +10,7 @@ import {
     updateController,
     deleteController,
     getsController,
+    getcursesourcesonly,
     getsControllerUser,
     getcursesources,
     updatecurseHide//updateController2
@@ -39,6 +40,9 @@ router.route('/ControllerCurseTeacher/:id/:curseshow')
 
 router.route('/getcursesources')
     .get(getcursesources);
+
+router.route('/getcursesourcesciclo/:ciclo/:mencion/:user')
+    .get(getcursesourcesonly);
 
 //Inicio 
 router.route('/ControllerAll/:id/:idw')

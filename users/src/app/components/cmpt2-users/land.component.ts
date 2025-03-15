@@ -157,7 +157,7 @@ export class LandComponent implements OnInit {
 		if (window.confirm('Esta seguro de archivar el curso?')) {
 			this.curseService.Updatehidecurse(id, "false")
 				.subscribe((res: any) => {
-					this.getsallTeacher()
+					this.getallTeacher()
 					//this.loading = "false"
 					console.log(res)
 					//this.getsCurseTeacher()
@@ -175,7 +175,7 @@ export class LandComponent implements OnInit {
 			err => console.log(err)
 		)
 	}
-	getsallTeacher() {
+	getallTeacher() {
 		this.userService.getteacher().subscribe(
 			(res: any) => {
 				this.wwwww = res
@@ -210,7 +210,7 @@ export class LandComponent implements OnInit {
 			this.getuser()
 		}
 		if (localStorage.getItem('rol') == "1") {
-			this.getsallTeacher()
+			this.getallTeacher()
 		}
 
 		localStorage.removeItem('idcurso')
@@ -322,7 +322,7 @@ export class LandComponent implements OnInit {
 						this.getsCurseTeacher()
 					}
 					if (localStorage.getItem('rol') == "1") {
-						this.getsallTeacher()
+						this.getallTeacher()
 					}
 				})
 		}
@@ -342,6 +342,7 @@ export class LandComponent implements OnInit {
 	selectedUser(id: string) {
 		this.router.navigate(['/user', id])
 		//console.log(id)
+		
 	}
 
 	showProduct: boolean = false

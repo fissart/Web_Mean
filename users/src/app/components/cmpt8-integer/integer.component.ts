@@ -81,7 +81,7 @@ export class UsersCurseComponent implements OnInit {
         //        console.log(sessions)
         for (var l = 0; l < sessions.length; l++) {
           if (sessions[l].task.length == 1) {
-            nota.push(Number(sessions[l].task[0].note))
+            nota.push(Number(sessions[l].task[0].note<0?'0':sessions[l].task[0].note))
           } else {
             nota.push(0)
           }
@@ -103,7 +103,7 @@ export class UsersCurseComponent implements OnInit {
       worksheet.getRow(x + 1).alignment = { vertical: 'middle', horizontal: 'center' };
 
       //worksheet.getColumn(slagthemes.length + 1).width = 20;
-      worksheet.getCell('P' + (x)).value = { formula: '=round(sum(B' + x + ': M' + x + ')/(' + slagthemes.length + '-1)' + ',3)', date1904: true };
+      //worksheet.getCell('P' + (x)).value = { formula: '=round(sum(B' + x + ': M' + x + ')/(' + slagthemes.length + '-1)' + ',3)', date1904: true };
     }
 
     worksheet.getRow(1).height = 80
@@ -1229,7 +1229,7 @@ right: { style: 'medium' }
   public notasum: number = 0;
 
   onImgError(event: any) {
-    event.target.src = '../../../assets/negz.png'
+    event.target.src = '../../../assets/photo.svg'
   }
 
   public photow: any = [];
@@ -1340,24 +1340,26 @@ right: { style: 'medium' }
         .subscribe(
           (res: any) => {
             this.Notes = res;
-            //console.log(res, "Notes");
+            console.log(res, "Notas");
             if (res[0]) {
               this.themes = res[0].cursse[0].units;
-              var slag = [];
-              for (var i = 0; i < res.length; i++) {
+              //var slag = [];
+/*              for (var i = 0; i < res.length; i++) {
                 const w_1 = res[i].userw ? res[i].userw[0].tasks : ""
                 var slagg = [];
                 for (var j = 0; j < w_1.length; j++) {
-                  slagg.push(Number(w_1[j].note));
+                  slagg.push(Number(w_1[j].note<0?0:w_1[j].note));
                 }
-                //console.log(slagg, "wwwwwwwww");
                 var wsum = slagg.reduce((a, b) => a + b, 0);
                 slag.push(Number(wsum));
+                //console.log(slagg, Number(wsum), "wwwwwwwww");
                 // slag.push(Object.values(data[i]);
               }
-              const wwsum = slag.reduce((a, b) => a + b, 0);
+  */
+              //console.log(slag, "wwwwwwwww");
+              //const wwsum = slag.reduce((a, b) => a + b, 0);
               //console.log(wwsum, "wwwwwwwwwwwwww_");
-              this.notasum = wwsum;//console.log("getCurseNotes", slag);
+              //this.notasum = wwsum;//console.log("getCurseNotes", slag);
             }
           },
           err => console.log(err)

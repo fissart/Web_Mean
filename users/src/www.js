@@ -1,0 +1,4 @@
+function wWww () {
+ alert("hellow")
+ 
+}

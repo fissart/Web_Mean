@@ -227,7 +227,88 @@ export async function getControllerNotes(req: Request, res: Response): Promise<R
     const { ObjectId } = require("mongodb");
     const id = ObjectId(req.params.id);
     const curso = ObjectId(id);
+    const ciclo = req.params.ciclo;
+    const mencion = req.params.mencion;
+    const codigo = req.params.codigo;
+
     //    const { id } = req.params;
+    //          const Curseuser = await Curse.find({curse:curso});
+    const integers = await User.aggregate([
+        {
+            $match: {
+                $expr: {
+                    $and: [
+                        { $eq: ["$ciclo", ciclo] },
+                        { $eq: ["$mencion", mencion] },
+                    ]
+                }
+            }
+        },
+        { '$sort': { 'userw.name': 1 } },
+        {
+            $lookup: {
+                from: "curses",
+                let: { wwwww: "$curse", www_: "$user" },
+                pipeline: [
+                    { $match: { $expr: { $eq: ["$_id", "$$wwwww"] } } },
+                    {
+                        $lookup: {
+                            from: "sections",
+                            let: { www: "$_id" },//codigo
+                            pipeline: [
+                                { $match: { $expr: { $eq: ["$curse", "$$www"] } } },//codecurse
+                                {
+                                    $lookup: {
+                                        from: "themes",
+                                        let: { w_ww: "$_id" },
+                                        pipeline: [
+                                            { $match: { $expr: { $eq: ["$unidad", "$$www"] } } },
+                                            {
+                                                $lookup: {
+                                                    from: "tasks",
+                                                    let: { www: "$_id" },
+                                                    pipeline: [
+                                                        {
+                                                            $match: {
+                                                                $expr: {
+                                                                    $and: [
+                                                                        { $eq: ["$theme", "$$w_ww"] },
+                                                                        {
+                                                                            $eq: ["$user", "$$www_"],
+                                                                        },
+                                                                    ]
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    as: "taskstd",
+                                                },
+                                            },
+
+                                        ],
+                                        as: "themes",
+                                    },
+                                },
+                            ],
+                            as: "units",
+                        },
+                    },
+                ],
+                as: "cursse",
+            },
+        },
+    ]);
+    return res.json(integers);
+}
+
+
+//getControllerNoteswhit_id/////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+export async function getControllerNotesnew(req: Request, res: Response): Promise<Response> {
+    const { ObjectId } = require("mongodb");
+    const id = ObjectId(req.params.id);
+    const curso = ObjectId(id);
+    console.log(curso, "www")//    const { id } = req.params;
     //          const Curseuser = await Curse.find({curse:curso});
     const integers = await Curse.aggregate([
         {
@@ -322,8 +403,10 @@ export async function getControllerNotes(req: Request, res: Response): Promise<R
             },
         },
     ]);
+    console.log(integers, "wwwww")
     return res.json(integers);
 }
+
 
 
 //getControlleruserinteger/////////////////////////////////////////////////////////////////////////
@@ -334,10 +417,7 @@ export async function getControlleruser(req: Request, res: Response): Promise<Re
     const user = ObjectId(id)
     const integers = await Curse.aggregate([
         {
-            $match: {
-                $expr: { $and: [{ $eq: ["$user", user] }, { $eq: ["$show", "true"] }] }
-
-            },
+            $match: { $expr: { $and: [{ $eq: ["$user", user] }, { $eq: ["$show", "true"] }] } },
         },
         {
             $lookup: {

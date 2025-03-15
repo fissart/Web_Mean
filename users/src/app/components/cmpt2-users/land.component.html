@@ -44,8 +44,7 @@
           <span *ngIf="$any(w).rol==3" class="text-info">ciclo:   {{$any(w).ciclo}} </span>
           <span *ngIf="$any(w).rol==3" [ngClass]="[$any(w).dni && $any(w).dni.length!=8 ? 'bg-danger p-3' : 'text-danger']">dni:
           {{$any(w).dni}}</span>
-            <a *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id'
-            style="cursor:pointer" class="btn btn-  btn-outline-info" (click)="selectedUser($any(w)._id)">Editar usuario </a>
+            <a *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-outline-info" [routerLink]="['/user', $any(w)._id]" target="_blank">Editar usuario</a>
             <a  class="btn btn-light" *ngIf='$any(photos).rol == 1' (click)="deleteUser($any(w)._id, $any(w).cursse.length, $any(w).integer.length)">Borrar usuario</a>
             <!-- <button *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-info shadow-none"
               (click)="NewCurse($any(w)._id)">New curse</button> -->

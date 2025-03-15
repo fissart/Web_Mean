@@ -1,5 +1,5 @@
 www_g hp_lapYGbkB1sFdLzbY8UZGeBh6SvUJAt1bjBki
-
+convert $$i $$o
 git config --global user.name "fissart"
 git config --global user.email ricardomallqui6@gmail.com
 git config --global user.password "@Qqwerty123456"
@@ -141,8 +141,8 @@ pass:esfapa.edu.pe22
 User: bellasartes@esfapa.edu.pe
 Pass: @2Sl00sJ
 pass root: 
-169.197.183.189
-	0yMoKwHvG5Eu
+ssh root@169.197.183.189
+use fgpa
 --------------------------
 
 sudo certbot --apache
@@ -185,3 +185,7 @@ AllowOverride All
 sudo a2enmod rewrite
 sudo systemctl apache2 restart
 
+MIIxwIG8KDxD
+
+
+npm i @projectstorm/react-diagrams-routing @projectstorm/react-diagrams-defaults @projectstorm/geometry @projectstorm/react-canvas-core @projectstorm/react-diagrams-core @projectstorm/react-diagrams

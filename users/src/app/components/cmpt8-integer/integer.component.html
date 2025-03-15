@@ -45,13 +45,13 @@
 <div class="container">
   <div *ngIf="curse.title" class="h5 text-center bg-light border p-1 rounded">
     <span class="text-info">{{curse.title}}</span> Ciclo: <span class="text-info">{{curse.ciclo}}</span>
-    Créditos: <span class="text-info">{{curse.credito}}</span> (<span class="text-info">{{curse.mencion=='P'?'AP
-      PINTURA':curse.mencion=='E'?'AP ESCULTURA':curse.mencion=='ED'?'EA EDUCACIÓN ARTÍSTICA':'AP
-      GRABADO'}}</span>)-{{codigo}}
+    Créditos: <span class="text-info">{{curse.credito}}</span> ({{curse.mencion}})-{{codigo}}
     <button *ngIf="datastd.length!=0 && rol==2 && ifexcel=='T'" (click)="generateExcelaverage()"
       class="btn btn-primary w-100 mt-1 text-uppercase">Registro en excel</button>
   </div>
-
+<!-- <span class="text-info">{{curse.mencion=='P'?'AP
+      PINTURA':curse.mencion=='E'?'AP ESCULTURA':curse.mencion=='ED'?'EA EDUCACIÓN ARTÍSTICA':'AP
+      GRABADO'}}</span> -->
   <div *ngIf="show=='true' && rol=='2'" class="text-center">{{teacher.name}}. Rellenar notas entre las fechas <span class="text-info">{{teacher.dateb.slice(0,10)+' ('+teacher.dateb.slice(11,16)+')'}}</span> y
     <span class="text-info">{{teacher.datee.slice(0,10)+' ('+teacher.datee.slice(11,16)+')'}}</span></div>
   <div *ngIf="show=='true' && rol=='2'" class="text-center">R:Retirado - L:Licencia - [0,20]</div>
@@ -123,16 +123,17 @@
         </button>
       </td>
       <td>
-        <button *ngIf="www.userw[0].rol!='3'" class="btn btn-info shadow-none" (click)="erraseinteger($any(www)._id)">
+        <button *ngIf="rol=='2'" class="btn btn-info shadow-none" (click)="erraseinteger($any(www)._id)">
           Retirar
         </button>
       </td>
-      <td *ngIf="www.userw">{{ www.userw[0].name }}</td>
+      <td *ngIf="www.userw" class="text-uppercase">{{ www.userw[0].name }}</td>
       <ng-container *ngFor="let w of www['cursse'] index as i">
         <ng-container *ngFor="let ww of w['units'] index as i" class="text-info">
           <ng-container *ngFor="let wwwww of ww['themes'] index as i" class="text-success">
-            <td *ngIf="wwwww.task.length!=0">{{wwwww.task[0].note?wwwww.task[0].note:"*"}}</td>
+            <td *ngIf="wwwww.task.length==1">{{wwwww.task[0].note?wwwww.task[0].note:"*"}}</td>
             <td *ngIf="wwwww.task.length==0"></td>
+            <td *ngIf="wwwww.task.length>1">{{"**"}}</td>
           </ng-container>
         </ng-container>
       </ng-container>

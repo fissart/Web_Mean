@@ -25,9 +25,9 @@ export async function getsController(req: Request, res: Response): Promise<Respo
 //getsController/////////////////////////////////////////////////////////////////////////
 export async function getFirstController(req: Request, res: Response): Promise<Response> {
   const { ciclo, mencion, year } = req.params;
-  //error//const { ObjectId } = require("mongodb");
-  //error//const ciclo = ObjectId(req.params.ciclo);
-  //error//const year = ObjectId(req.params.year);
+  //error//const { ObjectId } = require("mongodb")
+  //error//const ciclo = ObjectId(req.params.ciclo)
+  //error//const year = ObjectId(req.params.year)
   console.log(ciclo, mencion, year, "wwwwwwwwwwwwwwwwwwwnew");
   var ES = "";
   if (mencion == "G" || mencion == "P" || mencion == "E") {
@@ -83,7 +83,7 @@ export async function getFirstController(req: Request, res: Response): Promise<R
     { $sort: { "Puntaje": -1 } }
   ]);
   /////////////////////////////////////////////////////////////////////////////////////
-//console.log(order)
+  //console.log(order)
 
   const orderw = await Average.aggregate([
     {
@@ -122,7 +122,7 @@ export async function getFirstController(req: Request, res: Response): Promise<R
     {
       $lookup: {
         from: "cursesources",
-        let: { www: "$_id" }, 
+        let: { www: "$_id" },
         pipeline: [
           { $match: { $expr: { $and: [{ $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", ciclo] },] } } },
           {
@@ -168,9 +168,9 @@ export async function getFirstController(req: Request, res: Response): Promise<R
         as: "averaggges",
       },
     },
-  ]).collation( { locale: 'es'} ).sort( {"uSSer.name": 1 } )
+  ]).collation({ locale: 'es' }).sort({ "uSSer.name": 1 })
 
-  
+
   ///////////////////////////////////////////////////////////////////////////
 
   const orderTEACHER = await Average.aggregate([
@@ -198,7 +198,7 @@ export async function getFirstController(req: Request, res: Response): Promise<R
         let: { id: "$_id" },
         pipeline: [
           { $match: { $expr: { $and: [{ $eq: ["$_id", "$$id"] }] } }, },
-          { $project : { _id:1, name:1, dni:1, rol:1  } }
+          { $project: { _id: 1, name: 1, dni: 1, rol: 1 } }
         ],
         as: "uSSer"
       }
@@ -207,7 +207,7 @@ export async function getFirstController(req: Request, res: Response): Promise<R
   ]);
 
 
- 
+
 
   ///////////////////////////////////////////////////////////////////////////
   const ordercurses = await Cursesource.aggregate([
@@ -295,8 +295,33 @@ export async function getAveragesUserController(req: Request, res: Response): Pr
         user: user,
       },
     },
-  ]);
-
+    {
+       $group: {
+        _id: "$ciclo",
+        notas: { $sum: 1 },
+        mencion: { $first: '$mencion' },
+        sumacreditos: { "$sum": { $multiply: [1, { $toInt: '$credito' }] } },
+        sumanotas: { "$sum": { $multiply: [1, { $toInt: '$nota' }] } },
+        total: { "$sum": { $multiply: [{ $toInt: '$credito' }, { $toInt: '$nota' }] } },
+        records: { $push: "$$ROOT" }
+      }
+    },
+    {
+      $lookup: {
+        from: "cursesources", let: { ciclo: "$_id", wwwww:"$mencion" },
+        pipeline: [
+          { $match: { $expr: { $and: [{ $eq: ["$ciclo", "$$ciclo"] }, { $eq: ["$mencion", "$$wwwww"] }] } } },
+        ],
+        as: "cursesource"
+      }
+    },
+    { $match: { details: { $ne: [] } } },
+    { $sort: { "_id": 1 } }
+  ])
+  // { $match: { user: user, }, }, 
+  // { $match: { user: user, }, }, 
+  // { $group: { _id: "$ciclo", total: { "$sum": { $multiply: [{ $toInt: '$credito' }, { $toInt: '$nota' }] } }, } },
+  //www
   return res.json(data);
 }
 

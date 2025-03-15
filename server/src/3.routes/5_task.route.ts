@@ -10,10 +10,15 @@ import {
     getsController,
     updateController,
     deleteController,
+    updaterestricted_date
 } from '../2.controllers/5_task.controller'
 
 router.route('/Controller')
     .post(upload.single('image'), createController);
+
+
+router.route('/Controller/Updaterestricted_date/:id')
+    .post(updaterestricted_date);
 
 router.route('/Controller/:id')
     .get(getupdateController)

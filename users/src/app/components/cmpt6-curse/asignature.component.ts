@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Title } from '@angular/platform-browser'
+import { TaskService } from '../../services/task.service'
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { MatIconRegistry } from '@angular/material/icon'
@@ -12,6 +13,8 @@ import { ActivatedRoute } from '@angular/router'
 import { CurseService } from '../../services/curse.service'
 import { UsersService } from '../../services/users.service'
 import { ThemesService } from "../../services/themes.service"
+import { KatexOptions } from 'ng-katex';
+
 /*
 import md from 'markdown-it'
 import mk from 'markdown-it-katex'
@@ -28,6 +31,7 @@ export class AsignatureComponent implements OnInit {
     public loading!: string
     public _value: number = 0
     public DateNow!: string
+    public Scn!: number
     get value(): number {
         return this._value
     }
@@ -49,7 +53,7 @@ export class AsignatureComponent implements OnInit {
     apiUrl = environment.apiURL
     public text: string = ""
     public file: string = ""
-
+    equation: string = '\\sum_{i=1}^nx_i';
 
 
     public title: string = "wwwwwwwwwwwwwwwwwwwwwwww"
@@ -68,6 +72,7 @@ export class AsignatureComponent implements OnInit {
         private routerr: Router,
         private themesService: ThemesService,
         private Tw: Title,
+        private taskk: TaskService,
         private curseService: CurseService,
         private usersService: UsersService,
         private modal: NgbModal,
@@ -106,7 +111,7 @@ export class AsignatureComponent implements OnInit {
         iconRegistry.addSvgIconLiteral('upload', sanitizer.bypassSecurityTrustHtml(`
 <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 32 32" height="32px" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="upload_laptop_arrow"><g><g id="laptop_3_"><g><g><g><g><path d="M3.5,26C3.224,26,3,25.776,3,25.5v-16C3,8.673,3.673,8,4.5,8h5.001c0.276,0,0.5,0.224,0.5,0.5         S9.777,9,9.501,9H4.5C4.225,9,4,9.225,4,9.5v16C4,25.776,3.776,26,3.5,26z" fill="#263238"/><path d="M28.5,26c-0.276,0-0.5-0.224-0.5-0.5v-16C28,9.225,27.775,9,27.5,9h-5C22.224,9,22,8.776,22,8.5         S22.224,8,22.5,8h5C28.327,8,29,8.673,29,9.5v16C29,25.776,28.776,26,28.5,26z" fill="#263238"/></g></g></g><g><g><path d="M28.5,30h-25C2.121,30,1,28.879,1,27.5C1,27.224,1.224,27,1.5,27h11c0.276,0,0.5,0.224,0.5,0.5        S12.776,28,12.5,28H2.086c0.206,0.582,0.762,1,1.414,1h25c0.652,0,1.208-0.418,1.414-1H19.5c-0.276,0-0.5-0.224-0.5-0.5        s0.224-0.5,0.5-0.5h11c0.276,0,0.5,0.224,0.5,0.5C31,28.879,29.879,30,28.5,30z" fill="#263238"/></g></g></g></g></g><g><g id="transfer_9_"><g><path d="M13.502,20c-0.276,0-0.5-0.224-0.5-0.5V9h-1.5c-0.183,0-0.352-0.1-0.438-0.261      c-0.088-0.16-0.081-0.355,0.018-0.51l4.5-7c0.186-0.285,0.656-0.285,0.842,0l4.5,7c0.099,0.154,0.105,0.35,0.018,0.51      C20.854,8.9,20.685,9,20.502,9h-1.5v8.5c0,0.276-0.224,0.5-0.5,0.5s-0.5-0.224-0.5-0.5v-9c0-0.276,0.224-0.5,0.5-0.5h1.084      l-3.584-5.575L12.418,8h1.084c0.276,0,0.5,0.224,0.5,0.5v11C14.002,19.776,13.778,20,13.502,20z" fill="#263238"/></g></g><circle cx="18.5" cy="19.5" fill="#263238" r="0.5"/></g></g></svg>
 `))
-iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml version="1.0" encoding="iso-8859-1"?>
+        iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg fill="#000000" height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	 viewBox="0 0 471.2 471.2" xml:space="preserve">
@@ -255,14 +260,14 @@ iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml
                             .subscribe(
                                 (res: any) => {
                                     this.photouserteacher = res[0]
-                                    console.log(res[0], "3")
+                                    //console.log(res[0], "3")
                                     const datteb = new Date(res[0].dateb)
                                     const dattee = new Date(res[0].datee)
                                     const dattteb = new Date(datteb).toISOString()
                                     const datttee = new Date(dattee).toISOString()
                                     //console.log(res[0].dateb)
                                     if (dattteb < this.dt && this.dt < datttee) {
-                                          this.show = "ok"
+                                        this.show = "ok"
                                         console.log("true")
                                     } else {
                                         this.show = "none"
@@ -301,11 +306,14 @@ iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml
         }
     }
 
+
     ngOnInit(): void {
         if (!localStorage.getItem('idcurso')) {
             this.routerr.navigate(['/dashboard'])
 
         }
+
+
 
         this.getcurse()
 
@@ -316,15 +324,54 @@ iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml
         let year = str.getFullYear()
         let hour = str.getHours()
         let mnt = str.getMinutes()
+        let scn = str.getSeconds()
         //console.log(mnt,"kkkkkkkk")
 
         let format1 = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}T${hour}:${mnt}`
         this.DateNow = format1
+        this.Scn = scn
 
         this.idcurso = localStorage.getItem('idcurso') || ""
         localStorage.removeItem('idunity')
 
     }
+
+    public archivos: any[] = [];
+
+    savetask(task: string, respuesta: string, idtheme: string, idunity: string, idcurse: string, iduser: string,) {
+
+        if (task != '' && respuesta != '' && idtheme != '' && idunity != '' && idcurse != '' && iduser) {
+            this.taskk.savetask('', task, respuesta, idtheme, idunity, idcurse, iduser, 'P', this.archivos[0])
+                .subscribe(
+                    (res: any) => {
+                        this.loading = "false";
+                        this.value = Math.round((100 / res.total) * res.loaded);
+                        if (res.total == res.loaded && res.type > 0 && res.ok) {
+                            //console.log(res.ok);
+                            //this.routerr.navigate(['/task', idtask])
+                            this.curseService.getCurse(localStorage.getItem('idcurso') || "")
+                                .subscribe(
+                                    (res: any) => {
+                                        this.photo = res[0]
+                                        //this.routerr.navigate(['#www'])
+                                        console.log('res[0]')
+                                        this.loading = "";
+                                    },
+                                    err => console.log(err)
+                                )
+                        }
+                    },
+                    err => console.log(err)
+                );
+            return false;
+        } else {
+            alert("Actualice la página")
+            return false;
+        }
+    }
+
+
+
     selectheme(id: string, idunity: string) {
         this.routerr.navigate(['/tema', id, idunity])
         //localStorage.setItem("idunity", idunity)
@@ -353,19 +400,20 @@ iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml
         }
     }
 
+
     CreateSection(iduser: string, idcurse: string, cursecode: string,) {
         //console.log(localStorage.getItem('id'))
-        this.loading="false"
+        this.loading = "false"
         this.curseService.createUnity(iduser, idcurse, cursecode)
-        .subscribe(res => {
-            this.router.params.subscribe(params => {
-                this.curseService.getCurse(localStorage.getItem('idcurso') || "")
+            .subscribe(res => {
+                this.router.params.subscribe(params => {
+                    this.curseService.getCurse(localStorage.getItem('idcurso') || "")
                         .subscribe(
                             (res: any) => {
                                 this.photo = res[0]
                                 //this.routerr.navigate(['#www'])
                                 console.log('res[0]')
-                                this.loading=""
+                                this.loading = ""
                             },
                             err => console.log(err)
                         )
@@ -377,6 +425,7 @@ iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml
     }
 
     savetheme(idtheme: string) {
+        this.loading = "false";
         this.themesService.createtheme(idtheme, localStorage.getItem('idcurso') || "", localStorage.getItem('id') || "")
             .subscribe(
                 res => {
@@ -386,6 +435,7 @@ iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml
                             .subscribe(
                                 (res: any) => {
                                     this.photo = res[0]
+                                    this.loading = "";
                                     //console.log(res[0])
                                 },
                                 err => console.log(err)
@@ -514,10 +564,44 @@ iconRegistry.addSvgIconLiteral('dload', sanitizer.bypassSecurityTrustHtml(`<?xml
     }
     open1(ww: any, textw: string, textww: string) {
         this.modal.open(ww, { size: 'xl', scrollable: true })
-        this.text = textw
-        this.file = textww
-        //console.log(textw, textww)
+        this.text = textw.replace(new RegExp("</p><p>", "g"), "").replace(new RegExp("<br>", "g"), "").replace(new RegExp("&amp;", "g"), "&")
+        this.file = textww + ''
+        //console.log(textww)
     }
+
+    wwwww(www: string, wwwww: string) {
+        console.log(wwwww, "www", www)
+        let a = "";
+        let b = "";
+        function calculateSimilarity(str1 = "", str2 = "") {
+            let longer = str1.trim();
+            let shorter = str2.trim();
+
+            let a1 = longer.toLowerCase().split(" ");
+            let b1 = shorter.toLowerCase().split(" ");
+            let result = a1.every((aa, i) => aa[0] === b1[i][0]);
+
+            if (longer.length < shorter.length) [longer, shorter] = [shorter, longer];
+
+            var arr = [];
+            let count = 0;
+            for (var i = 0; i < longer.length; i++) {
+                if (shorter && shorter.includes(longer[i])) {
+                    shorter = shorter.replace(longer[i], "")
+                    count++
+                };
+            }
+
+            return {
+                score: (count * 100) / longer.length,
+                result
+            }
+        }
+
+
+        console.log(calculateSimilarity(www, wwwww));
+    }
+
     opencopy(wwcopy: any, _idunity: string) {
         this.modal.open(wwcopy, { size: 'xl', scrollable: true })
         this._idunity = _idunity

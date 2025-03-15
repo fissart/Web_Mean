@@ -141,10 +141,15 @@ export class NavigationComponent implements OnInit {
 `));
    }
 
+   public src: string = "";
+
    ngOnInit() {
       //this.imguser = localStorage.getItem('imguser');
       //console.log( localStorage.getItem('idcurso'),"wwwwwwwwwwwwww");
       //            this.idcurso = localStorage.getItem('idcurso');
+      var month = new Date().getMonth()
+      this.src = './assets/www' + (month + 1)+'.svg'
+  
 
       if (localStorage.getItem('id')) {
          this.userService.getUser()
@@ -176,7 +181,7 @@ export class NavigationComponent implements OnInit {
  }
  */
    onImgError(event: any) {
-      event.target.src = './assets/negz.png'
+      event.target.src = './assets/photo.svg'
       //event.target.src = 'https://source.unsplash.com/random/800x800/?img=0'
    }
 

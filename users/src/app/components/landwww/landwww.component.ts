@@ -85,7 +85,7 @@ export class LandwwwComponent implements OnInit {
   ww = [];
 
   onImgError(event: any) {
-    event.target.src = './assets/esfap.png'
+    event.target.src = this.src
   }
 
   public isCollapsed = false;
@@ -273,7 +273,7 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
       delay: 2000,
       disableOnInteraction: true
     },
-    pagination: { clickable: true, type: 'progressbar' },
+    //pagination: { clickable: true, type: 'progressbar' },
     scrollbar: { draggable: true },
   };
 
@@ -529,10 +529,15 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
       );
   }
 
+  public src: string = "";
+
   ngOnInit() {
 
     this.year = new Date().getFullYear();
-    this.Tw.setTitle('ESFAPA "FGPA"');
+    this.Tw.setTitle('ESFAPA');
+
+    var month = new Date().getMonth()
+    this.src = './assets/www' + (month + 1)+'.svg'
 
     this.usser();
     this.gets_news();

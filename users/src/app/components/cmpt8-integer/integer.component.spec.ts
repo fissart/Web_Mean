@@ -9,8 +9,7 @@ describe('UsersCurseComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ UsersCurseComponent ]
-    })
-    .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {

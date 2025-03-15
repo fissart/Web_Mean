@@ -31,7 +31,7 @@ export class UserPreviewComponent implements OnInit {
 
 
     onImgError(event: any) {
-        event.target.src = './assets/negz.png'
+        event.target.src = './assets/photo.svg'
     }
 
     get value(): number {
@@ -64,6 +64,8 @@ export class UserPreviewComponent implements OnInit {
             this.photoService.getOneUser(this.id)
                 .subscribe(
                     (res: any) => {
+                        
+                        console.log(res[0])
                         this.photow = res[0];
                         this.subtype = res[0].mencion;
                         this.subtype1 = res[0].ciclo;

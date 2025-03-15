@@ -8,9 +8,9 @@
 
 	<div class="modal-body p-0">
 		<a [href]="apiURL + '/' + text" class="btn btn-info" target="_blank">
-		<img *ngIf="text && text.split('.').pop()=='png'||text.split('.').pop()=='jpg'||text.split('.').pop()=='jpeg'||text.split('.').pop()=='svg'"
-			[src]="apiURL+'/'+ text" class="img-fluid w-100" (error)="onImgError($event)">
-			</a>
+			<img *ngIf="text && text.split('.').pop()=='png'||text.split('.').pop()=='jpg'||text.split('.').pop()=='jpeg'||text.split('.').pop()=='svg'"
+				[src]="apiURL+'/'+ text" class="img-fluid w-100" (error)="onImgError($event)">
+		</a>
 
 		<ngx-doc-viewer *ngIf="text && text.split('.').pop()=='doc'" [url]="apiURL+'/'+ text" viewer="google"
 			style="width:100%;height:100vh;"></ngx-doc-viewer>
@@ -42,11 +42,11 @@
 		<div style="margin-bottom: 0.5cm"
 			*ngIf="textoimg.split('.').pop()=='png'||textoimg.split('.').pop()=='jpg'||textoimg.split('.').pop()=='jpeg'||textoimg.split('.').pop()=='svg'">
 			<a *ngIf="textoimg!='imagen'" [href]="apiURL + '/' + textoimg" target="_blank" class="border-0 p-0">
-			<img [src]="apiURL+'/'+ textoimg" class="m-auto w-100 img-fluid" (error)="onImgError($event)">
-		</a>
+				<img [src]="apiURL+'/'+ textoimg" class="m-auto w-100 img-fluid" (error)="onImgError($event)">
+			</a>
 		</div>
 
-		
+
 		<ngx-doc-viewer
 			*ngIf="textoimg && textoimg.split('.').pop()=='docx' || textoimg.split('.').pop()=='pptx'|| textoimg.split('.').pop()=='ptx' || textoimg.split('.').pop()=='xlsx'|| textoimg.split('.').pop()=='xls'"
 			[url]="apiURL+'/'+ textoimg" viewer="google" style="width:100%;height:100vh;"></ngx-doc-viewer>
@@ -147,21 +147,18 @@
 	</div>
 </ng-template>
 
-
-
-
 <div class="container p-0 mb-5 d-flex  justify-content-center align-items-center"
-	[ngStyle]="{background:'url(/assets/esfap.png)', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}">
+	[ngStyle]="{'background-image': 'url(' + src + ')', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}">
 	<div class="justify-content-center align-items-center rounded row w-100 text-light"
-		style="background-color:rgba(6, 12, 51, 0.95)">
-		<div class="jumbotron col-md-12 p-1 text-center d-none">
-			<img src="./assets/esfap.png" class="img-fluid" alt="Responsive image">
+		style="background-color:rgba(6, 12, 51, 0.55)">
+		<div class="jumbotron col-md-12 p-1 text-center">
+			<img src='assets/wwwww8.svg' class="col-md-5 img-fluid" alt="Responsive image">
 		</div>
 		<div class="jumbotron col-md-12 p-1">
 			<h1 class="display-4 p-1 text-center">Escuela Superior de Formación Artística Felipe Guamán Poma de Ayala -
 				ESFAPA
 				Ayacucho</h1>
-			<p class="lead" style="color: purple">
+			<p class="lead" style="color: rgb(128, 0, 26)">
 				Escuela Superior de Formación Artística pública de formación profesional en artes visuales desarrollado
 				en un plan de estudios de 5 años ubicado en la ciudad de Ayacucho.
 			</p>
@@ -181,7 +178,7 @@
 				teóricos.
 			</p>
 
-			<a class="btn text-light" style="background-color: purple" href="/Cmpt14MVComponent" role="button">Saber
+			<a class="btn text-light" style="background-color: rgb(128, 21, 0)" href="/Cmpt14MVComponent" role="button">Saber
 				más</a>
 
 		</div>
@@ -193,9 +190,9 @@
 <swiper class="p-0" *ngIf="newws.length!==0" [config]="config">
 	<ng-template swiperSlide *ngFor="let photo of newws index as i">
 		<img [src]="apiURL+'/'+photo.img" (error)="onImgError($event)" style="z-index: 0">
-		<div style="position: absolute;	top: 50%; left: 50%; transform: translate(-50%, -50%)">
-			<div *ngIf="rol=='1'" class="btn-group p-1 text-center" style="background-color:rgba(218, 163, 12, 0.95)" role="group"
-				aria-label="Basic example">
+		<div class="w-75 rounded" style="position: absolute;	top: 50%; left: 50%; transform: translate(-50%, -50%);background-color:rgba(218, 163, 12, 0.5); padding: .5em;">
+			<div *ngIf="rol=='1'" class="btn-group p-1 text-center" style="background-color:rgba(218, 163, 12, 0.5)"
+				role="group" aria-label="Basic example">
 				<button *ngIf="rol=='1' && photo.show=='false'" class="btn btn-success shadow-none"
 					(click)="newsemergent( $any(photo)._id, 'true')">
 					<!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
@@ -217,7 +214,7 @@
 				</button>
 			</div>
 			<hr *ngIf="rol=='1'" class="text-light">
-			<div class="btn-group" style="background-color:rgba(218, 163, 12, 0.95)" role="group"
+			<div class="btn-group" style="background-color:rgba(226, 210, 166, 0.95)" role="group"
 				aria-label="Basic example">
 				<button class="btn w-100" (click)="openwww(new, photo.title, photo.description, photo.img)">
 					<span class="h2 text text-dark text-uppercase">
@@ -522,279 +519,6 @@
 
 </div>
 
-<!--
-	<h6 class='text-info rounded p-1 my-2'>
-	<button type="button" name="button"  (click)="Filecurse.click(); Type('horario',ussser._id)" class="btn btn-info">Cargar</button>
-	wwwwwwwww
-	</h6>
-	<div class="" *ngFor="let file of ussser index as i">
-	<div *ngIf="file.type=='horario'" class=' text-center input-group d-flex' style='padding:.1em'>
-	<input type="text" class="form-control" placeholder="" [value]="file.title" (blur)="onBlurFilosophyUpdate($event, file._id )">
-	<button  class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-	<button  class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
-	</div>
-	</div>
-
-	<h6 class='text-info rounded p-1 my-2'>
-	<button type="button" name="button"  (click)="Filecurse.click(); Type('ocurrencia',ussser._id)" class="btn btn-info">Cargar</button>
-	OCURRENCIAS
-	</h6>
-	<div class="" *ngFor="let file of ussser index as i">
-	<div *ngIf="file.type=='ocurrencia'" class=' text-center input-group d-flex' style='padding:.1em'>
-	<input type="text" class="form-control" placeholder="" [value]="file.title" (blur)="onBlurFilosophyUpdate($event, file._id )">
-	<button  class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-	<button  class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
-	</div>
-	</div>
-
-	<h6 class='text-info rounded p-1 my-2'>
-	<button type="button" name="button"  (click)="Filecurse.click(); Type('plan',ussser._id)" class="btn btn-info">Cargar</button>
-	PLAN DE TRABAJO ANUAL
-	</h6>
-	<div class="" *ngFor="let file of ussser index as i">
-	<div *ngIf="file.type=='plan'" class=' text-center input-group d-flex' style='padding:.1em'>
-	<input type="text" class="form-control" placeholder="" [value]="file.title" (blur)="onBlurFilosophyUpdate($event, file._id )">
-	<button  class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-	<button  class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
-	</div>
-	</div>
-
-	<h6 class='text-info rounded p-1 mt-2'>
-	<button type="button" name="button"  (click)="Filecurse.click(); Type('proyecto',ussser._id)" class="btn btn-info">Cargar</button>
-	PROYECTO propuesta
-
-	</h6>
-	<div class="" *ngFor="let file of ussser index as i">
-	<div *ngIf="file.type=='proyecto'" class=' text-center input-group d-flex' style='padding:.1em'>
-	<input type="text" class="form-control" placeholder="" [value]="file.title" (blur)="onBlurFilosophyUpdate($event, file._id )">
-	<button  class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
-	<button  class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
-	</div>
-	</div>
--->
-
-
-
-
-
-
-<!--
-	<div *ngIf="photointeger.length!==0 && rol=='1' || rol=='3'" class="container text-center mt-3 ">
-	CURSOS ESTUDIANTE DEL SEMESTRE
-	</div>
-	<div *ngIf="rol=='1' || rol=='3' && photointeger.length!==0" class="row d-flex justify-content-center align-items-center">
-	<div class="col-md-4 p-2" *ngFor="let photo of photointeger index as i">
-	<div class='card border-0 p-1 text-align-right '>
-	<img [src]="apiURL+'/'+photo.cursse[0].img" class="img-card-top imgland" (error)="onImgError($event)">
-	<img [src]="apiURL+'/'+photo.userw[0].foto" class="wrapperest5" (error)="onImgError($event)">
-	<div class="text-center text-uppercase text-dark">
-	{{photo.cursse[0].title}}
-	</div>
-	<div class="w-100 text-center" style='position: absolute;  top: 20%; left: 50%; transform: translate(-50%, -50%);'>
-	<button class="btn shadow-none text-info card-photo d-none" (click)="deleteinteger( $any(photo)._id)">
-	<mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-	Salir del curso
-	</button>
-	<button class="btn btn-warning shadow-none card-photo" (click)="goCurse( $any(photo).cursse[0]._id)">
-	<mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-	Ir al curso
-	</button>
-	</div>
-	</div>
-	</div>
-	</div>
-
-	<div *ngIf="CurseTeacher.length!==0 && rol=='1' || rol=='2'" class="container text-center h5 mt-3 ">
-	CURSOS DOCENTE
-	</div>
--->
-
-<!--
-	<div class="col-md-4 p-2" *ngFor="let photo of CurseTeacher index as i">
-	<div class='card text-align-right border'>
-	<div class="text-center text-uppercase">
-	{{photo.title}} [{{photo.mension}}-{{photo.ciclo}}]
-	</div>
-	<img [src]="apiURL+'/'+photo.img" class="img-card-top imgland" (error)="onImgError($event)">
-	<div class="mytesttop w-100 text-center">
-	<div class="">
-	<button class="d-none btn btn-light shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
-	Archivar al curso
-	</button>
-	<button class="btn btn-light shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
-	<mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-	Ir al curso
-	</button>
-	</div>
-	</div>
-	</div>
-
-
-	</div>
--->
-
-<!--
-	<div class="container text-center my-1">
-	<a class="btn btn-info" href="/user" style='text-decoration:none'>CREAR CURSOS</a>
-	</div>
-	</div>
-
-	<swiper  *ngIf="!user" [config]="config"class="mySwiper">
-	<ng-template swiperSlide><img src="../assets/img1.jpg" /></ng-template>
-	<ng-template swiperSlide><img src="../assets/img2.jpg" /></ng-template>
-	<ng-template swiperSlide><img src="../assets/img3.jpg" /></ng-template>
-	<ng-template swiperSlide><img src="../assets/img4.jpg" /></ng-template>
-	<ng-template swiperSlide><img src="../assets/img5.jpg" /></ng-template>
-	<ng-template swiperSlide><img src="../assets/img6.jpg" /></ng-template>
-	<ng-template swiperSlide><img src="../assets/img7.jpg" /></ng-template>
-	<ng-template swiperSlide><img src="../assets/img8.jpg" /></ng-template>
-	<ng-template swiperSlide><img src="../assets/img9.jpg" /></ng-template>
-	</swiper>
-
-
-	<div *ngIf="!user" class="container-flex p-0">
-	<div class="text-center p-0 border-0">
-	<div class="card-body ">
-	<div class="row align-items-center">
-	<div class="container text-center p-1  col-md-6 col-lg-4 col-xl-4">
-	<object data='https://www.youtube.com/embed/_3GDNB8f-hM?autoplay=1' width='100%' height='315px'>
-	</object>
-	<div class="">
-	<div class="h3">
-	Título
-	</div>
-
-	<div class="bg -info">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolore sed ipsa voluptatum odio non rerum molestiae enim ea quaerat velit excepturi nam vel, hic, mollitia doloremque voluptas accusantium ut
-	</div>
-	</div>
-
-	</div>
-	<div class="container text-center p-1 col-md-6 col-lg-4 col-xl-4">
-	<object data='https://www.youtube.com/embed/pUGqJjzac3E?autoplay=1' width='100%' height='315px'>
-	</object>
-
-	<div class="">
-	<div class="h3">
-	Título
-	</div>
-
-	<div class="bg -info">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolore sed ipsa voluptatum odio non rerum molestiae enim ea quaerat velit excepturi nam vel, hic, mollitia doloremque voluptas accusantium ut
-	</div>
-	</div>
-
-	</div>
-	<div class="container text-center p-1  col-md-6 col-lg-4 col-xl-4">
-	<object data='https://www.youtube.com/embed/dIzH8bWEBfI?autoplay=1' width='100%' height='315px'>
-	</object>
-	<div class="">
-	<div class="h3">
-	Título
-	</div>
-
-	<div class="bg -info">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolore sed ipsa voluptatum odio non rerum molestiae enim ea quaerat velit excepturi nam vel, hic, mollitia doloremque voluptas accusantium ut
-	</div>
-	</div>
-
-	</div>
-
-	</div>
-	</div>
-	</div>
-
-	<div *ngIf="!user" class="container-flex p-0">
-	<div class="text-center p-0 border-0">
-	<div class="card-body ">
-	<div class="row align-items-center">
-	<div class="container text-center p-1  col-md-6 col-lg-3 col-xl-3">
-	<img class="w-100" src="../assets/img3.jpg" />
-	<div class="">
-	<div class="h5">
-	SECRETARIA
-	ACADÉMICA
-	</div>
-	<hr>
-	<div class="bg -info">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolore sed ipsa voluptatum odio non rerum molestiae enim ea quaerat velit excepturi nam vel, hic, mollitia doloremque voluptas accusantium ut
-	</div>
-	</div>
-	</div>
-	<div class="container text-center p-1 col-md-6 col-lg-3 col-xl-3">
-	<img class="w-100" src="../assets/img3.jpg" />
-	<div class="">
-	<div class="h5">
-	ÁREA DE ADMINISTRACIÓN
-	</div>
-	<hr>
-	<div class="bg -info">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolore sed ipsa voluptatum odio non rerum molestiae enim ea quaerat velit excepturi nam vel, hic, mollitia doloremque voluptas accusantium ut
-	</div>
-	</div>
-
-	</div>
-	<div class="container text-center p-1  col-md-6 col-lg-3 col-xl-3">
-	<img class="w-100"src="../assets/img3.jpg" />
-	<div class="">
-	<div class="h5">
-	CONSEJO ESTUDIANTIL
-	</div>
-	<hr>
-	<div class="bg -info">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolore sed ipsa voluptatum odio non rerum molestiae enim ea quaerat velit excepturi nam vel, hic, mollitia doloremque voluptas accusantium ut
-	</div>
-	</div>
-
-	</div>
-
-	<div class="container text-center p-1  col-md-6 col-lg-3 col-xl-3">
-	<img class="w-100"src="../assets/img3.jpg" />
-	<div class="">
-	<div class="h5">
-	GRADOS Y TÍTULOS
-	</div>
-	<hr>
-	<div class="bg -info">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolore sed ipsa voluptatum odio non rerum molestiae enim ea quaerat velit excepturi nam vel, hic, mollitia doloremque voluptas accusantium ut
-	</div>
-	</div>
-
-	</div>
-
-	</div>
-	</div>
-	</div>
-
-
-
-	<div *ngIf="!user" class="card-body ">
-	<div class="row align-items-center">
-
-
-	<div class="container text-center p-1 col-md-5 col-lg-3 col-xl-3">
-	<iframe title="Cthulhu (Animated)" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="100%" height="480" src="https://sketchfab.com/models/b786f474cb6f4c9fb24839c18998cb0a/embed"> </iframe>
-	</div>
-
-	<div class="container text-center p-1 col-md-5 col-lg-3 col-xl-3">
-	<iframe title="Hand study" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="100%" height="480" src="https://sketchfab.com/models/b81008d513954189a063ff901f7abfe4/embed"> </iframe>
-	</div>
-	<div class="container text-center p-1 col-md-5 col-lg-3 col-xl-3">
-	<iframe title="Hand study" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="100%" height="480" src="https://sketchfab.com/models/3fc387eae6f34901b67bb74672016977/embed"> </iframe>
-	</div>
-	<div class="container text-center p-1 col-md-5 col-lg-3 col-xl-3">
-	<iframe title="Hand study" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="100%" height="480" src="https://sketchfab.com/models/4aace12762ee44cf97d934a6ced12e65/embed"> </iframe>
-	</div>
-
-
-	</div>
-	</div>
-	</div>
-	</div>
-
-
--->
-
 
 <div class="this2 container-flex p-0 mt-0">
 	<div class="container">
@@ -812,8 +536,7 @@
 			<div class="row d-flex justify-content-center align-items-center" style="margin:0em">
 				<div class="container text-center p-1  col-md-6 col-lg-4 col-xl-4">
 					<div class="container col-md-5 px-1">
-						<img class="img-fluid rounded w-50" src="../assets/esfap.png" (error)="onImgError($event)"
-							alt="img" />
+						<img class="img-fluid rounded w-50" [src]="src" (error)="onImgError($event)" alt="img" />
 					</div>
 					<p class="footer-links my-0">
 						ESCUELA SUPERIOR DE FORMACIÓN ARTÍSTICA

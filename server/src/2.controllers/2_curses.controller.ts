@@ -21,19 +21,54 @@ export async function getcursesources(req: Request, res: Response): Promise<Resp
     //var date = new Date().getDate();
     var month = new Date().getMonth();
     //this.year = new Date().getFullYear();
-console.log(month)
+    // console.log(month)
     //this.Tw.setTitle('Inicio ESFAP');
     //var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'setiembre', 'w10', 'w11', 'w12']
     //this.mes = meses[month]
     if (month <= 6) {
-        const Curses = await Cursesource.find({ ciclo: { $in: ['I', 'III', 'V', 'VII', 'IX'] }, mencion: { $in: ['ED', 'G'] } })
+        const Curses = await Cursesource.find({ ciclo: { $in: ['1', '3', '5', '7', '9'] }, mencion: { $in: ['ED', 'G', 'P', 'E'] } })
         return res.json(Curses);
     } else {
-        const Curses = await Cursesource.find({ ciclo: { $in: ['II', 'IV', 'VI', 'VIII', 'X'] } })
+        const Curses = await Cursesource.find({ ciclo: { $in: ['2', '4', '6', '8', '10'] }, mencion: { $in: ['ED', 'G', 'P', 'E'] } })
         return res.json(Curses);
     }
     //return res.json("Curses");
 };
+
+export async function getcursesourcesonly(req: Request, res: Response): Promise<Response> {
+    const ciclo = req.params.ciclo;
+    const mencion = req.params.mencion
+    const { ObjectId } = require("mongodb");
+    const id = ObjectId(req.params.user);
+    const user = ObjectId(id);
+    
+    const Curses = await Cursesource.aggregate([
+        { $match: { $expr: { $and: [{ $eq: ["$ciclo", ciclo] }, { $eq: ["$mencion", mencion] },] } } },
+        {
+            $lookup: {
+                from: "averages",
+                let: { www: "$requisitocodigo" },
+                pipeline: [
+                    { $match: { $expr: { $and: [{ $eq: ["$codigo", "$$www"] }, { $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", Number(ciclo)-1+''] },{ $eq: ["$user", user] }] } } },
+                ],
+                as: "curses",
+            },
+        },
+        {
+            $lookup: {
+                from: "cursesources",
+                let: { www: "$requisitocodigo" },
+                pipeline: [
+                    { $match: { $expr: { $and: [{ $eq: ["$codigo", "$$www"] }, { $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", Number(ciclo)-1+''] } ] } } },
+                ],
+                as: "cursesource",
+            },
+        },
+
+    ]);
+    console.log(Curses)
+    return res.json(Curses);
+}
 
 //getsController/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
@@ -234,6 +269,27 @@ export async function getController(req: Request, res: Response): Promise<Respon
                                         ],
                                         as: "usertask",
                                     },
+                                },
+                                {
+                                    $lookup: {
+                                        from: "tasks",
+                                        let: { www: "$_id", usser: "$user" },
+                                        pipeline: [
+                                            {
+                                                $match: {
+                                                    $expr: {
+                                                        $and: [
+                                                            { $eq: ["$theme", "$$www"] },
+                                                            {
+                                                                $eq: ["$user", "$$usser"],
+                                                            },
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        as: "usertaskteacher",
+                                    },
                                 }
                             ],
                             as: "temas",
@@ -277,7 +333,7 @@ export async function getController(req: Request, res: Response): Promise<Respon
     // console.log(Curseuser);
     return res.json(Curseuser);
 }
- 
+
 //deleteController/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 export async function deleteController(req: Request, res: Response): Promise<Response> {
@@ -368,7 +424,7 @@ export async function updateController(req: Request, res: Response): Promise<Res
 export async function updatecurseHide(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const { show } = req.body;
-        const updatedCurse = await Curse.findByIdAndUpdate(id, { show });
+    const updatedCurse = await Curse.findByIdAndUpdate(id, { show });
     return res.json({
         message: 'Successfully updated',
         //updatedCurse

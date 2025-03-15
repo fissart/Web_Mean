@@ -19,6 +19,9 @@ export async function getSController(req: Request, res: Response): Promise<Respo
     const ciclo = req.params.ciclo;
     const codigo = req.params.codigo;
     const idcurso = ObjectId(id);
+    var year = new Date().getFullYear();
+    console.log(year, mencion, ciclo, codigo, idcurso);
+
     const usersww = await User.aggregate([
         {
             $match: {
@@ -32,7 +35,7 @@ export async function getSController(req: Request, res: Response): Promise<Respo
                 from: "averages",
                 let: { wwwww: "$_id" },
                 pipeline: [
-                    { $match: { $expr: { $and: [{ $eq: ["$user", "$$wwwww"] }, { $eq: ["$codigo", codigo] }, { $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", ciclo] }] } } },
+                    { $match: { $expr: { $and: [{ $eq: ["$user", "$$wwwww"] }, { $eq: ["$codigo", codigo] }, { $eq: ["$mencion", mencion] }, { $eq: ["$ciclo", ciclo] }, { $eq: ["$year", year+''] }] } } },
                     {
                         $lookup: {
                             from: "users",
@@ -60,7 +63,7 @@ export async function getSController(req: Request, res: Response): Promise<Respo
     ]).collation({ locale: 'es' }).sort({ "name": 1 })
     return res.json(usersww);
 }
- 
+
 //Usuarios opiniones 1-2/////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
@@ -126,6 +129,17 @@ export async function getControllerteacher(req: Request, res: Response): Promise
                     { $match: { $expr: { $and: [{ $eq: ["$user", "$$ww"] }, { $eq: ["$show", "true"] },] } } },
                 ],
                 as: "cursse",
+            },
+        },
+        {
+            $lookup: {
+                from: "filecurses",
+                let: { ww: "$_id" },
+                pipeline: [
+
+                    { $match: { $expr: { $and: [{ $eq: ["$curse", "$$ww"] }, { $eq: ["$type", "teacher"] },] } } },
+                ],
+                as: "filecursses",
             },
         },
     ]);
@@ -200,7 +214,30 @@ export async function updaterestricted_date(req: Request, res: Response): Promis
     const setdate = await User.updateMany({}, { $set: { dateb: ww, datee: www } });
     console.log(setdate)
     return res.json("ok");
+}
+
+///////////////////////////////////////////////////////////
+export async function updaterestricted_datelogin(req: Request, res: Response): Promise<Response> {
+    const { ObjectId } = require("mongodb");
+    const id = ObjectId(req.params.id);
+    const user = ObjectId(id);
+
+    var str = new Date()
+    let day = str.getDate()
+    let month = str.getMonth() + 1
+    let year = str.getFullYear()
+    let hour = str.getHours()
+    let mnt = str.getMinutes()
+    let scn = str.getSeconds()
+
+    let format1 = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}T${hour < 10 ? '0' + hour : hour}:${mnt < 10 ? '0' + mnt : mnt}`
+
+    // const { ww, www } = req.body;
+    const setdate = await User.updateMany({ _id: ObjectId(user) }, { $set: { logindate: format1 } });
+    // console.log(setdate)
+    return res.json("ok");
 };
+
 
 
 //2/////////////////////////////////////////////////////////////////////////
@@ -278,8 +315,8 @@ export async function deleteController(req: Request, res: Response): Promise<Res
 
 export async function updateController(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { name, email, password, rol, celular, carrera, mencion, ciclo, sexo, dni, filosophy } = req.body;
-    //console.log(req.file)
+    const { name, email, password, rol, celular, carrera, mencion, ciclo, sexo, dni, filosophy, logindate } = req.body;
+    console.log(req.body);
     const updatedCurse = "";
     if (req.file) {
         const Curse = await User.findById(id) as IUser;
@@ -290,10 +327,10 @@ export async function updateController(req: Request, res: Response): Promise<Res
                 console.error(err);
             }
         }
-        const updatedCurse = await User.findByIdAndUpdate(id, { name, email, password, rol, celular, carrera, mencion, ciclo, sexo, dni, filosophy, foto: req.file.path });
+        const updatedCurse = await User.findByIdAndUpdate(id, { name, email, password, rol, celular, carrera, mencion, ciclo, sexo, dni, filosophy, logindate, foto: req.file.path });
     } else {
         //await User.updateMany({rol:'2'}, {"$set": {"filosophy": filosophy}})
-        const updatedCurse = await User.findByIdAndUpdate(id, { name, email, password, rol, celular, carrera, mencion, ciclo, sexo, dni, filosophy });
+        const updatedCurse = await User.findByIdAndUpdate(id, { name, email, password, rol, celular, carrera, mencion, ciclo, sexo, dni, filosophy, logindate });
     }
     return res.json({
         www: "actualizado correctamente"
@@ -304,8 +341,8 @@ export async function updateController(req: Request, res: Response): Promise<Res
 
 export async function updateStdController(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { name, ciclo, mencion } = req.body;
-    const updatedCurse = await User.findByIdAndUpdate(id, { name, ciclo, mencion })
+    const { name, ciclo, mencion, tipostd } = req.body;
+    const updatedCurse = await User.findByIdAndUpdate(id, { name, ciclo, mencion, tipostd })
     return res.json({
         www: "actualizado correctamente"
     });
