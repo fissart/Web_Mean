@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon new/src/index.js",
     "build": "tsc",
     "clean": "rimraf new/",
     "start": "npm run build && node new/index.js"
@@ -40,3 +40,4 @@
     "typescript": "^3.5.3"
   }
 }
+
